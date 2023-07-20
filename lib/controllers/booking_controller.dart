@@ -327,13 +327,52 @@ class ReservationController extends GetxController {
     final int maxAppointmentsPerDay = 4;
     final QuerySnapshot<Map<String, dynamic>> existingAppointmentsSnapshot =
         await datesCollection
-            .where('selectedDate',
-                isGreaterThan:
-                    getStartOfDay(DateTime.parse(selectedDateString)))
-            .where('selectedDate',
-                isLessThan: getEndOfDay(DateTime.parse(selectedDateString)))
+            .where('selectedDate', isEqualTo: selectedDate.value)
             .get() as QuerySnapshot<Map<String, dynamic>>;
     final int existingAppointmentsCount = existingAppointmentsSnapshot.size;
+
+    if (existingAppointmentsCount > 0) {
+      Get.snackbar(
+        'Appointment Not Available',
+        'The selected date and time are already booked.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    // Check if the user has already booked an appointment on the selected date
+    // Check if the user has already booked an appointment on the selected date
+    final QuerySnapshot<Map<String, dynamic>> userAppointmentsSnapshot =
+        await datesCollection.where('userId', isEqualTo: user!.uid).get()
+            as QuerySnapshot<Map<String, dynamic>>;
+
+    final selectedDateStart = getStartOfDay(DateTime.parse(selectedDateString));
+    final selectedDateEnd = getEndOfDay(DateTime.parse(selectedDateString));
+
+    bool userAlreadyBookedForDay = false;
+    for (final doc in userAppointmentsSnapshot.docs) {
+      final appointmentDate = doc['selectedDate'].toDate() as DateTime;
+      if (appointmentDate.isAfter(selectedDateStart) &&
+          appointmentDate.isBefore(selectedDateEnd)) {
+        userAlreadyBookedForDay = true;
+        break;
+      }
+    }
+
+    if (userAlreadyBookedForDay) {
+      Get.snackbar(
+        'Multiple Bookings Not Allowed',
+        'You have already booked an appointment on the selected date.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      return;
+    }
 
     if (existingAppointmentsCount >= maxAppointmentsPerDay) {
       // Maximum appointments reached for the day
@@ -507,163 +546,4 @@ class ReservationController extends GetxController {
       }
     }
   }
-
-  // void makeReservation(BuildContext context) async {
-  //   int randomID = generateRandomID(8);
-  //   DateTime getStartOfDay(DateTime date) {
-  //     return DateTime(date.year, date.month, date.day, 0, 0, 0);
-  //   }
-
-  //   DateTime getEndOfDay(DateTime date) {
-  //     return DateTime(date.year, date.month, date.day, 23, 59, 59);
-  //   }
-
-  //   final DateTime notificationTime =
-  //       selectedDate.value!.subtract(Duration(hours: 24));
-  //   final DateTime notificationTimeSameDay =
-  //       selectedDate.value!.subtract(Duration(hours: 3));
-
-  //   selectedDate.value = selectedDate.value!.add(Duration(hours: -1));
-
-  //   final notificationTitle = 'Reservation Reminder';
-  //   final notificationBody =
-  //       'hello ${userName} Your appointment is coming up in 24 hours.';
-  //   final notificationBody2 =
-  //       'hello ${userName} Your appointment is coming up in 3 hours.';
-
-  //   // Check if the maximum number of appointments for the day (30) has been reached
-  //   final DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
-  //   final String selectedDateString = dateFormatter.format(selectedDate.value!);
-  //   final int maxAppointmentsPerDay = 5;
-  //   final QuerySnapshot<Map<String, dynamic>> existingAppointmentsSnapshot =
-  //       await datesCollection
-  //           .where('selectedDate',
-  //               isGreaterThan:
-  //                   getStartOfDay(DateTime.parse(selectedDateString)))
-  //           .where('selectedDate',
-  //               isLessThan: getEndOfDay(DateTime.parse(selectedDateString)))
-  //           .get() as QuerySnapshot<Map<String, dynamic>>;
-  //   final int existingAppointmentsCount = existingAppointmentsSnapshot.size;
-  //   if (existingAppointmentsCount >= maxAppointmentsPerDay) {
-  //     final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
-  //         await waitingListCollection
-  //             .where('selectedDate',
-  //                 isGreaterThan:
-  //                     getEndOfDay(DateTime.parse(selectedDateString)))
-  //             .orderBy('selectedDate')
-  //             .get() as QuerySnapshot<Map<String, dynamic>>;
-  //     final bool userOnWaitingList = waitingListSnapshot.docs.any(
-  //       (doc) => doc.data()['userId'] == user!.uid,
-  //     );
-
-  //     if (!userOnWaitingList) {
-  //       if (waitingListSnapshot.size < 4) {
-  //         final waitingListData = {
-  //           'userId': user!.uid,
-  //           'userEmail': user!.email,
-  //           'phone': userPhone.value,
-  //           'userName': userName.value,
-  //           'Notification Time':
-  //               notificationTimeSameDay.add(Duration(hours: -1)),
-  //         };
-
-  //         await waitingListCollection.add(waitingListData);
-
-  //         Get.snackbar(
-  //           'Waiting List',
-  //           'Sorry, no available appointments. You have been added to the waiting list.',
-  //           snackPosition: SnackPosition.BOTTOM,
-  //           duration: Duration(seconds: 3),
-  //           backgroundColor: Colors.yellow,
-  //           colorText: Colors.black,
-  //         );
-  //         return;
-  //       } else {
-  //         Get.snackbar(
-  //           'Waiting List Full',
-  //           'Sorry, the waiting list is already full. Please try again later.',
-  //           snackPosition: SnackPosition.BOTTOM,
-  //           duration: Duration(seconds: 3),
-  //           backgroundColor: Colors.redAccent,
-  //           colorText: Colors.white,
-  //         );
-  //       }
-  //       // Add the user to the waiting list
-  //     }
-  //   }
-
-  //   if (selectedDate.value != null) {
-  //     if (selectedDate.value!.isBefore(DateTime.now())) {
-  //       Get.snackbar(
-  //         'Invalid Date',
-  //         'Please select a future date and time.',
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         duration: Duration(seconds: 3),
-  //         backgroundColor: Colors.redAccent,
-  //         colorText: Colors.white,
-  //       );
-  //       return;
-  //     }
-
-  //     if (selectedDate.value!.weekday == DateTime.saturday ||
-  //         selectedDate.value!.weekday == DateTime.sunday) {
-  //       Get.snackbar(
-  //         'Invalid Day',
-  //         'Please select a date from Monday to Friday.',
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         duration: Duration(seconds: 3),
-  //         backgroundColor: Colors.redAccent,
-  //         colorText: Colors.white,
-  //       );
-  //       return;
-  //     }
-
-  //     final reservationData = {
-  //       'selectedDate': selectedDate.value,
-  //       'userId': user!.uid,
-  //       'userEmail': user!.email,
-  //       'phone': userPhone.value,
-  //       'userName': userName.value,
-  //       'Notification Time': notificationTimeSameDay.add(Duration(hours: -1)),
-  //       // Add more relevant data as needed
-  //     };
-
-  //     final dateDoc = await datesCollection.add(reservationData);
-  //     print("Date saved successfully! Document ID: ${dateDoc.id}");
-  //     Map<String, dynamic>? notificationData = {
-  //       // Include any additional data you want to pass with the notification
-  //     };
-
-  //     // Schedule notification 3 hours before the appointment
-  //     await notificationService.showNotification(
-  //       id: randomID,
-  //       notificationTime: notificationTimeSameDay,
-  //       title: notificationTitle,
-  //       body: notificationBody2,
-  //       data: notificationData,
-  //     );
-
-  //     Get.snackbar(
-  //       'Successful booking',
-  //       'You have successfully booked your appointment',
-  //       snackPosition: SnackPosition.BOTTOM,
-  //       duration: Duration(seconds: 3),
-  //       backgroundColor: Colors.greenAccent,
-  //       colorText: Colors.white,
-  //     );
-  //   } else {
-  //     Get.dialog(
-  //       AlertDialog(
-  //         title: Text('Error'),
-  //         content: Text('Please select a date and time.'),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () => Get.back(),
-  //             child: Text('OK'),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   }
-  // }
 }
