@@ -324,7 +324,7 @@ class ReservationController extends GetxController {
     // Check if the maximum number of appointments for the day (30) has been reached
     final DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
     final String selectedDateString = dateFormatter.format(selectedDate.value!);
-    final int maxAppointmentsPerDay = 4;
+    final int maxAppointmentsPerDay = 3;
     final QuerySnapshot<Map<String, dynamic>> existingAppointmentsSnapshot =
         await datesCollection
             .where('selectedDate', isEqualTo: selectedDate.value)
@@ -343,7 +343,6 @@ class ReservationController extends GetxController {
       return;
     }
 
-    // Check if the user has already booked an appointment on the selected date
     // Check if the user has already booked an appointment on the selected date
     final QuerySnapshot<Map<String, dynamic>> userAppointmentsSnapshot =
         await datesCollection.where('userId', isEqualTo: user!.uid).get()
@@ -464,24 +463,46 @@ class ReservationController extends GetxController {
         Map<String, dynamic>? notificationData = {
           // Include any additional data you want to pass with the notification
         };
+        // Check if the selected date is on the same day or not
+        bool isSameDay =
+            selectedDate.value!.isAtSameMomentAs(getStartOfDay(DateTime.now()));
 
-        // Schedule notification 3 hours before the appointment
-        await notificationService.showNotification(
-          id: randomID,
-          notificationTime: notificationTimeSameDay,
-          title: notificationTitle,
-          body: notificationBody2,
-          data: notificationData,
-        );
+        if (!isSameDay) {
+          // If the appointment date is not on the same day, schedule a notification
+          await notificationService.showNotification(
+            id: randomID,
+            notificationTime: notificationTime,
+            title: notificationTitle,
+            body: notificationBody,
+            data: null,
+          );
+          Get.snackbar(
+            'Successful booking',
+            'You have successfully booked your appointment',
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.greenAccent,
+            colorText: Colors.white,
+          );
+        } else {
+          // Schedule notification 3 hours before the appointment
+          await notificationService.showNotification(
+            id: randomID,
+            notificationTime: notificationTimeSameDay,
+            title: notificationTitle,
+            body: notificationBody2,
+            data: notificationData,
+          );
 
-        Get.snackbar(
-          'Successful booking',
-          'You have successfully booked your appointment',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.greenAccent,
-          colorText: Colors.white,
-        );
+          Get.snackbar(
+            'Successful booking',
+            'You have successfully booked your appointment',
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.greenAccent,
+            colorText: Colors.white,
+          );
+        }
 
         // Check if there are users on the waiting list
         final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
