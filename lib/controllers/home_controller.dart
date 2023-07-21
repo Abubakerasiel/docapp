@@ -39,6 +39,7 @@ class HomeController extends GetxController {
       // users = ;
     });
     getDatesData();
+    getData();
   }
 
   void logOut() async {
