@@ -240,12 +240,10 @@ class ReservationController extends GetxController {
 
         // Check if there are users on the waiting list
         final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
-            await datesCollection
-                .where('selectedDate',
-                    isEqualTo: appointmentData['selectedDate'])
-                .orderBy('selectedDate')
-                .limit(1)
-                .get() as QuerySnapshot<Map<String, dynamic>>;
+            await waitingListCollection.limit(1).get()
+                as QuerySnapshot<Map<String, dynamic>>;
+
+        logi.log(waitingListSnapshot.docs.length.toString());
 
         if (waitingListSnapshot.size > 0) {
           final DocumentSnapshot<Map<String, dynamic>> waitingListDoc =
@@ -257,18 +255,21 @@ class ReservationController extends GetxController {
               waitingListDoc.data() as Map<String, dynamic>;
 
           final String waitingListUserId = waitingListData['userId'];
+
+          final DateTime waitingListseletedDate =
+              waitingListData['selectedDate'].toDate() as DateTime;
           final String waitingListUserEmail = waitingListData['userEmail'];
           final String waitingListUserName = waitingListData['userName'];
           final String waitingListUserPhone = waitingListData['phone'];
           final DateTime waitingListNotificationTime =
-              waitingListData['Notification Time'];
+              waitingListData['Notification Time'].toDate() as DateTime;
 
           // Delete the waiting list entry
-          await datesCollection.doc(waitingListDocId).delete();
+          await waitingListCollection.doc(waitingListDocId).delete();
 
           // Assign the waiting list user to the freed appointment slot
           final Map<String, dynamic> waitingListReservationData = {
-            'selectedDate': appointmentData['selectedDate'],
+            'selectedDate': waitingListseletedDate,
             'userId': waitingListUserId,
             'userEmail': waitingListUserEmail,
             'phone': waitingListUserPhone,
@@ -276,10 +277,9 @@ class ReservationController extends GetxController {
             'Notification Time': waitingListNotificationTime,
           };
 
-          final DocumentReference waitingListReservationDoc =
-              await datesCollection.add(waitingListReservationData);
-          print(
-              "Waiting list user assigned to the freed appointment slot. Document ID: ${waitingListReservationDoc.id}");
+          // Replace the appointment with the waiting list entry
+          await datesCollection.add(waitingListReservationData);
+          print("Waiting list user assigned to the freed appointment slot.");
 
           // Send a notification to the waiting list user
           await notificationService.showNotification(
@@ -287,7 +287,7 @@ class ReservationController extends GetxController {
             notificationTime: waitingListNotificationTime,
             title: 'Reservation Update',
             body:
-                'Hello ${waitingListUserName}! You have been assigned an appointment slot.',
+                'Hello $waitingListUserName! You have been assigned an appointment slot.',
             data: null,
           );
         }
@@ -319,9 +319,10 @@ class ReservationController extends GetxController {
         'Hello ${userName.value}! Your appointment is coming up in 3 hours.';
     final DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
     final String selectedDateString = dateFormatter.format(selectedDate.value!);
-    final int maxAppointmentsPerDay = 4;
+    final int maxAppointmentsPerDay = 2;
     final selectedDateStart = getStartOfDay(DateTime.parse(selectedDateString));
     final selectedDateEnd = getEndOfDay(DateTime.parse(selectedDateString));
+
     // Check if the maximum number of appointments for the day (4) has been reached
     final QuerySnapshot<Map<String, dynamic>> existingAppointmentsSnapshot =
         await datesCollection
@@ -329,6 +330,7 @@ class ReservationController extends GetxController {
                 isGreaterThan: selectedDateStart, isLessThan: selectedDateEnd)
             .get() as QuerySnapshot<Map<String, dynamic>>;
     final int existingAppointmentsCount = existingAppointmentsSnapshot.size;
+
     // Check if the selected time slot is already booked
     final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
         await datesCollection
@@ -336,44 +338,73 @@ class ReservationController extends GetxController {
             .get() as QuerySnapshot<Map<String, dynamic>>;
     final int selectedTimeAppointmentsCount =
         selectedTimeAppointmentsSnapshot.size;
+
+    // Check if the user is already in the waiting list for the selected date
+    final QuerySnapshot<
+        Map<String,
+            dynamic>> userWaitingListSnapshot = await waitingListCollection
+        // .where('selectedDate',
+        //     isGreaterThan: selectedDateStart, isLessThan: selectedDateEnd)
+        .where('userId', isEqualTo: user!.uid)
+        .get() as QuerySnapshot<Map<String, dynamic>>;
+    final int userWaitingListCount = userWaitingListSnapshot.size;
+    // Check if the waiting list size is less than five
+    final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
+        await waitingListCollection
+            .where('selectedDate',
+                isGreaterThan: selectedDateStart, isLessThan: selectedDateEnd)
+            .get() as QuerySnapshot<Map<String, dynamic>>;
+    final int waitingListCount = waitingListSnapshot.size;
+
     if (existingAppointmentsCount >= maxAppointmentsPerDay) {
-      final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
-          await waitingListCollection
-              .where('userId', isEqualTo: user!.uid)
-              .get() as QuerySnapshot<Map<String, dynamic>>;
-      if (waitingListSnapshot.size == 0) {
-        // Add the user to the waiting list
-        final waitingListData = {
-          'userId': user!.uid,
-          'userEmail': user!.email,
-          'phone': userPhone.value,
-          'userName': userName.value,
-          'Notification Time': notificationTimeSameDay.add(Duration(hours: -1)),
-        };
-        await waitingListCollection.add(waitingListData);
-        Get.snackbar(
-          'Waiting List',
-          'Sorry, no available appointments. You have been added to the waiting list.',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.yellow,
-          colorText: Colors.black,
-        );
-        await notificationService.showNotification(
-          id: generateRandomID(8),
-          notificationTime: notificationTimeSameDay,
-          title: 'Waiting List',
-          body:
-              'Hello ${userName.value}! You have been added to the waiting list.',
-          data: null,
-        );
+      if (userWaitingListCount == 0) {
+        if (waitingListCount < 2) {
+          // Add the user to the waiting list
+          final waitingListData = {
+            'selectedDate': selectedDate.value,
+            'userId': user!.uid,
+            'userEmail': user!.email,
+            'phone': userPhone.value,
+            'userName': userName.value,
+            'Notification Time':
+                notificationTimeSameDay.add(Duration(hours: -1)),
+          };
+          await waitingListCollection.add(waitingListData);
+          Get.snackbar(
+            'Waiting List',
+            'Sorry, no available appointments. You have been added to the waiting list.',
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.yellow,
+            colorText: Colors.black,
+          );
+          await notificationService.showNotification(
+            id: generateRandomID(8),
+            notificationTime: notificationTimeSameDay,
+            title: 'Waiting List',
+            body:
+                'Hello ${userName.value}! You have been added to the waiting list.',
+            data: null,
+          );
+        } else {
+          Get.snackbar(
+            'Waiting List Full',
+            'Sorry, no available appointments. The waiting list for this date is already full..',
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.orange,
+            colorText: Colors.black,
+          );
+        }
+        logi.log(waitingListCount.toString());
+        // Check if waiting list is not full
       } else {
         Get.snackbar(
-          'Waiting List',
-          'Sorry, no available appointments. You are already on the waiting list.',
+          'Multiple Bookings Not Allowed',
+          'You have already booked an appointment on the waiting list.',
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.yellow,
+          backgroundColor: Colors.red,
           colorText: Colors.black,
         );
       }
@@ -462,8 +493,8 @@ class ReservationController extends GetxController {
 
         //  final DateTime startOfToday = getStartOfDay(now);
 
-// Check if the selected date is on the same day or not
-// Check if the selected date is on the same day or not
+        // Check if the selected date is on the same day or not
+        // Check if the selected date is on the same day or not
 
         if (!isSameDay) {
           // If the appointment date is not on the same day, schedule a notification
@@ -498,48 +529,6 @@ class ReservationController extends GetxController {
             duration: Duration(seconds: 3),
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
-          );
-        }
-
-        // Check if there are users on the waiting list
-        final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
-            await waitingListCollection
-                .orderBy('Notification Time')
-                .limit(1)
-                .get() as QuerySnapshot<Map<String, dynamic>>;
-        if (waitingListSnapshot.size > 0) {
-          final waitingListDoc = waitingListSnapshot.docs.first;
-          final waitingListDocId = waitingListDoc.id;
-          // Retrieve the waiting list data
-          final waitingListData = waitingListDoc.data();
-          final waitingListUserId = waitingListData['userId'];
-          final waitingListUserEmail = waitingListData['userEmail'];
-          final waitingListUserName = waitingListData['userName'];
-          final waitingListUserPhone = waitingListData['phone'];
-          final DateTime waitingListNotificationTime =
-              waitingListData['Notification Time'];
-          // Delete the waiting list entry
-          await waitingListCollection.doc(waitingListDocId).delete();
-          // Assign the waiting list user to the freed appointment slot
-          final waitingListReservationData = {
-            'selectedDate': selectedDate.value,
-            'userId': waitingListUserId,
-            'userEmail': waitingListUserEmail,
-            'phone': waitingListUserPhone,
-            'userName': waitingListUserName,
-            'Notification Time': waitingListNotificationTime,
-          };
-          final waitingListReservationDoc =
-              await datesCollection.add(waitingListReservationData);
-          print(
-              "Waiting list user assigned to the freed appointment slot. Document ID: ${waitingListReservationDoc.id}");
-          // Send a notification to the waiting list user
-          await notificationService.showNotification(
-            id: generateRandomID(8),
-            notificationTime: waitingListNotificationTime,
-            title: notificationTitle,
-            body: notificationBody,
-            data: notificationData,
           );
         }
       } else {
