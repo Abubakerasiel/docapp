@@ -226,6 +226,76 @@ class ReservationController extends GetxController {
     }
   }
 
+  // void deleteDate(String documentId) async {
+  //   try {
+  //     final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+  //         await datesCollection.doc(documentId).get()
+  //             as DocumentSnapshot<Map<String, dynamic>>;
+  //     final Map<String, dynamic> appointmentData =
+  //         documentSnapshot.data() ?? {};
+
+  //     if (appointmentData.isNotEmpty) {
+  //       // Delete the appointment
+  //       await datesCollection.doc(documentId).delete();
+
+  //       // Check if there are users on the waiting list
+  //       final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
+  //           await waitingListCollection.limit(1).get()
+  //               as QuerySnapshot<Map<String, dynamic>>;
+
+  //       logi.log(waitingListSnapshot.docs.length.toString());
+
+  //       if (waitingListSnapshot.size > 0) {
+  //         final DocumentSnapshot<Map<String, dynamic>> waitingListDoc =
+  //             waitingListSnapshot.docs.first;
+  //         final String waitingListDocId = waitingListDoc.id;
+
+  //         // Retrieve the waiting list data
+  //         final Map<String, dynamic> waitingListData =
+  //             waitingListDoc.data() as Map<String, dynamic>;
+
+  //         final String waitingListUserId = waitingListData['userId'];
+
+  //         final DateTime waitingListseletedDate =
+  //             waitingListData['selectedDate'].toDate() as DateTime;
+  //         final String waitingListUserEmail = waitingListData['userEmail'];
+  //         final String waitingListUserName = waitingListData['userName'];
+  //         final String waitingListUserPhone = waitingListData['phone'];
+  //         final DateTime waitingListNotificationTime =
+  //             waitingListData['Notification Time'].toDate() as DateTime;
+
+  //         // Delete the waiting list entry
+  //         await waitingListCollection.doc(waitingListDocId).delete();
+
+  //         // Assign the waiting list user to the freed appointment slot
+  //         final Map<String, dynamic> waitingListReservationData = {
+  //           'selectedDate': waitingListseletedDate,
+  //           'userId': waitingListUserId,
+  //           'userEmail': waitingListUserEmail,
+  //           'phone': waitingListUserPhone,
+  //           'userName': waitingListUserName,
+  //           'Notification Time': waitingListNotificationTime,
+  //         };
+
+  //         // Replace the appointment with the waiting list entry
+  //         await datesCollection.add(waitingListReservationData);
+  //         print("Waiting list user assigned to the freed appointment slot.");
+
+  //         // Send a notification to the waiting list user
+  //         await notificationService.showNotification(
+  //           id: generateRandomID(8),
+  //           notificationTime: waitingListNotificationTime,
+  //           title: 'Reservation Update',
+  //           body:
+  //               'Hello $waitingListUserName! You have been assigned an appointment slot.',
+  //           data: null,
+  //         );
+  //       }
+  //     }
+  //   } catch (error) {
+  //     print('Failed to delete or replace appointment: $error');
+  //   }
+  // }
   void deleteDate(String documentId) async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
@@ -235,61 +305,78 @@ class ReservationController extends GetxController {
           documentSnapshot.data() ?? {};
 
       if (appointmentData.isNotEmpty) {
+        // Get the selectedDate of the appointment to be deleted (ignoring the time)
+        DateTime deletedDate = DateTime(
+          appointmentData['selectedDate'].toDate().year,
+          appointmentData['selectedDate'].toDate().month,
+          appointmentData['selectedDate'].toDate().day,
+        );
+
         // Delete the appointment
         await datesCollection.doc(documentId).delete();
 
-        // Check if there are users on the waiting list
+        // Check if there are users on the waiting list and order them by insertion timestamp
         final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
-            await waitingListCollection.limit(1).get()
-                as QuerySnapshot<Map<String, dynamic>>;
+            await waitingListCollection
+                .orderBy('insertionTimestamp') // Order by insertion timestamp
+                .limit(5)
+                .get() as QuerySnapshot<Map<String, dynamic>>;
 
-        logi.log(waitingListSnapshot.docs.length.toString());
+        final List<QueryDocumentSnapshot<Map<String, dynamic>>>
+            waitingListDocs = waitingListSnapshot.docs;
 
-        if (waitingListSnapshot.size > 0) {
-          final DocumentSnapshot<Map<String, dynamic>> waitingListDoc =
-              waitingListSnapshot.docs.first;
-          final String waitingListDocId = waitingListDoc.id;
+        QueryDocumentSnapshot<Map<String, dynamic>>? waitingListDoc;
 
-          // Retrieve the waiting list data
-          final Map<String, dynamic> waitingListData =
-              waitingListDoc.data() as Map<String, dynamic>;
+        if (waitingListDocs.isNotEmpty) {
+          // Find the first waiting list entry with the same date as the deleted appointment
+          for (var doc in waitingListDocs) {
+            final DateTime waitingListSelectedDate = DateTime(
+              doc.data()['selectedDate'].toDate().year,
+              doc.data()['selectedDate'].toDate().month,
+              doc.data()['selectedDate'].toDate().day,
+            );
 
-          final String waitingListUserId = waitingListData['userId'];
+            if (deletedDate.isAtSameMomentAs(waitingListSelectedDate)) {
+              waitingListDoc = doc;
+              break;
+            }
+          }
 
-          final DateTime waitingListseletedDate =
-              waitingListData['selectedDate'].toDate() as DateTime;
-          final String waitingListUserEmail = waitingListData['userEmail'];
-          final String waitingListUserName = waitingListData['userName'];
-          final String waitingListUserPhone = waitingListData['phone'];
-          final DateTime waitingListNotificationTime =
-              waitingListData['Notification Time'].toDate() as DateTime;
+          if (waitingListDoc != null) {
+            final String waitingListDocId = waitingListDoc.id;
 
-          // Delete the waiting list entry
-          await waitingListCollection.doc(waitingListDocId).delete();
+            // Retrieve the waiting list data
+            final Map<String, dynamic> waitingListData =
+                waitingListDoc.data() as Map<String, dynamic>;
 
-          // Assign the waiting list user to the freed appointment slot
-          final Map<String, dynamic> waitingListReservationData = {
-            'selectedDate': waitingListseletedDate,
-            'userId': waitingListUserId,
-            'userEmail': waitingListUserEmail,
-            'phone': waitingListUserPhone,
-            'userName': waitingListUserName,
-            'Notification Time': waitingListNotificationTime,
-          };
+            // Delete the waiting list entry
+            await waitingListCollection.doc(waitingListDocId).delete();
 
-          // Replace the appointment with the waiting list entry
-          await datesCollection.add(waitingListReservationData);
-          print("Waiting list user assigned to the freed appointment slot.");
+            // Assign the waiting list user to the freed appointment slot
+            final Map<String, dynamic> waitingListReservationData = {
+              'selectedDate': appointmentData[
+                  'selectedDate'], // Use the original date with time
+              'userId': waitingListData['userId'],
+              'userEmail': waitingListData['userEmail'],
+              'phone': waitingListData['phone'],
+              'userName': waitingListData['userName'],
+              'Notification Time': waitingListData['Notification Time'],
+            };
 
-          // Send a notification to the waiting list user
-          await notificationService.showNotification(
-            id: generateRandomID(8),
-            notificationTime: waitingListNotificationTime,
-            title: 'Reservation Update',
-            body:
-                'Hello $waitingListUserName! You have been assigned an appointment slot.',
-            data: null,
-          );
+            // Replace the appointment with the waiting list entry
+            await datesCollection.add(waitingListReservationData);
+            print("Waiting list user assigned to the freed appointment slot.");
+
+            // Send a notification to the waiting list user
+            await notificationService.showNotification(
+              id: generateRandomID(8),
+              notificationTime: waitingListData['Notification Time'].toDate(),
+              title: 'Reservation Update',
+              body:
+                  'Hello ${waitingListData['userName']}! You have been assigned an appointment slot.',
+              data: null,
+            );
+          }
         }
       }
     } catch (error) {
@@ -368,7 +455,9 @@ class ReservationController extends GetxController {
             'userName': userName.value,
             'Notification Time':
                 notificationTimeSameDay.add(Duration(hours: -1)),
+            'insertionTimestamp': FieldValue.serverTimestamp(),
           };
+
           await waitingListCollection.add(waitingListData);
           Get.snackbar(
             'Waiting List',
