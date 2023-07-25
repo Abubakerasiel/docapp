@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Model/User.dart';
 import '../controllers/Sign_In_Controller.dart';
-import 'SignUpScreen.dart';
 
 class SignInScreen extends GetView<SignInController> {
   const SignInScreen({Key? key}) : super(key: key);
@@ -37,7 +35,7 @@ class SignInScreen extends GetView<SignInController> {
                 onSaved: (newValue) => controller.email = newValue,
               ),
               TextFormField(
-                decoration: InputDecoration(hintText: 'password'.tr),
+                decoration: InputDecoration(hintText: 'Password'.tr),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter password'.tr;

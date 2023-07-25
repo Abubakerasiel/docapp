@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../Notification_service.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/timezone.dart' as tz;
+// import 'package:timezone/data/latest.dart' as tz;
 import 'package:intl/intl.dart';
 // import 'package:timezone/data/latest.dart' as tzl;
 // import 'package:timezone/standalone.dart' as tz;
@@ -93,10 +93,7 @@ class ReservationController extends GetxController {
           // Check if the selected date is Sunday to Thursday
           return date.weekday == 1 ||
               date.weekday == 2 ||
-              date.weekday == 3 ||
-              date.weekday == 4 ||
               date.weekday == 7 ||
-              date.weekday == 5 ||
               date.weekday == 6;
           // ... existing code ...
         });
@@ -104,10 +101,7 @@ class ReservationController extends GetxController {
     if (pickedDate != null) {
       if (pickedDate.weekday == 1 ||
           pickedDate.weekday == 2 ||
-          pickedDate.weekday == 3 ||
-          pickedDate.weekday == 4 ||
           pickedDate.weekday == 7 ||
-          pickedDate.weekday == 5 ||
           pickedDate.weekday == 6) {
         final TimeOfDay? pickedTime = await showTimePicker(
           context: context,
@@ -122,7 +116,7 @@ class ReservationController extends GetxController {
         );
 
         if (pickedTime != null) {
-          if (pickedTime.hour != null) {
+          if (pickedTime.hour < 21) {
             final DateTime selectedDateTime = DateTime(
               pickedDate.year,
               pickedDate.month,
@@ -336,7 +330,8 @@ class ReservationController extends GetxController {
       } else {
         print('Document not found.');
       }
-    }).catchError((error) => print('Error getting document: $error'));
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => logi.log('Error getting document: $error'));
 
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance

@@ -21,7 +21,7 @@ Map<String, String> get arKeys => {
       'please enter atleast 8 chars': 'الرجاء ادخال8 حروف على الاقل',
       'if You have any medical issue please write it down':
           'الرجاء كتابة المشاكل الصحية',
-      'password': 'كلمة السر',
+      'Password': 'كلمة السر',
       'Go to Statemnst page': 'الذهاب الى صفحة الاشعارات',
       'delete date': 'حذف الموعد',
       'Gender': 'النوع',

@@ -5,9 +5,7 @@ import 'package:flutterappoinmentapp/Views/booking_page.dart';
 import 'package:flutterappoinmentapp/Views/user_1.dart';
 
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 
-import '../Model/User.dart ';
 import '../controllers/booking_controller.dart';
 
 class UserPage extends StatefulWidget {
