@@ -36,7 +36,7 @@ class StatmentPage extends StatelessWidget {
                 onPressed: () {
                   controller.saveTextToFirebase(txt.text);
                 },
-                child: Text('Post Statment')),
+                child: Text('Post Statment'.tr)),
             StreamBuilder<QuerySnapshot>(
               stream:
                   FirebaseFirestore.instance.collection('userText').snapshots(),

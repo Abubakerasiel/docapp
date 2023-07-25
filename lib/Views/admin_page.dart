@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/Statemnet_page.dart';
 import 'package:flutterappoinmentapp/Views/user_1.dart';
-import 'package:flutterappoinmentapp/Views/user_detail.dart';
 
 import 'package:get/get.dart';
 
@@ -42,7 +41,7 @@ class _DatesListState extends State<DatesList> {
             onPressed: () {
               controller.fetchAllDates();
             },
-            child: Text('Show Reservations'),
+            child: Text('Show Reservations'.tr),
           ),
           SizedBox(
             height: 20,
@@ -129,7 +128,7 @@ class _DatesListState extends State<DatesList> {
                                       .deleteDate(controller.dates[index].id);
                                   controller.fetchAllDates();
                                 },
-                                child: Text('delete date')),
+                                child: Text('delete date'.tr)),
                           ],
                         ),
                       ]);
@@ -145,7 +144,7 @@ class _DatesListState extends State<DatesList> {
               onPressed: () {
                 Get.to(StatmentPage());
               },
-              child: Text('Go to Statemnst page'))
+              child: Text('Go to Statemnst page'.tr))
         ],
       ),
     );

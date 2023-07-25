@@ -79,12 +79,13 @@ class _UserPageState extends State<UserPage> {
                 onPressed: () {
                   Get.to(ReservationScreen());
                 },
-                child: Text('make an appoimnet')),
+                child: Text('make an appoimnet'.tr)),
             ElevatedButton(
                 onPressed: () {
-                  Get.to(UserDetailsPage());
+                  Get.to(UserDetailsPage(),
+                      arguments: _reservationController.user!.uid);
                 },
-                child: Text('View profile'))
+                child: Text('View profile'.tr))
           ],
         ),
       ),

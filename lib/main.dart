@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutterappoinmentapp/Auth/SignUpScreen.dart';
+import 'package:get/get.dart';
 
 import 'Notification_service.dart';
 import 'global_bindings.dart';
+import 'utils/translation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,5 +15,9 @@ void main() async {
 
   NotificationService().initNotification();
 
-  runApp(const SignUpScreen());
+  runApp(GetMaterialApp(
+    home: const SignUpScreen(),
+    translations: Translation(),
+    locale: const Locale('ar'),
+  ));
 }

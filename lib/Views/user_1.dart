@@ -10,7 +10,7 @@ class UserDetailsPage extends StatefulWidget {
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
   var data = Get.arguments;
-  @override
+  // @override
   final ReservationController _reservationController =
       Get.put(ReservationController());
   @override
@@ -30,7 +30,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Edit Weight'),
+          title: Text('Edit Weight'.tr),
           content: TextFormField(
             initialValue: editedWeight,
             onChanged: (value) {
@@ -86,29 +86,53 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Name: ${_reservationController.userName.value}',
+                  'Name'.tr,
                   style: TextStyle(fontSize: 18),
                 ),
                 Text(
-                  'Phone: ${_reservationController.userPhone.value}',
+                  ' ${_reservationController.userName.value}',
                   style: TextStyle(fontSize: 18),
                 ),
                 Text(
-                  'Age: ${_reservationController.age.value}',
+                  'Phone'.tr,
                   style: TextStyle(fontSize: 18),
                 ),
                 Text(
-                  'Height: ${_reservationController.height.value}',
+                  '${_reservationController.userPhone.value}',
                   style: TextStyle(fontSize: 18),
                 ),
                 Text(
-                  'Gender: ${_reservationController.gender.value}',
+                  'Age'.tr,
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  '${_reservationController.age.value}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  'Height'.tr,
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  '${_reservationController.height.value}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  'Gender'.tr,
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  '${_reservationController.gender.value}'.tr,
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(height: 20),
-                TextButton(
+                Text(
+                  'Weight'.tr,
+                  style: TextStyle(fontSize: 18),
+                ),
+                ElevatedButton(
                   child: Text(
-                    'Weight: ${_reservationController.weight.value}',
+                    '${_reservationController.weight.value}',
                     style: TextStyle(fontSize: 18),
                   ),
 
@@ -126,8 +150,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                           //  _reservationController. y.value = true;
                         },
                         child: _reservationController.y.value
-                            ? Text('paid')
-                            : Text(' did not paid'))
+                            ? Text('paid'.tr)
+                            : Text('did not paid'.tr))
                     : SizedBox(),
                 _reservationController.y.value
                     ? Icon(

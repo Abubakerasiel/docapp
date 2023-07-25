@@ -28,7 +28,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Reservation Screen'),
+          title: Text('Reservation Screen'.tr),
         ),
         body: Center(
           child: Obx(
@@ -41,7 +41,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   child: Text(
                     controller.selectedDate.value != null
                         ? 'Selected Date: ${controller.selectedDate.value!.toString().split(' ')[0]}'
-                        : 'Select Date',
+                        : 'Select Date'.tr,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -60,13 +60,13 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   onPressed: () {
                     controller.makeReservation(context);
                   },
-                  child: Text('Make Reservation'),
+                  child: Text('Make Reservation'.tr),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     controller.fetchDates();
                   },
-                  child: Text('Show Reservations'),
+                  child: Text('Show Reservations'.tr),
                 ),
                 Expanded(
                     child: Obx(
@@ -111,7 +111,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     MapsLauncher.launchQuery(
                         'Villa No. 48, 2nd Floor, Flat 6, 105th Street, El Horreya Sq, Maadi, Cairo Governorate 11728');
                   },
-                  child: Text('Open Google Maps'),
+                  child: Text('Open Google Maps'.tr),
                 ),
               ],
             ),

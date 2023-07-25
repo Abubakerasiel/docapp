@@ -12,61 +12,70 @@ class SignInScreen extends GetView<SignInController> {
   Widget build(BuildContext context) {
     Get.put(SignInController());
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('SignIn Screen'),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Form(
-            key: controller.key,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(hintText: 'email'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter email';
-                    }
-                    if (!value.contains('@')) return 'Please enter valid email';
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign In'.tr),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Form(
+          key: controller.key,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(hintText: 'email'.tr),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter email'.tr;
+                  }
+                  if (!value.contains('@')) return 'Please enter valid email';
 
-                    return null;
-                  },
-                  onSaved: (newValue) => controller.email = newValue,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(hintText: 'password'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter password';
-                    }
-                    if (value.length < 8) return 'please enter atleast 8 chars';
+                  return null;
+                },
+                onSaved: (newValue) => controller.email = newValue,
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'password'.tr),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password'.tr;
+                  }
+                  if (value.length < 8)
+                    return 'please enter atleast 8 chars'.tr;
 
-                    return null;
+                  return null;
+                },
+                onSaved: (newValue) => controller.password = newValue,
+              ),
+              const Spacer(),
+              ElevatedButton(
+                onPressed: controller.signIn,
+                child: Text('Sign In'.tr),
+              ),
+              const SizedBox(height: 10),
+              SafeArea(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.back();
                   },
-                  onSaved: (newValue) => controller.password = newValue,
+                  child: Text('Create New Account'.tr),
                 ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: controller.signIn,
-                  child: const Text('SignIn'),
-                ),
-                const SizedBox(height: 10),
-                SafeArea(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: const Text('Create New Account'),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (Get.locale!.languageCode == "ar") {
+            Get.updateLocale(const Locale("en"));
+            return;
+          }
+          Get.updateLocale(const Locale("ar"));
+        },
+        child: Icon(Icons.g_translate),
       ),
     );
   }
