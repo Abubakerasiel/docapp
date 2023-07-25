@@ -1,10 +1,44 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart ';
 import 'package:flutter/material.dart';
-import 'package:flutterappoinmentapp/Views/booking_page.dart';
-import 'package:get/get.dart';
 
-class UserPage extends StatelessWidget {
-  const UserPage({super.key});
+import 'package:flutterappoinmentapp/Views/booking_page.dart';
+import 'package:flutterappoinmentapp/Views/user_1.dart';
+
+import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+
+import '../Model/User.dart ';
+import '../controllers/booking_controller.dart';
+
+class UserPage extends StatefulWidget {
+  UserPage({super.key});
+
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  final ReservationController _reservationController =
+      Get.put(ReservationController());
+
+  @override
+  void initState() {
+    // _reservationController
+    //     .sendNotificatonToUser(_reservationController.user!.uid);
+    // ignore: unnecessary_null_comparison
+
+    super.initState();
+  }
+
+  // @override
+  // void onInit() {
+  //   // super.onInit();
+
+  //   // notificationService.initNotification();
+  //   // retrieveUserData(user!.uid);
+  //   // sendNotificatonToUser(user!.uid);
+  //   // streamSubscription.listen((event) { })
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +79,12 @@ class UserPage extends StatelessWidget {
                 onPressed: () {
                   Get.to(ReservationScreen());
                 },
-                child: Text('make an appoimnet'))
+                child: Text('make an appoimnet')),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(UserDetailsPage());
+                },
+                child: Text('View profile'))
           ],
         ),
       ),

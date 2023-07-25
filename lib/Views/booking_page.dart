@@ -93,8 +93,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           Text(formattedDateTime),
                           ElevatedButton(
                               onPressed: () {
-                                controller
-                                    .deleteDate(controller.dates[index].id);
+                                controller.deleteDateAndRpalceIt(
+                                    controller.dates[index].id);
                                 controller.fetchDates();
                               },
                               child: Text('delete date'))

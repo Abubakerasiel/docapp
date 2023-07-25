@@ -27,8 +27,17 @@ class ReservationController extends GetxController {
 
     notificationService.initNotification();
     retrieveUserData(user!.uid);
+    sendNotificatonToUser(user!.uid);
+
     // streamSubscription.listen((event) { })
   }
+
+  // @override
+  // void onClose() {
+  //   // Dispose of the controller properly
+  //   super.onClose();
+  //   // flutterLocalNotificationsPlugin.dispose();
+  // }
 
   RxString userName = RxString('');
   RxString userPhone = RxString('');
@@ -38,6 +47,7 @@ class ReservationController extends GetxController {
   RxString height = RxString('');
   RxString gender = RxString('');
   int? package;
+  RxBool y = false.obs;
 
   final usersRef = FirebaseFirestore.instance.collection('users');
 
@@ -181,6 +191,26 @@ class ReservationController extends GetxController {
     }
   }
 
+  Future<List<Map<String, dynamic>>> getTodayAppointments() async {
+    final DateTime now = DateTime.now();
+    final DateTime startOfToday =
+        DateTime(now.year, now.month, now.day, 0, 0, 0);
+    final DateTime endOfToday =
+        DateTime(now.year, now.month, now.day, 23, 59, 59);
+
+    final QuerySnapshot<Map<String, dynamic>> todayAppointmentsSnapshot =
+        await datesCollection
+            .where('selectedDate', isGreaterThanOrEqualTo: startOfToday)
+            .where('selectedDate', isLessThanOrEqualTo: endOfToday)
+            .get() as QuerySnapshot<Map<String, dynamic>>;
+    dates.value = todayAppointmentsSnapshot.docs
+        .cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
+
+    final List<Map<String, dynamic>> todayAppointments =
+        todayAppointmentsSnapshot.docs.map((doc) => doc.data()).toList();
+    return todayAppointments;
+  }
+
   void fetchAllDates() async {
     try {
       final snapshot = await datesCollection.get();
@@ -191,12 +221,74 @@ class ReservationController extends GetxController {
     }
   }
 
-  void saveTextToFirebase(String text) {
+  void sendNotificatonToUser(String userID1) async {
+    var package2;
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userID1).get();
+    if (snapshot.exists) {
+      package2 = snapshot.data()?['package'];
+      //   return snapshot.data();
+    }
+
+    if (package2 <= 3) {
+      await notificationService.showNotification(
+        id: generateRandomID(8),
+        notificationTime: DateTime.now().add(Duration(minutes: 1)),
+        title: 'Package Reminder Update',
+        body: 'Hello You have to pay the money.',
+        data: null,
+      );
+    }
+  }
+
+  void Paidpackge(String userID1) async {
+    var package2;
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userID1).get();
+    if (snapshot.exists) {
+      package2 = snapshot.data()?['package'];
+      package2 += 10;
+
+      //   return snapshot.data();
+    }
+    // if (package2 > 5) {
+    //   y.value = true;
+    // }
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID1)
+        .update({'package': package2});
+  }
+
+  void paymentStatus(String userID1) async {
+    late var package3;
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userID1).get();
+    if (snapshot.exists) {
+      package3 = snapshot.data()?['package'];
+      if (package3 > 5) {
+        y.value = true;
+      }
+
+      //   return snapshot.data();
+    }
+  }
+
+  void saveTextToFirebase(String text) async {
     FirebaseFirestore.instance
         .collection('userText')
         .add({'text': text})
         .then((value) => print('Text saved to Firebase'))
         .catchError((error) => print('Failed to save text: $error'));
+    //    Send a notification at the moment of replacement
+    await notificationService.showNotification(
+      id: generateRandomID(8),
+      notificationTime: DateTime.now().add(Duration(minutes: 1)),
+      title: 'Annoucement Update',
+      body: 'An Annoucemnet has been made please sigin to see it ',
+      data: null,
+    );
   }
 
   Future<Map<String, dynamic>?> retrieveUserData(String userId) async {
@@ -227,6 +319,49 @@ class ReservationController extends GetxController {
   }
 
   void deleteDate(String documentId) async {
+    var UserIdInDateColletion;
+
+    await FirebaseFirestore.instance
+        .collection('dates')
+        .doc(documentId)
+        .get() // Get the document data
+        .then((docSnapshot) {
+      if (docSnapshot.exists) {
+        String userId = docSnapshot.data()!['userId'];
+        UserIdInDateColletion = userId;
+        // Access the user ID field
+        // Now you have the user ID and can use it for any further operations if needed
+        print('User ID: $userId');
+        print(UserIdInDateColletion);
+      } else {
+        print('Document not found.');
+      }
+    }).catchError((error) => print('Error getting document: $error'));
+
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(UserIdInDateColletion)
+            .get();
+    if (snapshot.exists) {
+      package = snapshot.data()?['package'];
+      //   return snapshot.data();
+    }
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(UserIdInDateColletion)
+        .update({'package': package! - 1});
+
+    FirebaseFirestore.instance
+        .collection('dates')
+        .doc(documentId)
+        .delete()
+        .then((value) => print('Date deleted'))
+        .catchError((error) => print('Failed to delete date: $error'));
+  }
+
+  void deleteDateAndRpalceIt(String documentId) async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
           await datesCollection.doc(documentId).get()
@@ -344,121 +479,6 @@ class ReservationController extends GetxController {
       print('Failed to delete or replace appointment: $error');
     }
   }
-
-  // Future<void> deleteDate(String documentId) async {
-  //   try {
-  //     final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-  //         await datesCollection.doc(documentId).get()
-  //             as DocumentSnapshot<Map<String, dynamic>>;
-  //     final Map<String, dynamic> appointmentData =
-  //         documentSnapshot.data() ?? {};
-
-  //     if (appointmentData.isNotEmpty) {
-  //       // Get the selectedDate of the appointment to be deleted
-  //       DateTime deletedDate = appointmentData['selectedDate'].toDate();
-
-  //       // Delete the appointment
-  //       await datesCollection.doc(documentId).delete();
-
-  //       // Check if there are users on the waiting list and order them by insertion timestamp
-  //       final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
-  //           await waitingListCollection
-  //               .orderBy('insertionTimestamp') // Order by insertion timestamp
-  //               .limit(5)
-  //               .get() as QuerySnapshot<Map<String, dynamic>>;
-
-  //       final List<QueryDocumentSnapshot<Map<String, dynamic>>>
-  //           waitingListDocs = waitingListSnapshot.docs;
-
-  //       QueryDocumentSnapshot<Map<String, dynamic>>? waitingListDoc;
-
-  //       if (waitingListDocs.isNotEmpty) {
-  //         // Find the first waiting list entry with the same date as the deleted appointment
-  //         for (var doc in waitingListDocs) {
-  //           final DateTime waitingListSelectedDate = DateTime(
-  //             doc.data()['selectedDate'].toDate().year,
-  //             doc.data()['selectedDate'].toDate().month,
-  //             doc.data()['selectedDate'].toDate().day,
-  //           );
-
-  //           if (deletedDate.isAtSameMomentAs(waitingListSelectedDate)) {
-  //             waitingListDoc = doc;
-  //             break;
-  //           }
-  //         }
-
-  //         if (waitingListDoc != null) {
-  //           final String waitingListDocId = waitingListDoc.id;
-
-  //           // Retrieve the waiting list data
-  //           final Map<String, dynamic> waitingListData =
-  //               waitingListDoc.data() as Map<String, dynamic>;
-
-  //           // Delete the waiting list entry
-  //           await waitingListCollection.doc(waitingListDocId).delete();
-
-  //           // Assign the waiting list user to the freed appointment slot
-  //           final Map<String, dynamic> waitingListReservationData = {
-  //             'selectedDate': appointmentData[
-  //                 'selectedDate'], // Use the original date with time
-  //             'userId': waitingListData['userId'],
-  //             'userEmail': waitingListData['userEmail'],
-  //             'phone': waitingListData['phone'],
-  //             'userName': waitingListData['userName'],
-  //             'Notification Time': waitingListData['Notification Time'],
-  //           };
-
-  //           // Replace the appointment with the waiting list entry
-  //           await datesCollection.add(waitingListReservationData);
-  //           print("Waiting list user assigned to the freed appointment slot.");
-
-  //           // Send a notification at the moment of replacement
-  //           await notificationService.showNotification(
-  //             id: generateRandomID(8),
-  //             notificationTime: waitingListData['Notification Time'].toDate(),
-  //             title: 'Reservation Update',
-  //             body:
-  //                 'Hello ${waitingListData['userName']}! You have been assigned an appointment slot.',
-  //             data: null,
-  //           );
-
-  //           // Send a notification 24 hours before the appointment if it's in the future
-  //           final DateTime now = DateTime.now();
-  //           final DateTime appointmentDateTime = deletedDate;
-
-  //           if (appointmentDateTime.isAfter(now)) {
-  //             final DateTime notificationDateTime =
-  //                 appointmentDateTime.subtract(Duration(hours: 24));
-
-  //             await notificationService.showNotification(
-  //               id: generateRandomID(8),
-  //               notificationTime: notificationDateTime,
-  //               title: 'Upcoming Appointment',
-  //               body:
-  //                   'Hello ${waitingListData['userName']}! Your appointment is scheduled for tomorrow.',
-  //               data: null,
-  //             );
-  //           } else {
-  //             // Send a notification 3 hours before the appointment if it's on the same day
-  //             final DateTime notificationDateTime =
-  //                 appointmentDateTime.subtract(Duration(hours: 3));
-
-  //             await notificationService.showNotification(
-  //               id: generateRandomID(8),
-  //               notificationTime: notificationDateTime,
-  //               title: 'Upcoming Appointment',
-  //               body:
-  //                   'Hello ${waitingListData['userName']}! Your appointment is scheduled for today.',
-  //               data: null,
-  //             );
-  //           }
-  //         }
-  //       }
-  //     }
-  //   } catch (error) {
-  //     print('Failed to delete or replace appointment: $error');
-  //   }
-  // }
 
   void makeReservation(BuildContext context) async {
     DateTime getStartOfDay(DateTime date) {

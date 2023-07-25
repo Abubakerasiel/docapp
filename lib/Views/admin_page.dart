@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/Statemnet_page.dart';
+import 'package:flutterappoinmentapp/Views/user_1.dart';
 import 'package:flutterappoinmentapp/Views/user_detail.dart';
 
 import 'package:get/get.dart';
@@ -53,6 +54,7 @@ class _DatesListState extends State<DatesList> {
                 height: 10,
               ),
               itemCount: controller.dates.length,
+              // reverse: true,
               itemBuilder: (context, index) {
                 //   controller.fetchAllDates();
                 final date = controller.dates[index].data();
@@ -63,7 +65,7 @@ class _DatesListState extends State<DatesList> {
                 // final timestamp2 = date['selectedTime'];
                 final userName = date['userName'] as String?;
                 final userPhone = date['phone'] as String?;
-                final userID = date['userId'] as String?;
+                final userID3 = date['userId'] as String?;
 
                 if (timestamp != null &&
                     userName != null &&
@@ -101,11 +103,9 @@ class _DatesListState extends State<DatesList> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            await controller.retrieveUserData(userID!);
-                            final age = controller.age.value;
-                            final we = controller.weight.value;
-                            Get.to(UserDetail(
-                                user: [userName, userPhone, userID, age, we]));
+                            await controller.retrieveUserData(userID3!);
+
+                            Get.to(UserDetailsPage(), arguments: userID3);
                           },
                           child: Text(userName,
                               style: TextStyle(
@@ -120,12 +120,18 @@ class _DatesListState extends State<DatesList> {
                               fontSize: 15,
                               decoration: TextDecoration.none,
                             )),
-                        ElevatedButton(
-                            onPressed: () {
-                              controller.deleteDate(controller.dates[index].id);
-                              controller.fetchAllDates();
-                            },
-                            child: Text('delete date'))
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  controller
+                                      .deleteDate(controller.dates[index].id);
+                                  controller.fetchAllDates();
+                                },
+                                child: Text('delete date')),
+                          ],
+                        ),
                       ]);
                 } else {
                   return Container(

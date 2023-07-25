@@ -57,7 +57,9 @@ class SignInScreen extends GetView<SignInController> {
                 const SizedBox(height: 10),
                 SafeArea(
                   child: ElevatedButton(
-                    onPressed: () => Get.to(SignUpScreen()),
+                    onPressed: () {
+                      Get.back();
+                    },
                     child: const Text('Create New Account'),
                   ),
                 ),
