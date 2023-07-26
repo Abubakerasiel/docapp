@@ -16,8 +16,6 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   @override
   void initState() {
     _reservationController.paymentStatus(data);
-    //     .sendNotificatonToUser(_reservationController.user!.uid);
-    // ignore: unnecessary_null_comparison
 
     super.initState();
   }

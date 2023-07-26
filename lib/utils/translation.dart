@@ -53,7 +53,38 @@ Map<String, String> get arKeys => {
       'Open Google Maps': 'فتح خرائط قوقل',
       'Reservation Screen': 'شاشة الحجز',
       'did not paid': 'لم يدفع',
-      'paid': 'دفع'
+      'paid': 'دفع',
+      'Package Reminder Update': 'تذكير بالدفع',
+      'Hello please  pay  for your pakacge.': 'الرجاء مراجعة السكرتيرة للدفع',
+      'Annoucement Update': 'اشعار جديد',
+      'An Annoucemnet has been made please sigin to see it ':
+          'الرجاء الدخول لرؤية الأشعار',
+      'Reservation Update': 'تذكير بالحجز',
+      'Hello  You have been assigned an appointment slot.': 'تم تأكيد حجزك',
+      'Upcoming Appointment': 'الميعاد القادم',
+      'Hello Your appointment is scheduled for tomorrow.':
+          'لقد تم حجز موعدك لبكرة',
+      'Hello  Your appointment is scheduled for today.':
+          'لقد تم حجز موعدك لليوم',
+      'Reservation Reminder': 'تذكير بالحجز',
+      'Waiting List': 'قائمة الانتظار',
+      'Sorry, no available appointments. You have been added to the waiting list.':
+          'لا يوجد مواعيد متاحة للحجز تم اضافتك إلى قائمة الانتظار',
+      'Waiting List Full': 'قائمة الانتظار ممتلئة',
+      'Sorry, no available appointments. The waiting list for this date is already full..':
+          'قائمة الانتظار ممتلئة الرجاء حجز تاريخ اخر',
+      'Multiple Bookings Not Allowed': 'غير مسموح الحجز اكتر من مرة',
+      'You have already booked an appointment on the waiting list.': '',
+      'Time Slot Not Available': 'زمن الحجز غير متاح',
+      'The selected time slot is already booked.': 'زمن الحجز غير متاح',
+      'Invalid Date': '',
+      'Please select a future date and time.': '',
+      'You have already booked an appointment on the selected date.':
+          'لقد تم الحجز مسبقا في نفس اليوم',
+      'Successful booking': 'تأكيد حجز',
+      'You have successfully booked your appointment': 'تم الحجز بنجاح',
+      'Hello  You have been added to the waiting list.':
+          'تم اضافتك إلى قائمة الانتظار',
     };
 Map<String, String> get enKeys => {
       'hello': 'Hello',

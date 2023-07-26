@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import '../Notification_service.dart';
+import '../utils/Notification_service.dart';
 // import 'package:timezone/timezone.dart' as tz;
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:intl/intl.dart';
@@ -228,8 +228,8 @@ class ReservationController extends GetxController {
       await notificationService.showNotification(
         id: generateRandomID(8),
         notificationTime: DateTime.now().add(Duration(minutes: 1)),
-        title: 'Package Reminder Update',
-        body: 'Hello You have to pay the money.',
+        title: 'Package Reminder Update'.tr,
+        body: 'Hello please  pay  for your pakacge.'.tr,
         data: null,
       );
     }
@@ -279,8 +279,8 @@ class ReservationController extends GetxController {
     await notificationService.showNotification(
       id: generateRandomID(8),
       notificationTime: DateTime.now().add(Duration(minutes: 1)),
-      title: 'Annoucement Update',
-      body: 'An Annoucemnet has been made please sigin to see it ',
+      title: 'Annoucement Update'.tr,
+      body: 'An Annoucemnet has been made please sigin to see it '.tr,
       data: null,
     );
   }
@@ -431,9 +431,10 @@ class ReservationController extends GetxController {
             await notificationService.showNotification(
               id: generateRandomID(8),
               notificationTime: DateTime.now().add(Duration(minutes: 4)),
-              title: 'Reservation Update',
+              title: 'Reservation Update'.tr,
               body:
-                  'Hello ${waitingListData['userName']}! You have been assigned an appointment slot.',
+                  //  'Hello ${waitingListData['userName']}! You have been assigned an appointment slot.',
+                  'Hello  You have been assigned an appointment slot.'.tr,
               data: null,
             );
 
@@ -448,9 +449,10 @@ class ReservationController extends GetxController {
               await notificationService.showNotification(
                 id: generateRandomID(8),
                 notificationTime: notificationDateTime,
-                title: 'Upcoming Appointment',
+                title: 'Upcoming Appointment'.tr,
                 body:
-                    'Hello ${waitingListData['userName']}! Your appointment is scheduled for tomorrow.',
+                    //'Hello ${waitingListData['userName']}! Your appointment is scheduled for tomorrow.',
+                    'Hello Your appointment is scheduled for tomorrow.'.tr,
                 data: null,
               );
             } else {
@@ -461,9 +463,10 @@ class ReservationController extends GetxController {
               await notificationService.showNotification(
                 id: generateRandomID(8),
                 notificationTime: notificationDateTime,
-                title: 'Upcoming Appointment',
+                title: 'Upcoming Appointment'.tr,
                 body:
-                    'Hello ${waitingListData['userName']}! Your appointment is scheduled for today.',
+                    //  'Hello ${waitingListData['userName']}! Your appointment is scheduled for today.',
+                    'Hello  Your appointment is scheduled for today.'.tr,
                 data: null,
               );
             }
@@ -551,8 +554,9 @@ class ReservationController extends GetxController {
 
           await waitingListCollection.add(waitingListData);
           Get.snackbar(
-            'Waiting List',
-            'Sorry, no available appointments. You have been added to the waiting list.',
+            'Waiting List'.tr,
+            'Sorry, no available appointments. You have been added to the waiting list.'
+                .tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 3),
             backgroundColor: Colors.yellow,
@@ -561,15 +565,17 @@ class ReservationController extends GetxController {
           await notificationService.showNotification(
             id: generateRandomID(8),
             notificationTime: notificationTimeSameDay,
-            title: 'Waiting List',
+            title: 'Waiting List'.tr,
             body:
-                'Hello ${userName.value}! You have been added to the waiting list.',
+                // 'Hello ${userName.value}! You have been added to the waiting list.',
+                'Hello  You have been added to the waiting list.'.tr,
             data: null,
           );
         } else {
           Get.snackbar(
-            'Waiting List Full',
-            'Sorry, no available appointments. The waiting list for this date is already full..',
+            'Waiting List Full'.tr,
+            'Sorry, no available appointments. The waiting list for this date is already full..'
+                .tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 3),
             backgroundColor: Colors.orange,
@@ -580,8 +586,8 @@ class ReservationController extends GetxController {
         // Check if waiting list is not full
       } else {
         Get.snackbar(
-          'Multiple Bookings Not Allowed',
-          'You have already booked an appointment on the waiting list.',
+          'Multiple Bookings Not Allowed'.tr,
+          'You have already booked an appointment on the waiting list.'.tr,
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 3),
           backgroundColor: Colors.red,
@@ -590,8 +596,8 @@ class ReservationController extends GetxController {
       }
     } else if (selectedTimeAppointmentsCount > 0) {
       Get.snackbar(
-        'Time Slot Not Available',
-        'The selected time slot is already booked.',
+        'Time Slot Not Available'.tr,
+        'The selected time slot is already booked.'.tr,
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 3),
         backgroundColor: Colors.redAccent,
@@ -601,8 +607,8 @@ class ReservationController extends GetxController {
       if (selectedDate.value != null) {
         if (selectedDate.value!.isBefore(DateTime.now())) {
           Get.snackbar(
-            'Invalid Date',
-            'Please select a future date and time.',
+            'Invalid Date'.tr,
+            'Please select a future date and time.'.tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 3),
             backgroundColor: Colors.redAccent,
@@ -627,8 +633,8 @@ class ReservationController extends GetxController {
         }
         if (userAlreadyBookedForDay) {
           Get.snackbar(
-            'Multiple Bookings Not Allowed',
-            'You have already booked an appointment on the selected date.',
+            'Multiple Bookings Not Allowed'.tr,
+            'You have already booked an appointment on the selected date.'.tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 3),
             backgroundColor: Colors.redAccent,
@@ -686,8 +692,8 @@ class ReservationController extends GetxController {
             data: notificationData,
           );
           Get.snackbar(
-            'Successful booking',
-            'You have successfully booked your appointment',
+            'Successful booking'.tr,
+            'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 3),
             backgroundColor: Colors.greenAccent,
@@ -703,8 +709,8 @@ class ReservationController extends GetxController {
             data: notificationData,
           );
           Get.snackbar(
-            'Successful booking',
-            'You have successfully booked your appointment',
+            'Successful booking'.tr,
+            'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 3),
             backgroundColor: Colors.greenAccent,

@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/Statemnet_page.dart';
-import 'package:flutterappoinmentapp/Views/user_1.dart';
+import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
 
 import 'package:get/get.dart';
 
