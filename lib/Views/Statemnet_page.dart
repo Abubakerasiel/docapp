@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controllers/booking_controller.dart';
 import '../controllers/home_controller.dart';
@@ -34,7 +35,8 @@ class StatmentPage extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  controller.saveTextToFirebase(txt.text);
+                  Timestamp timestamp = Timestamp.now();
+                  controller.saveTextToFirebase(txt.text, timestamp);
                 },
                 child: Text('Post Statment'.tr)),
             StreamBuilder<QuerySnapshot>(
@@ -57,9 +59,14 @@ class StatmentPage extends StatelessWidget {
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
                       String text = data['text'] ?? '';
+                      Timestamp timestamp = data['timestamp'];
+                      DateTime dateTime = timestamp.toDate();
+                      String formattedTime =
+                          DateFormat("hh:mm a, dd MMM yyyy").format(dateTime);
 
                       return ListTile(
                         title: Text('$text'),
+                        subtitle: Text(formattedTime),
                       );
                     }).toList(),
                   ),

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
 import 'user_detail_page.dart';
+import 'package:intl/intl.dart';
 
 class UserPage extends StatefulWidget {
   UserPage({super.key});
@@ -18,15 +19,6 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   final ReservationController _reservationController =
       Get.put(ReservationController());
-
-  @override
-  void initState() {
-    // _reservationController
-    //     .sendNotificatonToUser(_reservationController.user!.uid);
-    // ignore: unnecessary_null_comparison
-
-    super.initState();
-  }
 
   // @override
   // void onInit() {
@@ -64,9 +56,14 @@ class _UserPageState extends State<UserPage> {
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
                       String text = data['text'] ?? '';
+                      Timestamp timestamp = data['timestamp'];
+                      DateTime dateTime = timestamp.toDate();
+                      String formattedTime =
+                          DateFormat("hh:mm a, dd MMM yyyy").format(dateTime);
 
                       return ListTile(
                         title: Text(text),
+                        subtitle: Text(formattedTime),
                       );
                     }).toList(),
                   ),

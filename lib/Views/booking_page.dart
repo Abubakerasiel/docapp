@@ -97,7 +97,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                     controller.dates[index].id);
                                 controller.fetchDates();
                               },
-                              child: Text('delete date'))
+                              child: Text('delete date'.tr))
                         ]);
                       } else {
                         return Container(); // Skip rendering if data is null

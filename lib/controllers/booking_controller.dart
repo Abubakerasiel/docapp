@@ -62,7 +62,7 @@ class ReservationController extends GetxController {
     final formattedDate =
         '${date.year}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')}   Time ${a.toString().padLeft(2, '0')}/${date.minute.toString().padLeft(2, '0')}';
 
-    return ' Name: $userName       Date : $formattedDate   Phone:$userPhone ';
+    return ' Name: $userName       Date : $formattedDate   Phone Number:$userPhone ';
   }
 
   int generateRandomID(int length) {
@@ -269,10 +269,13 @@ class ReservationController extends GetxController {
     }
   }
 
-  void saveTextToFirebase(String text) async {
+  void saveTextToFirebase(String text, Timestamp timestamp) async {
     FirebaseFirestore.instance
         .collection('userText')
-        .add({'text': text})
+        .add({
+          'text': text,
+          'timestamp': timestamp,
+        })
         .then((value) => print('Text saved to Firebase'))
         .catchError((error) => print('Failed to save text: $error'));
     //    Send a notification at the moment of replacement
