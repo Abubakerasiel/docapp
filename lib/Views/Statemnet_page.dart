@@ -38,7 +38,7 @@ class StatmentPage extends StatelessWidget {
                   Timestamp timestamp = Timestamp.now();
                   controller.saveTextToFirebase(txt.text, timestamp);
                   controller.sendAllUsersNotfication(
-                      controller.all!, txt.text, 'New annocmesnt');
+                      controller.tak!, txt.text, 'New annocmesnt');
                 },
                 child: Text('Post Statment'.tr)),
             StreamBuilder<QuerySnapshot>(

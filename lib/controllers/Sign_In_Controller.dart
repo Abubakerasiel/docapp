@@ -14,11 +14,8 @@ class SignInController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+
     onFirstTimeSignIn();
-
-    // await notificationService.initNotification();
-
-    // sendAllUsersNotfication(userToken!, 'hi', 'hello');
   }
 
   GlobalKey<FormState> key = GlobalKey();

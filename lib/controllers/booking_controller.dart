@@ -35,7 +35,8 @@ class ReservationController extends GetxController {
     retrieveUserData(user!.uid);
     sendNotificatonToUser(user!.uid);
     requestNotificationPermission();
-    retrieveTokens();
+    await retrieveTokens();
+
     // await notificationService.initNotification();
 
     // sendAllUsersNotfication(userToken!, 'hi', 'hello');
@@ -61,6 +62,24 @@ class ReservationController extends GetxController {
   RxBool y = false.obs;
   String? userToken;
   List? all;
+  List? tak;
+
+  //  List<Map<String, String>> tokenList = [
+  //   {
+  //     "token": "czHpV7RvRq--UtG1sv528b:APA91bHYB04Qx00kaf5gB7h0ulmTXFrFoQwqQDgnNVnZhbKpBQYLFbueoroCFNsz1jPQh9rosepUd21_ca-mPF3syW_zGAamnOYa7TZnW_LryYwOBP9jwaINEIquBrK1QciRNlXxYpAR"
+  //   },
+  //   {
+  //     "token": "e3eRr2mkTimvfhTaeFamoB:APA91bFI8M72-EvV4b4V7hlW4VGnP59Rn57MXrkK4fflXi2zXKHVjNKyEE2jk0xPBqDIFO9N3IMSb8CE6VqJ3reLiPpjpclVj3Nd6IHXefFNjm7a9hYIqUopqSadKTGEkCt-ihbJJzSr"
+  //   }
+  // ];
+
+  // Extract tokens from the list
+  // List<String> tokens2 = tokenList.map((element) => element["token"]).toList();
+
+  // Print the tokens
+  // tokens2.forEach((token) {
+  //   print(token);
+  // });
 
   final usersRef = FirebaseFirestore.instance.collection('users');
 
@@ -114,7 +133,11 @@ class ReservationController extends GetxController {
     final List<Map<String, dynamic>> todayAppointments =
         tok.docs.map((doc) => doc.data()).toList();
     all = todayAppointments;
-    print(all);
+    List<dynamic> tokens2 = all!.map((element) => element["token"]).toList();
+    tak = tokens2;
+
+    print(tak);
+    return null;
   }
 
   iniitInfo() async {
@@ -155,12 +178,8 @@ class ReservationController extends GetxController {
   }
 
   void sendAllUsersNotfication(List tokens, String body, String title) async {
-    //  print(tokens);
-
-    List<dynamic> tokens2 = tokens.map((element) => element["token"]).toList();
-    tokens2.forEach((token) async {
-      print(token);
-
+    for (var token in tokens) {
+      logi.log(token);
       try {
         await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
             headers: <String, String>{
@@ -188,7 +207,7 @@ class ReservationController extends GetxController {
           print('error push notfication');
         }
       }
-    });
+    }
   }
 
   void checkDate(String documentId) {
@@ -351,7 +370,7 @@ class ReservationController extends GetxController {
       //   return snapshot.data();
     }
 
-    if (package2 <= 3) {
+    if (package2 < 3) {
       await notificationService.showNotification(
         id: generateRandomID(8),
         notificationTime: DateTime.now().add(Duration(minutes: 1)),
@@ -362,13 +381,13 @@ class ReservationController extends GetxController {
     }
   }
 
-  void Paidpackge(String userID1) async {
+  void paidPackge(String userID1) async {
     var package2;
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance.collection('users').doc(userID1).get();
     if (snapshot.exists) {
       package2 = snapshot.data()?['package'];
-      package2 += 10;
+      package2 += 5;
 
       //   return snapshot.data();
     }
@@ -388,8 +407,10 @@ class ReservationController extends GetxController {
         await FirebaseFirestore.instance.collection('users').doc(userID1).get();
     if (snapshot.exists) {
       package3 = snapshot.data()?['package'];
-      if (package3 > 5) {
+      if (package3 >= 3) {
         y.value = true;
+      } else if (package3 < 3) {
+        y.value = false;
       }
 
       //   return snapshot.data();
@@ -406,13 +427,13 @@ class ReservationController extends GetxController {
         .then((value) => print('Text saved to Firebase'))
         .catchError((error) => print('Failed to save text: $error'));
     //    Send a notification at the moment of replacement
-    await notificationService.showNotification(
-      id: generateRandomID(8),
-      notificationTime: DateTime.now().add(Duration(minutes: 1)),
-      title: 'Annoucement Update'.tr,
-      body: 'An Annoucemnet has been made please sigin to see it '.tr,
-      data: null,
-    );
+    // await notificationService.showNotification(
+    //   id: generateRandomID(8),
+    //   notificationTime: DateTime.now().add(Duration(minutes: 1)),
+    //   title: 'Annoucement Update'.tr,
+    //   body: 'An Annoucemnet has been made please sigin to see it '.tr,
+    //   data: null,
+    // );
   }
 
   Future<Map<String, dynamic>?> retrieveUserData(String userId) async {

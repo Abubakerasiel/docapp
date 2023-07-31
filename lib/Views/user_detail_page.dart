@@ -143,8 +143,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                             backgroundColor: _reservationController.y.value
                                 ? MaterialStatePropertyAll(Colors.green)
                                 : MaterialStatePropertyAll(Colors.amber)),
-                        onPressed: () {
-                          _reservationController.Paidpackge(data);
+                        onPressed: () async {
+                          _reservationController.paidPackge(data);
+                          _reservationController.paymentStatus(data);
+                          Get.snackbar(' Successful Payment',
+                              'The package has been updated successfuly',
+                              backgroundColor: Colors.greenAccent);
+
                           //  _reservationController. y.value = true;
                         },
                         child: _reservationController.y.value
