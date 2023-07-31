@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart ';
 import 'package:flutter/material.dart';
+import 'package:flutterappoinmentapp/Views/book.dart';
 
 import 'package:flutterappoinmentapp/Views/booking_page.dart';
 
@@ -72,7 +73,7 @@ class _UserPageState extends State<UserPage> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Get.to(ReservationScreen());
+                  Get.to(ReservationScreen1());
                 },
                 child: Text('make an appoimnet'.tr)),
             ElevatedButton(

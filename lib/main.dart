@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutterappoinmentapp/Auth/SignUpScreen.dart';
+import 'package:flutterappoinmentapp/Views/book.dart';
 import 'package:get/get.dart';
 
 import 'utils/Notification_service.dart';
@@ -23,7 +24,7 @@ void main() async {
   NotificationService().initNotification();
 
   runApp(GetMaterialApp(
-    home: const SignUpScreen(),
+    home: SignUpScreen(),
     translations: Translation(),
     locale: const Locale('ar'),
   ));

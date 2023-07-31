@@ -148,7 +148,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                           _reservationController.paymentStatus(data);
                           Get.snackbar(' Successful Payment',
                               'The package has been updated successfuly',
-                              backgroundColor: Colors.greenAccent);
+                              backgroundColor: Colors.greenAccent,
+                              snackPosition: SnackPosition.BOTTOM);
 
                           //  _reservationController. y.value = true;
                         },

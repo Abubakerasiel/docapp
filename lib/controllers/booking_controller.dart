@@ -793,18 +793,18 @@ class ReservationController extends GetxController {
           );
           return;
         }
-        if (selectedDate.value!.weekday == DateTime.monday ||
-            selectedDate.value!.weekday == DateTime.friday) {
-          Get.snackbar(
-            'Invalid Day',
-            'Please select a date from Monday to Friday.',
-            snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
-            backgroundColor: Colors.redAccent,
-            colorText: Colors.white,
-          );
-          return;
-        }
+        // if (selectedDate.value!.weekday == DateTime.monday ||
+        //     selectedDate.value!.weekday == DateTime.friday) {
+        //   Get.snackbar(
+        //     'Invalid Day',
+        //     'Please select a date from Monday to Friday.',
+        //     snackPosition: SnackPosition.BOTTOM,
+        //     duration: Duration(seconds: 3),
+        //     backgroundColor: Colors.redAccent,
+        //     colorText: Colors.white,
+        //   );
+        //   return;
+        // }
         final DateTime now = DateTime.now();
         bool isSameDay = selectedDate.value!.year == now.year &&
             selectedDate.value!.month == now.month &&
