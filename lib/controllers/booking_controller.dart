@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutterappoinmentapp/Views/user_page.dart';
 import '../utils/Notification_service.dart';
 // import 'package:timezone/timezone.dart' as tz;
 // import 'package:timezone/data/latest.dart' as tz;
@@ -9,6 +14,7 @@ import 'package:intl/intl.dart';
 // import 'package:timezone/data/latest.dart' as tzl;
 // import 'package:timezone/standalone.dart' as tz;
 // import 'package:timezone/timezone.dart' as tz;
+import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
 import 'dart:math';
@@ -22,14 +28,19 @@ class ReservationController extends GetxController {
       FlutterLocalNotificationsPlugin();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
 
     notificationService.initNotification();
     retrieveUserData(user!.uid);
     sendNotificatonToUser(user!.uid);
+    requestNotificationPermission();
+    retrieveTokens();
+    // await notificationService.initNotification();
 
-    // streamSubscription.listen((event) { })
+    // sendAllUsersNotfication(userToken!, 'hi', 'hello');
+
+    iniitInfo();
   }
 
   // @override
@@ -37,7 +48,7 @@ class ReservationController extends GetxController {
   //   // Dispose of the controller properly
   //   super.onClose();
   //   // flutterLocalNotificationsPlugin.dispose();
-  // }
+  // } print('$userToken   the one');
 
   RxString userName = RxString('');
   RxString userPhone = RxString('');
@@ -48,6 +59,8 @@ class ReservationController extends GetxController {
   RxString gender = RxString('');
   int? package;
   RxBool y = false.obs;
+  String? userToken;
+  List? all;
 
   final usersRef = FirebaseFirestore.instance.collection('users');
 
@@ -74,6 +87,110 @@ class ReservationController extends GetxController {
     return id;
   }
 
+  Future<void> requestNotificationPermission() async {
+    final messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission for notifications.');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User  granted provisinal permission .');
+    } else {
+      print('user delined or has not accepted premission');
+    }
+  }
+
+  Future<Map<String, dynamic>?> retrieveTokens() async {
+    final QuerySnapshot<Map<String, dynamic>> tok =
+        await FirebaseFirestore.instance.collection('UserTokes').get()
+            as QuerySnapshot<Map<String, dynamic>>;
+    all = tok.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
+
+    final List<Map<String, dynamic>> todayAppointments =
+        tok.docs.map((doc) => doc.data()).toList();
+    all = todayAppointments;
+    print(all);
+  }
+
+  iniitInfo() async {
+    var androidInitliaize =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var IOSInitialize = const DarwinInitializationSettings();
+    var initializationsSettings =
+        InitializationSettings(android: androidInitliaize, iOS: IOSInitialize);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationsSettings,
+      // onDidReceiveBackgroundNotificationResponse: (details) =>
+      //     Get.to(UserPage()),
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      print('.................on message...........');
+      print(
+          'onmessage: ${message.notification?.title} /${message.notification?.body}');
+
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+          message.notification!.body.toString(),
+          htmlFormatBigText: true,
+          contentTitle: message.notification!.title.toString(),
+          htmlFormatContentTitle: true);
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails('dbfood', 'dbfood',
+              importance: Importance.high,
+              styleInformation: bigTextStyleInformation,
+              priority: Priority.high,
+              playSound: true);
+      NotificationDetails platformchannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+      );
+      await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
+          message.notification?.body, platformchannelSpecifics,
+          payload: message.data['body']);
+    });
+  }
+
+  void sendAllUsersNotfication(List tokens, String body, String title) async {
+    //  print(tokens);
+
+    List<dynamic> tokens2 = tokens.map((element) => element["token"]).toList();
+    tokens2.forEach((token) async {
+      print(token);
+
+      try {
+        await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+            headers: <String, String>{
+              'Content-Type': 'application/json',
+              'Authorization':
+                  'key=AAAAMOw-JhE:APA91bHdnYOR7tMhNZ2R4WWMR6W8UG8wU8hH-OPz_CDKURfD6AjeqLG8o1e7HIqaLjI76FjLh5qVwoA0_4jtQTC4rJEbnluWVmRUgwSNc6p_qZQQu5aV7okGIG739HQF_apE1e9FCzY9'
+            },
+            body: jsonEncode(<String, dynamic>{
+              'priority': 'high',
+              'data': <String, dynamic>{
+                'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                'status': 'done',
+                'body': body,
+                'title': title,
+              },
+              'notification': <String, dynamic>{
+                'title': title,
+                'body': body,
+                'android_channel_id': 'dbfood'
+              },
+              'to': token
+            }));
+      } catch (e) {
+        if (kDebugMode) {
+          print('error push notfication');
+        }
+      }
+    });
+  }
+
   void checkDate(String documentId) {
     FirebaseFirestore.instance.collection('dates').doc(documentId).id.isEmpty;
   }
@@ -83,7 +200,13 @@ class ReservationController extends GetxController {
   CollectionReference datesCollection =
       FirebaseFirestore.instance.collection('dates');
 
-  Future<void> DatePicker(BuildContext context) async {
+  Future<void> datePicker(BuildContext context) async {
+    // bool isDateSelectable(DateTime date) {
+    //   // Weekday values: 1 (Monday) to 7 (Sunday)
+    //   final int weekday = date.weekday;
+    //   return weekday >= DateTime.friday && weekday <= DateTime.thursday;
+    // }
+
     final DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -94,7 +217,10 @@ class ReservationController extends GetxController {
           return date.weekday == 1 ||
               date.weekday == 2 ||
               date.weekday == 7 ||
-              date.weekday == 6;
+              date.weekday == 6 ||
+              date.weekday == 4 ||
+              date.weekday == 5 ||
+              date.weekday == 3;
           // ... existing code ...
         });
 
@@ -132,8 +258,9 @@ class ReservationController extends GetxController {
             selectedDate.value = selectedDateTime;
           } else {
             Get.snackbar(
-              'Invalid Time',
-              'Please select a time between 12 am to 9pm.',
+              'Invalid Time'.tr,
+              'Please choose the time: Saturday 12 am to 7:30 pm, Sunday 5:00 pm to 8:00 pm, Monday and Tuesday, 4:00 pm to 8:30 pm'
+                  .tr,
               snackPosition: SnackPosition.BOTTOM,
               duration: Duration(seconds: 4),
               backgroundColor: Colors.red,
@@ -142,8 +269,8 @@ class ReservationController extends GetxController {
           }
         } else {
           Get.snackbar(
-            'Invalid time',
-            'Please select a date from Sunday to Thursday.',
+            'Invalid date'.tr,
+            'Please select a date from Saturday to tuesday.'.tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 3),
             backgroundColor: Colors.red,
@@ -157,7 +284,7 @@ class ReservationController extends GetxController {
       } else {
         Get.snackbar(
           'Invalid Day',
-          'Please select a date from Sunday to Thursday.',
+          'Please select a date from Saturday to tuesday.'.tr,
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 3),
           backgroundColor: Colors.red,

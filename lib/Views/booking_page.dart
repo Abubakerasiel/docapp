@@ -36,7 +36,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    await controller.DatePicker(context);
+                    await controller.datePicker(context);
                   },
                   child: Text(
                     controller.selectedDate.value != null

@@ -77,7 +77,6 @@ Map<String, String> get arKeys => {
       'You have already booked an appointment on the waiting list.': '',
       'Time Slot Not Available': 'زمن الحجز غير متاح',
       'The selected time slot is already booked.': 'زمن الحجز غير متاح',
-      'Invalid Date': '',
       'Please select a future date and time.': '',
       'You have already booked an appointment on the selected date.':
           'لقد تم الحجز مسبقا في نفس اليوم',
@@ -85,6 +84,12 @@ Map<String, String> get arKeys => {
       'You have successfully booked your appointment': 'تم الحجز بنجاح',
       'Hello  You have been added to the waiting list.':
           'تم اضافتك إلى قائمة الانتظار',
+      'Invalid date': 'تاريخ غير صالح',
+      'Please select a date from Saturday to tuesday.':
+          'الرجاء اختيار اليوم من السبت إلى الثلاثاء',
+      'Invalid Time': 'زمن غير صالح',
+      'Please choose the time: Saturday 12 am to 7:30 pm, Sunday 5:00 pm to 8:00 pm, Monday and Tuesday, 4:00 pm to 8:30 pm.':
+          'الرجاء اختيار الزمن يوم السبت ١٢ صباحا إلى ٧ ونص مساء يوم الاحد من ٥ مساء لي ٨ مساء يوم الاثنين والثلاثاء من ٤ مساء إلى ٨ ونص مساء',
     };
 Map<String, String> get enKeys => {
       'hello': 'Hello',
