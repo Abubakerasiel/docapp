@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutterappoinmentapp/Auth/SignUpScreen.dart';
-import 'package:flutterappoinmentapp/Views/book.dart';
+import 'package:flutterappoinmentapp/Views/booking_page2.0.dart';
+import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
+import 'package:flutterappoinmentapp/Views/test.dart';
 import 'package:get/get.dart';
 
 import 'utils/Notification_service.dart';
@@ -24,8 +26,8 @@ void main() async {
   NotificationService().initNotification();
 
   runApp(GetMaterialApp(
-    home: SignUpScreen(),
+    home: BookingScreen5(),
     translations: Translation(),
-    locale: const Locale('ar'),
+    locale: const Locale('en'),
   ));
 }

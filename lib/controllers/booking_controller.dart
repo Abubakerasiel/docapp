@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
 import 'package:flutterappoinmentapp/Views/user_page.dart';
 import '../utils/Notification_service.dart';
 // import 'package:timezone/timezone.dart' as tz;
@@ -63,6 +64,7 @@ class ReservationController extends GetxController {
   String? userToken;
   List? all;
   List? tak;
+  RxBool isButtonTapped = false.obs;
 
   //  List<Map<String, String>> tokenList = [
   //   {
@@ -334,9 +336,10 @@ class ReservationController extends GetxController {
   Future<List<Map<String, dynamic>>> getTodayAppointments() async {
     final DateTime now = DateTime.now();
     final DateTime startOfToday =
-        DateTime(now.year, now.month, now.day, 0, 0, 0);
+        DateTime(now.year, now.month, now.day, 12, 0, 0);
     final DateTime endOfToday =
-        DateTime(now.year, now.month, now.day, 23, 59, 59);
+        DateTime(now.year, now.month, now.day, 11, 59, 59)
+            .add(Duration(hours: 12));
 
     final QuerySnapshot<Map<String, dynamic>> todayAppointmentsSnapshot =
         await datesCollection
@@ -631,29 +634,40 @@ class ReservationController extends GetxController {
 
   void makeReservation(BuildContext context) async {
     DateTime getStartOfDay(DateTime date) {
-      return DateTime(date.year, date.month, date.day, 0, 0, 0);
+      return DateTime(date.year, date.month, date.day, 12, 0, 0);
     }
 
     DateTime getEndOfDay(DateTime date) {
-      return DateTime(date.year, date.month, date.day, 23, 59, 59);
+      return DateTime(date.year, date.month, date.day, 11, 59, 59)
+          .add(Duration(hours: 12));
     }
 
     int randomID = generateRandomID(8);
+    final DateFormat dateFormatter = DateFormat('yyyy-MM-dd hh:mm a');
+
+    final String selectedDateString = dateFormatter.format(selectedDate.value!
+            .add(Duration(hours: 12)) // Add 12 hours to switch to PM
+        );
+
     final DateTime notificationTime =
-        selectedDate.value!.subtract(Duration(hours: 24));
+        selectedDate.value!.subtract(Duration(hours: 12));
+
     final DateTime notificationTimeSameDay =
         selectedDate.value!.subtract(Duration(hours: 3));
+
     selectedDate.value = selectedDate.value!.add(Duration(hours: -1));
+
     final notificationTitle = 'Reservation Reminder';
     final notificationBody =
         'Hello ${userName.value}! Your appointment is coming up in 24 hours.';
     final notificationBody2 =
         'Hello ${userName.value}! Your appointment is coming up in 3 hours.';
-    final DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
-    final String selectedDateString = dateFormatter.format(selectedDate.value!);
+
     final int maxAppointmentsPerDay = 2;
-    final selectedDateStart = getStartOfDay(DateTime.parse(selectedDateString));
-    final selectedDateEnd = getEndOfDay(DateTime.parse(selectedDateString));
+    final selectedDateStart =
+        getStartOfDay(dateFormatter.parse(selectedDateString));
+    final selectedDateEnd =
+        getEndOfDay(dateFormatter.parse(selectedDateString));
 
     // Check if the maximum number of appointments for the day (4) has been reached
     final QuerySnapshot<Map<String, dynamic>> existingAppointmentsSnapshot =
@@ -693,7 +707,7 @@ class ReservationController extends GetxController {
         if (waitingListCount < 2) {
           // Add the user to the waiting list
           final waitingListData = {
-            'selectedDate': selectedDate.value,
+            'selectedDate': dateFormatter.parse(selectedDateString),
             'userId': user!.uid,
             'userEmail': user!.email,
             'phone': userPhone.value,
@@ -771,8 +785,9 @@ class ReservationController extends GetxController {
             await datesCollection.where('userId', isEqualTo: user!.uid).get()
                 as QuerySnapshot<Map<String, dynamic>>;
         final selectedDateStart =
-            getStartOfDay(DateTime.parse(selectedDateString));
-        final selectedDateEnd = getEndOfDay(DateTime.parse(selectedDateString));
+            getStartOfDay(dateFormatter.parse(selectedDateString));
+        final selectedDateEnd =
+            getEndOfDay(dateFormatter.parse(selectedDateString));
         bool userAlreadyBookedForDay = false;
         for (final doc in userAppointmentsSnapshot.docs) {
           final appointmentDate = doc['selectedDate'].toDate() as DateTime;
@@ -810,14 +825,14 @@ class ReservationController extends GetxController {
             selectedDate.value!.month == now.month &&
             selectedDate.value!.day == now.day;
         final reservationData = {
-          'selectedDate': selectedDate.value,
+          'selectedDate': dateFormatter.parse(selectedDateString),
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,
           'userName': userName.value,
           'Notification Time': isSameDay
               ? notificationTimeSameDay.add(Duration(hours: -1))
-              : notificationTime.add(Duration(hours: -1)),
+              : notificationTime,
           // Add more relevant data as needed
         };
         final dateDoc = await datesCollection.add(reservationData);
@@ -842,7 +857,7 @@ class ReservationController extends GetxController {
             body: notificationBody,
             data: notificationData,
           );
-          Get.snackbar(
+          await Get.snackbar(
             'Successful booking'.tr,
             'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,
@@ -850,6 +865,7 @@ class ReservationController extends GetxController {
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
+          Get.to(BookingConfirmed(), arguments: selectedDate);
         } else {
           // Schedule notification 3 hours before the appointment
           await notificationService.showNotification(
@@ -859,14 +875,15 @@ class ReservationController extends GetxController {
             body: notificationBody2,
             data: notificationData,
           );
-          Get.snackbar(
+          await Get.snackbar(
             'Successful booking'.tr,
             'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: Duration(seconds: 5),
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
+          Get.to(BookingConfirmed(), arguments: selectedDate);
         }
       } else {
         Get.dialog(

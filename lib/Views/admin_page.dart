@@ -104,7 +104,11 @@ class _DatesListState extends State<DatesList> {
                           onPressed: () async {
                             await controller.retrieveUserData(userID3!);
 
-                            Get.to(UserDetailsPage(), arguments: userID3);
+                            Get.to(
+                                UserDetailsPage(
+                                  userId: userID3,
+                                ),
+                                arguments: userID3);
                           },
                           child: Text(userName,
                               style: TextStyle(

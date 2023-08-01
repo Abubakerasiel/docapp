@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import '../controllers/booking_controller.dart';
 
 class UserDetailsPage extends StatefulWidget {
+  final String userId;
+
+  UserDetailsPage({required this.userId});
   @override
   State<UserDetailsPage> createState() => _UserDetailsPageState();
 }
