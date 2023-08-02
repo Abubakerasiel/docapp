@@ -64,7 +64,7 @@ class ReservationController extends GetxController {
   String? userToken;
   List? all;
   List? tak;
-  RxBool isButtonTapped = false.obs;
+  RxBool isButtonTapped = true.obs;
 
   //  List<Map<String, String>> tokenList = [
   //   {
@@ -825,14 +825,15 @@ class ReservationController extends GetxController {
             selectedDate.value!.month == now.month &&
             selectedDate.value!.day == now.day;
         final reservationData = {
-          'selectedDate': dateFormatter.parse(selectedDateString),
+          'selectedDate':
+              dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,
           'userName': userName.value,
           'Notification Time': isSameDay
               ? notificationTimeSameDay.add(Duration(hours: -1))
-              : notificationTime,
+              : notificationTime.add(Duration(hours: -1)),
           // Add more relevant data as needed
         };
         final dateDoc = await datesCollection.add(reservationData);

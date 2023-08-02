@@ -23,7 +23,7 @@ class BookingConfirmed extends StatelessWidget {
     String formattedTime = DateFormat("hh:mm ").format(dateTime);
 
     // String formattedTime = DateFormat("hh:mm").format(dateTime);
-    //formattedTime += dateTime.hour > 12 ? " AM" : " PM";
+    formattedTime += dateTime.hour > 12 ? " AM" : " PM";
 
     ReservationController controller = Get.put(ReservationController());
     return Scaffold(

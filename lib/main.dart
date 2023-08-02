@@ -26,7 +26,7 @@ void main() async {
   NotificationService().initNotification();
 
   runApp(GetMaterialApp(
-    home: BookingScreen5(),
+    home: SignUpScreen(),
     translations: Translation(),
     locale: const Locale('en'),
   ));
