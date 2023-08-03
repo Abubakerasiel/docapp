@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
 import 'package:flutterappoinmentapp/Views/user_page.dart';
+import '../Views/booking_page2.0.dart';
+import '../Views/user_detail_page.dart';
 import '../utils/Notification_service.dart';
 // import 'package:timezone/timezone.dart' as tz;
 // import 'package:timezone/data/latest.dart' as tz;
@@ -54,6 +56,7 @@ class ReservationController extends GetxController {
 
   RxString userName = RxString('');
   RxString userPhone = RxString('');
+  RxString medicalIssue = RxString('');
   RxString weight = RxString('');
 
   RxString age = RxString('');
@@ -64,7 +67,8 @@ class ReservationController extends GetxController {
   String? userToken;
   List? all;
   List? tak;
-  RxBool isButtonTapped = true.obs;
+  RxBool timeShowing = true.obs;
+  RxBool timeShowing2 = false.obs;
 
   //  List<Map<String, String>> tokenList = [
   //   {
@@ -107,6 +111,20 @@ class ReservationController extends GetxController {
     }
     return id;
   }
+  //  void onItemTapped(int index) {
+  //   if (index == 0) {
+  //     // If 'Home' is tapped, do nothing (stay on the current page)
+  //     return;
+  //   } else if (index == 1) {
+  //     // If 'Business' is tapped, navigate to the sign-in screen
+  //     Get.to(BookingScreen());
+  //   } else if (index == 2) {
+  //     Get.to(UserDetailsPage(userId: user!.uid),
+  //         arguments: user!.uid);
+  //     // If 'School' is tapped, do nothing (stay on the current page)
+  //     return;
+  //   }
+  // }
 
   Future<void> requestNotificationPermission() async {
     final messaging = FirebaseMessaging.instance;
@@ -455,6 +473,7 @@ class ReservationController extends GetxController {
         height.value = snapshot.data()?['height'];
         gender.value = snapshot.data()?['gender'];
         package = snapshot.data()?['package'];
+        medicalIssue.value = snapshot.data()?['medical_issue'];
         return snapshot.data();
       } else {
         print('User document does not exist');

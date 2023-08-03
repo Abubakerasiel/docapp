@@ -1,4 +1,4 @@
-import '../Auth/SignUpScreen.dart';
+import '../Auth/sigin_up_screen.dart';
 
 class User {
   String? name;

@@ -31,16 +31,30 @@ class HomeScreen1 extends StatelessWidget {
         currentUser.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2') {
       return MaterialApp(
         home: Scaffold(
+          //  SizedBox(
+          //       height: 50,
+          //     ),
+          //     Text('Hello'),
+          //     Row(
+          //       children: [Text('data'), Image.asset('assets/Frame.png')],
+          //     ),
           appBar: AppBar(
-            // leading: IconButton(
-            //   onPressed: () => Get.to(() => ReservationScreen()),
-            //   icon: const Icon(Icons.date_range),
-            // ),
-            title: const Text("Hello Dr Perry"),
+            centerTitle: true,
+            bottomOpacity: 0,
+            elevation: 0,
+            backgroundColor: Colors.white,
+            leading: Image.asset('assets/Frame.png'),
+            title: const Text(
+              "Hello Dr.Perry",
+              style: TextStyle(color: Colors.black),
+            ),
             actions: [
               IconButton(
                 onPressed: Get.find<HomeController>().logOut,
-                icon: const Icon(Icons.logout),
+                icon: const Icon(
+                  Icons.logout_sharp,
+                  color: Colors.black,
+                ),
               ),
             ],
           ),

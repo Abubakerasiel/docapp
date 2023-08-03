@@ -10,18 +10,26 @@ class Translation extends Translations {
 
 Map<String, String> get arKeys => {
       'hello': 'مرحبا',
+      'email': 'ايميل',
+      'Full Name': 'الاسم بالكامل',
+      'Please enter full name': 'الرجاء إدخال الاسم كامل',
       'Please enter age': 'الرجاء ادخال العمر',
       'Please enter email': 'الرجاء ادخال الايميل',
+      'Please enter valid email': 'الرجاء إدخال ايميل صحيح',
+      'Please enter weight': 'الرجاء ادخل الوزن',
       'Please enter your age': 'الرجاء ادخال العمر',
       'Please enter Height': 'الرجاء ادخال الطول',
       'Please select you gender': 'الرجاء اختيار النوع',
       'Select Gender': 'اختار النوع',
       'Please enter password': 'الرجاء ادخال كلمة السر',
-      'Please enter phone': 'الرجاء ادخال رقم الهاتف',
+      'Please enter phone number': 'الرجاء ادخال رقم الهاتف',
       'please enter atleast 8 chars': 'الرجاء ادخال8 حروف على الاقل',
-      'if You have any medical issue please write it down':
-          'الرجاء كتابة المشاكل الصحية',
+      'if You have any medical issue please write them down if not write none':
+          'إذا كان لديك مشاكل صحية الرجاء قم كتابتهم اذا لم يكن هناك مشاكل صحية اكتب لا يوجد',
+      'Medical Issue   if you dont have any Write None':
+          'المشاكل الصحية اذا لم يكن لديك مشاكل صحية اكتب لا يوجد',
       'Password': 'كلمة السر',
+      'Forgot password ?': 'نسيت كلمة المرور؟',
       'Go to Statemnst page': 'الذهاب الى صفحة الاشعارات',
       'delete date': 'حذف الموعد',
       'Gender': 'النوع',
@@ -31,7 +39,7 @@ Map<String, String> get arKeys => {
       'Save': 'حفظ',
       'Age': 'العمر',
       'Height': 'الطول',
-      'Phone': 'رقم الهاتف',
+      'Phone Number': 'رقم الهاتف',
       'Weight': 'الوزن',
       'Male': 'ذكر',
       'Female': 'انثى',

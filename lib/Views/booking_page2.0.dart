@@ -1,5 +1,6 @@
 //import 'package:url_launcher/url_launcher.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
+import 'package:flutterappoinmentapp/Views/user_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:flutter/material.dart';
@@ -32,13 +33,29 @@ class _BookingScreenState extends State<BookingScreen> {
       setState(() {
         today = day;
         controller.selectedDate.value = today;
-        controller.isButtonTapped.value = false;
+        controller.timeShowing.value = false;
+      });
+    } else if (day.weekday == 7) {
+      setState(() {
+        today = day;
+        controller.selectedDate.value = today;
+
+        controller.timeShowing2.value = false;
+        controller.timeShowing.value = true;
+      });
+    } else if (day.weekday == 1 || day.weekday == 2) {
+      setState(() {
+        today = day;
+        controller.selectedDate.value = today;
+        controller.timeShowing.value = true;
+
+        controller.timeShowing2.value = true;
       });
     } else {
       setState(() {
         today = day;
         controller.selectedDate.value = today;
-        controller.isButtonTapped.value = true;
+        controller.timeShowing.value = true;
       });
     }
   }
@@ -70,8 +87,23 @@ class _BookingScreenState extends State<BookingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //  DateTime today = DateTime.now();
     ReservationController controller = Get.put(ReservationController());
+    void _onItemTapped(int index) {
+      if (index == 0) {
+        Get.off(UserPage());
+        // If 'Home' is tapped, do nothing (stay on the current page)
+        return;
+      } else if (index == 1) {
+        // If 'Business' is tapped, navigate to the sign-in screen
+        // Get.off(BookingScreen());
+      } else if (index == 2) {
+        Get.off(UserDetailsPage(userId: controller.user!.uid),
+            arguments: controller.user!.uid);
+        // If 'School' is tapped, do nothing (stay on the current page)
+        return;
+      }
+    }
+    //  DateTime today = DateTime.now();
 
     return Scaffold(
       // appBar: AppBar(
@@ -246,7 +278,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       fontFamily: AppConstants.appFont),
                 ),
                 const SizedBox(height: 10),
-                controller.isButtonTapped.value
+                controller.timeShowing.value
                     ? Column(
                         children: [
                           Row(
@@ -398,20 +430,23 @@ class _BookingScreenState extends State<BookingScreen> {
                                 });
                                 // Function to be executed when Button 1 is pressed.
                               }),
-                              _buildButton(9, '8:30', () {
-                                setState(() {
-                                  // controller.isButtonTapped.value =
-                                  //     !controller.isButtonTapped.value;
-                                  controller.selectedDate.value = DateTime(
-                                    today.year,
-                                    today.month,
-                                    today.day,
-                                    8,
-                                    30,
-                                  );
-                                });
-                                // Function to be executed when Button 1 is pressed.
-                              }),
+                              controller.timeShowing2.value
+                                  ? _buildButton(9, '8:30', () {
+                                      setState(() {
+                                        // controller.isButtonTapped.value =
+                                        //     !controller.isButtonTapped.value;
+                                        controller.selectedDate.value =
+                                            DateTime(
+                                          today.year,
+                                          today.month,
+                                          today.day,
+                                          8,
+                                          30,
+                                        );
+                                      });
+                                      // Function to be executed when Button 1 is pressed.
+                                    })
+                                  : SizedBox(),
                             ],
                           ),
                         ],
@@ -685,6 +720,29 @@ class _BookingScreenState extends State<BookingScreen> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 15,
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month_outlined),
+            label: 'Booking Page',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_sharp),
+            label: 'Profile Page',
+          ),
+        ],
+        currentIndex: 1,
+        selectedItemColor: AppConstants.appColor,
+        onTap: _onItemTapped,
       ),
     );
   }

@@ -7,6 +7,8 @@ import 'package:flutterappoinmentapp/Views/booking_page.dart';
 import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
+import '../controllers/home_controller.dart';
+import 'constanst.dart';
 import 'user_detail_page.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +20,22 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  // int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    if (index == 0) {
+      // If 'Home' is tapped, do nothing (stay on the current page)
+      return;
+    } else if (index == 1) {
+      // If 'Business' is tapped, navigate to the sign-in screen
+      Get.to(BookingScreen());
+    } else if (index == 2) {
+      Get.off(UserDetailsPage(userId: _reservationController.user!.uid),
+          arguments: _reservationController.user!.uid);
+      // If 'School' is tapped, do nothing (stay on the current page)
+      return;
+    }
+  }
+
   final ReservationController _reservationController =
       Get.put(ReservationController());
 
@@ -33,10 +51,76 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
+    ReservationController controller = Get.put(ReservationController());
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          bottomOpacity: 0,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: Image.asset('assets/Frame.png'),
+          title: Text(
+            "Hello ${controller.userName}",
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            IconButton(
+              onPressed: Get.find<HomeController>().logOut,
+              icon: const Icon(
+                Icons.logout_sharp,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
         body: Column(
           children: [
+            // SizedBox(
+            //   height: 50,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         Get.back();
+            //       },
+            //       child: CircleAvatar(
+            //         radius: 15,
+            //         child: Icon(
+            //           Icons.arrow_back,
+            //           size: 20,
+            //         ),
+            //       ),
+            //     ),
+
+            //     IconButton(
+            //       onPressed: () {
+            //         Get.to(
+            //             UserDetailsPage(
+            //               userId: controller.user!.uid,
+            //             ),
+            //             arguments: controller.user!.uid);
+            //       },
+            //       icon: Icon(
+            //         Icons.person,
+            //         size: 30,
+            //         color: AppConstants.appColor,
+            //       ),
+            //     )
+            //     // Image(
+            //     //   image: AssetImage(
+            //     //     'assets/back_btn.png',
+            //     //   ),
+            //     //   width: 30,
+            //     // ),
+            //     // Image(
+            //     //   image: AssetImage('assets/profile.png'),
+            //     //   width: 30,
+            //     // )
+            //   ],
+            // ),
             StreamBuilder<QuerySnapshot>(
               stream:
                   FirebaseFirestore.instance.collection('userText').snapshots(),
@@ -63,7 +147,11 @@ class _UserPageState extends State<UserPage> {
                           DateFormat("hh:mm a, dd MMM yyyy").format(dateTime);
 
                       return ListTile(
-                        title: Text(text),
+                        title: Text(
+                          text,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                         subtitle: Text(formattedTime),
                       );
                     }).toList(),
@@ -71,19 +159,42 @@ class _UserPageState extends State<UserPage> {
                 );
               },
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(BookingScreen());
-                },
-                child: Text('make an appoimnet'.tr)),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(
-                      UserDetailsPage(userId: _reservationController.user!.uid),
-                      arguments: _reservationController.user!.uid);
-                },
-                child: Text('View profile'.tr))
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Get.to(BookingScreen());
+            //     },
+            //     child: Text('make an appoimnet'.tr)),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Get.to(
+            //           UserDetailsPage(userId: _reservationController.user!.uid),
+            //           arguments: _reservationController.user!.uid);
+            //     },
+            //     child: Text('View profile'.tr))
           ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedFontSize: 15,
+          selectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month_outlined),
+              label: 'Booking Page',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_sharp),
+              label: 'Profile Page',
+            ),
+          ],
+          currentIndex: 0,
+          selectedItemColor: AppConstants.appColor,
+          onTap: _onItemTapped,
         ),
       ),
     );

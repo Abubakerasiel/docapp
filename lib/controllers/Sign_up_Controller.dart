@@ -7,7 +7,7 @@ import 'package:flutterappoinmentapp/controllers/Firebase_Repo.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../Auth/SignInScreen.dart';
+import '../Auth/sigin_screen.dart';
 import '../Model/User.dart';
 import 'FirebaseUsersData/FirebaseData.dart';
 
@@ -47,7 +47,7 @@ class SignUpController extends GetxController {
     newUser!.id = response!.user!.uid;
     //. store all user date in FireStore Database
     storeUserData(newUser!);
-    Get.offAll(const SignInScreen());
+    Get.offAll(SignInScreen1());
   }
 
   storeUserData(User user) async {

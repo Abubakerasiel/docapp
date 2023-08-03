@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterappoinmentapp/Views/constanst.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -16,66 +17,101 @@ class StatmentPage extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          // leading: IconButton(
-          //   onPressed: () => Get.to(() => ReservationScreen()),
-          //   icon: const Icon(Icons.date_range),
-          // ),
-          title: const Text("Hello Dr Perry"),
+          centerTitle: true,
+          bottomOpacity: 0,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: Image.asset('assets/Frame.png'),
+          title: const Text(
+            "Hello Dr.Perry",
+            style: TextStyle(color: Colors.black),
+          ),
           actions: [
             IconButton(
               onPressed: Get.find<HomeController>().logOut,
-              icon: const Icon(Icons.logout),
+              icon: const Icon(
+                Icons.logout_sharp,
+                color: Colors.black,
+              ),
             ),
           ],
         ),
-        body: Column(
-          children: [
-            TextField(
-              controller: txt,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Timestamp timestamp = Timestamp.now();
-                  controller.saveTextToFirebase(txt.text, timestamp);
-                  controller.sendAllUsersNotfication(
-                      controller.tak!, txt.text, 'New annocmesnt');
-                },
-                child: Text('Post Statment'.tr)),
-            StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('userText').snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-
-                return Expanded(
-                  child: ListView(
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
-                      String text = data['text'] ?? '';
-                      Timestamp timestamp = data['timestamp'];
-                      DateTime dateTime = timestamp.toDate();
-                      String formattedTime =
-                          DateFormat("hh:mm a, dd MMM yyyy").format(dateTime);
-
-                      return ListTile(
-                        title: Text('$text'),
-                        subtitle: Text(formattedTime),
-                      );
-                    }).toList(),
+        body: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              TextField(
+                controller: txt,
+                autofocus: false,
+                style: TextStyle(color: Color(0xFFF8F8FF)),
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2, color: AppConstants.appColor), //<-- SEE HERE
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
-                );
-              },
-            ),
-          ],
+                  hintText: "Post Statement",
+                  hintStyle: TextStyle(
+                      color: AppConstants.nameColor,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+              ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(color: AppConstants.appColor))),
+                      backgroundColor:
+                          MaterialStatePropertyAll(AppConstants.appColor)),
+                  onPressed: () {
+                    Timestamp timestamp = Timestamp.now();
+                    controller.saveTextToFirebase(txt.text, timestamp);
+                    controller.sendAllUsersNotfication(
+                        controller.tak!, txt.text, 'New annocmesnt');
+                  },
+                  child: Text('Post Statment'.tr)),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('userText')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  return Expanded(
+                    child: ListView(
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data() as Map<String, dynamic>;
+                        String text = data['text'] ?? '';
+                        Timestamp timestamp = data['timestamp'];
+                        DateTime dateTime = timestamp.toDate();
+                        String formattedTime =
+                            DateFormat("hh:mm a, dd MMM yyyy").format(dateTime);
+
+                        return ListTile(
+                          title: Text(
+                            '$text',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          subtitle: Text(formattedTime),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutterappoinmentapp/Views/user_page.dart';
 import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
+import 'booking_page2.0.dart';
+import 'constanst.dart';
 
 class UserDetailsPage extends StatefulWidget {
   final String userId;
@@ -68,110 +73,300 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   Widget build(BuildContext context) {
     final ReservationController _reservationController =
         Get.put(ReservationController());
+    void _onItemTapped(int index) {
+      if (index == 0) {
+        Get.off(UserPage());
+        // If 'Home' is tapped, do nothing (stay on the current page)
+        return;
+      } else if (index == 1) {
+        // If 'Business' is tapped, navigate to the sign-in screen
+        Get.to(BookingScreen());
+      } else if (index == 2) {
+        // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
+        //     arguments: _reservationController.user!.uid);
+        // If 'School' is tapped, do nothing (stay on the current page)
+        return;
+      }
+    }
+
+    // final ReservationController _reservationController =
+    //     Get.put(ReservationController());
     var data = Get.arguments;
 
     bool x = false;
+    bool y = false;
+    if (_reservationController.user!.uid == data) {
+      y = true;
+    }
     if (_reservationController.user!.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2') {
       x = true;
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('User Details'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Obx(
-          () {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Name'.tr,
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  ' ${_reservationController.userName.value}',
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  'Phone'.tr,
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  '${_reservationController.userPhone.value}',
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  'Age'.tr,
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  '${_reservationController.age.value}',
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  'Height'.tr,
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  '${_reservationController.height.value}',
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  'Gender'.tr,
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  '${_reservationController.gender.value}'.tr,
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Weight'.tr,
-                  style: TextStyle(fontSize: 18),
-                ),
-                ElevatedButton(
-                  child: Text(
-                    '${_reservationController.weight.value}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-
-                  // Open the weight edit dialog when weight is tapped
-                  onPressed: () => _showWeightEditDialog(context),
-                ),
-                x
-                    ? ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: _reservationController.y.value
-                                ? MaterialStatePropertyAll(Colors.green)
-                                : MaterialStatePropertyAll(Colors.amber)),
-                        onPressed: () async {
-                          _reservationController.paidPackge(data);
-                          _reservationController.paymentStatus(data);
-                          Get.snackbar(' Successful Payment',
-                              'The package has been updated successfuly',
-                              backgroundColor: Colors.greenAccent,
-                              snackPosition: SnackPosition.BOTTOM);
-
-                          //  _reservationController. y.value = true;
-                        },
-                        child: _reservationController.y.value
-                            ? Text('paid'.tr)
-                            : Text('did not paid'.tr))
-                    : SizedBox(),
-                _reservationController.y.value
-                    ? Icon(
-                        Icons.check_circle_outlined,
-                        color: Colors.green,
-                      )
-                    : SizedBox()
-              ],
-            );
-          },
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: AppConstants.appColor,
+          title: Text('${_reservationController.userName.value} Profile'),
         ),
-      ),
-    );
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Obx(
+            () {
+              return Row(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Name :'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        'Phone :'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        'Age :'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        'Height :'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        'Gender :'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        'Weight :'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        'Medical Issue :'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        ' ${_reservationController.userName.value}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        '${_reservationController.userPhone.value}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        '${_reservationController.age.value}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        '${_reservationController.height.value}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        '${_reservationController.gender.value}'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      TextButton(
+                        child: Text(
+                          '${_reservationController.weight.value}',
+                          style: TextStyle(fontSize: 18),
+                        ),
+
+                        // Open the weight edit dialog when weight is tapped
+                        onPressed: () => _showWeightEditDialog(context),
+                      ),
+                      Text(
+                        '${_reservationController.medicalIssue.value}'.tr,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Text(
+                  //       'Name'.tr,
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     Text(
+                  //       ' ${_reservationController.userName.value}',
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Text(
+                  //       'Phone'.tr,
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     Text(
+                  //       '${_reservationController.userPhone.value}',
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Text(
+                  //       'Age'.tr,
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     Text(
+                  //       '${_reservationController.age.value}',
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Text(
+                  //       'Height'.tr,
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     Text(
+                  //       '${_reservationController.height.value}',
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Text(
+                  //       'Gender'.tr,
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     Text(
+                  //       '${_reservationController.gender.value}'.tr,
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(height: 20),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Text(
+                  //       'Weight'.tr,
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     ElevatedButton(
+                  //       child: Text(
+                  //         '${_reservationController.weight.value}',
+                  //         style: TextStyle(fontSize: 18),
+                  //       ),
+
+                  //       // Open the weight edit dialog when weight is tapped
+                  //       onPressed: () => _showWeightEditDialog(context),
+                  //     ),
+                  //   ],
+                  // ),
+                  // x
+                  //     ? ElevatedButton(
+                  //         style: ButtonStyle(
+                  //             backgroundColor: _reservationController.y.value
+                  //                 ? MaterialStatePropertyAll(Colors.green)
+                  //                 : MaterialStatePropertyAll(Colors.amber)),
+                  //         onPressed: () async {
+                  //           _reservationController.paidPackge(data);
+                  //           _reservationController.paymentStatus(data);
+                  //           Get.snackbar(' Successful Payment',
+                  //               'The package has been updated successfuly',
+                  //               backgroundColor: Colors.greenAccent,
+                  //               snackPosition: SnackPosition.BOTTOM);
+
+                  //           //  _reservationController. y.value = true;
+                  //         },
+                  //         child: _reservationController.y.value
+                  //             ? Text('paid'.tr)
+                  //             : Text('did not paid'.tr))
+                  //     : SizedBox(),
+                  // _reservationController.y.value
+                  //     ? Icon(
+                  //         Icons.check_circle_outlined,
+                  //         color: Colors.green,
+                  //       )
+                  //     : SizedBox()
+                ],
+              );
+            },
+          ),
+        ),
+        bottomNavigationBar: y
+            ? BottomNavigationBar(
+                selectedFontSize: 15,
+                selectedLabelStyle:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.calendar_month_outlined),
+                    label: 'Booking Page',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person_sharp),
+                    label: 'Profile Page',
+                  ),
+                ],
+                currentIndex: 2,
+                selectedItemColor: AppConstants.appColor,
+                onTap: _onItemTapped,
+              )
+            : x
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: _reservationController.y.value
+                                  ? MaterialStatePropertyAll(Colors.green)
+                                  : MaterialStatePropertyAll(Colors.amber)),
+                          onPressed: () async {
+                            _reservationController.paidPackge(data);
+                            _reservationController.paymentStatus(data);
+                            Get.snackbar(' Successful Payment',
+                                'The package has been updated successfuly',
+                                backgroundColor: Colors.greenAccent,
+                                snackPosition: SnackPosition.BOTTOM);
+
+                            //  _reservationController. y.value = true;
+                          },
+                          child: _reservationController.y.value
+                              ? Text('Paid'.tr)
+                              : Text('did not Paid'.tr)),
+                      // SizedBox(
+                      //   width: 100,
+                      // ),
+                      _reservationController.y.value
+                          ? Icon(
+                              Icons.check_circle_outlined,
+                              color: Colors.green,
+                            )
+                          : SizedBox()
+                    ],
+                  )
+                : SizedBox());
   }
 
   void _updateWeight(BuildContext context) async {

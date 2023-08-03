@@ -18,11 +18,13 @@ class SignInController extends GetxController {
     onFirstTimeSignIn();
   }
 
-  GlobalKey<FormState> key = GlobalKey();
+  GlobalKey<FormState> key1 = GlobalKey<FormState>();
   User? newUser;
   String? email;
   String? password;
   String? userToken;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Future<String?> getUserToken() async {
     String? token;
@@ -62,9 +64,9 @@ class SignInController extends GetxController {
   }
 
   void signIn() async {
-    if (key.currentState == null || !key.currentState!.validate()) return;
+    if (key1.currentState == null || !key1.currentState!.validate()) return;
 
-    key.currentState!.save();
+    key1.currentState!.save();
 
     log('email: $email , password : $password');
     final response = await FirebaseRepoImpl.instance
@@ -72,5 +74,14 @@ class SignInController extends GetxController {
     if (response == null) return;
     log('${response.user?.email}');
     Get.to(HomeScreen1());
+    emailController.clear();
+    passwordController.clear();
+
+    // clearFields();
   }
+
+  // void clearFields() {
+  //   email = '';
+  //   password = '';
+  // }
 }

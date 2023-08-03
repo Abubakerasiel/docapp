@@ -2,10 +2,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:flutterappoinmentapp/Auth/SignUpScreen.dart';
-import 'package:flutterappoinmentapp/Views/booking_page2.0.dart';
-import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
-import 'package:flutterappoinmentapp/Views/test.dart';
+import 'package:flutterappoinmentapp/Auth/sigin_up_screen.dart';
+
 import 'package:get/get.dart';
 
 import 'utils/Notification_service.dart';
