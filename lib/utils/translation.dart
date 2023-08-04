@@ -9,6 +9,12 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      'Booking Date:': ":تاريخ الحجز",
+      'Booking Time:': ':زمن الحجز',
+      'Confirm Booking': 'تأكيد الحجز',
+      'Home': 'الصفحة الرئيسية',
+      'Booking Page': 'الصفحة الشخصية',
+      'Profile Page': 'صفحة الحجز',
       "Remember , you deserve to be the best version of yourself.":
           'افتكر، انت تستحق انك تكون افضل نسخه منك',
       "Everyday is a start day, don't give up.":

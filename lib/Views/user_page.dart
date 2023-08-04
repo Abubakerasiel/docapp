@@ -188,18 +188,18 @@ class _UserPageState extends State<UserPage> {
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.bold,
           ),
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'Home'.tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month_outlined),
-              label: 'Booking Page',
+              label: 'Booking Page'.tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_sharp),
-              label: 'Profile Page',
+              label: 'Profile Page'.tr,
             ),
           ],
           currentIndex: 0,

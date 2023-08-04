@@ -315,18 +315,18 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                 selectedFontSize: 15,
                 selectedLabelStyle:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                items: const <BottomNavigationBarItem>[
+                items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(Icons.home),
-                    label: 'Home',
+                    label: 'Home'.tr,
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.calendar_month_outlined),
-                    label: 'Booking Page',
+                    label: 'Booking Page'.tr,
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.person_sharp),
-                    label: 'Profile Page',
+                    label: 'Profile Page'.tr,
                   ),
                 ],
                 currentIndex: 2,
@@ -345,8 +345,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                           onPressed: () async {
                             _reservationController.paidPackge(data);
                             _reservationController.paymentStatus(data);
-                            Get.snackbar(' Successful Payment',
-                                'The package has been updated successfuly',
+                            Get.snackbar(' Successful Payment'.tr,
+                                'The package has been updated successfuly'.tr,
                                 backgroundColor: Colors.greenAccent,
                                 snackPosition: SnackPosition.BOTTOM);
 

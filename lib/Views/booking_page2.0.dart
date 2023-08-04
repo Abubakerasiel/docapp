@@ -191,7 +191,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 //   },
                 // ),
                 Text(
-                  'Booking Date:',
+                  'Booking Date:'.tr,
                   style: TextStyle(
                       fontSize: 20,
                       color: AppConstants.appColor,
@@ -273,7 +273,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 ,
                 const SizedBox(height: 10),
                 Text(
-                  'Booking Time:',
+                  'Booking Time:'.tr,
                   style: TextStyle(
                       fontSize: 20,
                       color: AppConstants.appColor,
@@ -719,7 +719,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         onPressed: () {
                           controller.makeReservation(context);
                         },
-                        child: const Text('Confirm Booking')),
+                        child: Text('Confirm Booking'.tr)),
                   ),
                 )
               ],
@@ -732,18 +732,18 @@ class _BookingScreenState extends State<BookingScreen> {
         selectedLabelStyle: TextStyle(
           fontWeight: FontWeight.bold,
         ),
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Home'.tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month_outlined),
-            label: 'Booking Page',
+            label: 'Booking Page'.tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_sharp),
-            label: 'Profile Page',
+            label: 'Profile Page'.tr,
           ),
         ],
         currentIndex: 1,
