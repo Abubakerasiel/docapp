@@ -39,6 +39,7 @@ class ReservationController extends GetxController {
     sendNotificatonToUser(user!.uid);
     requestNotificationPermission();
     await retrieveTokens();
+    await getUserToken();
 
     // await notificationService.initNotification();
 
@@ -69,6 +70,7 @@ class ReservationController extends GetxController {
   List? tak;
   RxBool timeShowing = true.obs;
   RxBool timeShowing2 = false.obs;
+  TextEditingController stat = TextEditingController();
 
   //  List<Map<String, String>> tokenList = [
   //   {
@@ -101,6 +103,18 @@ class ReservationController extends GetxController {
         '${date.year}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')}   Time ${a.toString().padLeft(2, '0')}/${date.minute.toString().padLeft(2, '0')}';
 
     return ' Name: $userName       Date : $formattedDate   Phone Number:$userPhone ';
+  }
+
+  Future<String?> getUserToken() async {
+    String? token;
+    try {
+      // Request for the user's token
+      token = await FirebaseMessaging.instance.getToken();
+      userToken = token;
+    } catch (e) {
+      print('Error getting user token: $e');
+    }
+    return token;
   }
 
   int generateRandomID(int length) {
@@ -195,6 +209,32 @@ class ReservationController extends GetxController {
           message.notification?.body, platformchannelSpecifics,
           payload: message.data['body']);
     });
+  }
+
+  Future<void> sendNotificationToWaitlingListUser(
+      List<String> tokens, String body, String title, DateTime sendTime) async {
+    // Calculate the duration from the current time to the desired send time.
+    Duration delayDuration = sendTime.difference(DateTime.now());
+
+    // If the specified time is in the past, handle the error scenario.
+    if (delayDuration.isNegative) {
+      print("Specified time is in the past. Notifications won't be sent.");
+      return;
+    }
+
+    // Wait for the specified duration before sending the notifications.
+    await Future.delayed(delayDuration);
+
+    for (var token in tokens) {
+      print(token);
+      try {
+        // ... The remaining code for sending the notifications remains unchanged ...
+      } catch (e) {
+        if (kDebugMode) {
+          print('error push notification');
+        }
+      }
+    }
   }
 
   void sendAllUsersNotfication(List tokens, String body, String title) async {
@@ -391,7 +431,7 @@ class ReservationController extends GetxController {
       //   return snapshot.data();
     }
 
-    if (package2 < 3) {
+    if (package2 != null && package2 < 3) {
       await notificationService.showNotification(
         id: generateRandomID(8),
         notificationTime: DateTime.now().add(Duration(minutes: 1)),
@@ -400,6 +440,9 @@ class ReservationController extends GetxController {
         data: null,
       );
     }
+    //else if (package2 == null) {
+    //   return;
+    // }
   }
 
   void paidPackge(String userID1) async {
@@ -601,6 +644,7 @@ class ReservationController extends GetxController {
             print("Waiting list user assigned to the freed appointment slot.");
 
             //    Send a notification at the moment of replacement
+            //   sendAllUsersNotfication( waitingListData['user token'], 'Your date has been confirmed','booking confimation');
             await notificationService.showNotification(
               id: generateRandomID(8),
               notificationTime: DateTime.now().add(Duration(minutes: 4)),
@@ -697,12 +741,35 @@ class ReservationController extends GetxController {
     final int existingAppointmentsCount = existingAppointmentsSnapshot.size;
 
     // Check if the selected time slot is already booked
-    final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
-        await datesCollection
-            .where('selectedDate', isEqualTo: selectedDate.value)
-            .get() as QuerySnapshot<Map<String, dynamic>>;
-    final int selectedTimeAppointmentsCount =
-        selectedTimeAppointmentsSnapshot.size;
+    Future<bool> isTimeSlotAlreadyBooked(DateTime selectedDateTime) async {
+      // Get the start and end times of the selected date (whole day)
+      final DateTime selectedDateStart = getStartOfDay(selectedDateTime);
+      final DateTime selectedDateEnd = getEndOfDay(selectedDateTime);
+
+      // Fetch all appointments for the selected date
+      // Assuming 'datesCollection' contains documents representing appointments
+      // where each document has a field 'selectedDate' representing the appointment date.
+      final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
+          await datesCollection
+              .where('selectedDate',
+                  isGreaterThanOrEqualTo: selectedDateStart,
+                  isLessThanOrEqualTo: selectedDateEnd)
+              .get() as QuerySnapshot<Map<String, dynamic>>;
+
+      // Iterate through the appointments and check for overlapping time slots
+      for (final doc in appointmentsSnapshot.docs) {
+        final DateTime appointmentDateTime = doc['selectedDate'].toDate();
+        // Check if the appointment time falls within the selected date
+        if (appointmentDateTime.isAfter(selectedDateStart) &&
+            appointmentDateTime.isBefore(selectedDateEnd)) {
+          // The selected time slot is already booked
+          return true;
+        }
+      }
+
+      // No overlapping appointments found
+      return false;
+    }
 
     // Check if the user is already in the waiting list for the selected date
     final QuerySnapshot<
@@ -734,6 +801,7 @@ class ReservationController extends GetxController {
             'Notification Time':
                 notificationTimeSameDay.add(Duration(hours: -1)),
             'insertionTimestamp': FieldValue.serverTimestamp(),
+            'user token': userToken
           };
 
           await waitingListCollection.add(waitingListData);
@@ -778,7 +846,7 @@ class ReservationController extends GetxController {
           colorText: Colors.black,
         );
       }
-    } else if (selectedTimeAppointmentsCount > 0) {
+    } else if (await isTimeSlotAlreadyBooked(selectedDate.value!)) {
       Get.snackbar(
         'Time Slot Not Available'.tr,
         'The selected time slot is already booked.'.tr,

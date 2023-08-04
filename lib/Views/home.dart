@@ -27,6 +27,17 @@ class HomeScreen1 extends StatelessWidget {
     //  var name = F
     // irebaseRepoImpl.instance.currentUser?.displayName;
     final currentUser = tl.FirebaseAuth.instance.currentUser;
+    current() {
+      if (currentUser!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
+        return true;
+      }
+      return false;
+
+      //else if (currentUser!.uid=='RfY49ef1TtPD7f6spDbaMN7aiKd2'){
+      //   return ;
+      // }
+    }
+
     if (currentUser != null &&
         currentUser.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2') {
       return MaterialApp(
@@ -44,10 +55,15 @@ class HomeScreen1 extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.white,
             leading: Image.asset('assets/Frame.png'),
-            title: const Text(
-              "Hello Dr.Perry",
-              style: TextStyle(color: Colors.black),
-            ),
+            title: current()
+                ? Text(
+                    "Hello Secretary",
+                    style: TextStyle(color: Colors.black),
+                  )
+                : Text(
+                    "Hello Dr.Perry",
+                    style: TextStyle(color: Colors.black),
+                  ),
             actions: [
               IconButton(
                 onPressed: Get.find<HomeController>().logOut,
@@ -125,8 +141,44 @@ class HomeScreen1 extends StatelessWidget {
           //
         ),
       );
-    } else {
+    } else if (currentUser != null &&
+        currentUser.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          bottomOpacity: 0,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: Image.asset('assets/Frame.png'),
+          title: current()
+              ? Text(
+                  "Hello Secretary",
+                  style: TextStyle(color: Colors.black),
+                )
+              : Text(
+                  "Hello Dr.Perry",
+                  style: TextStyle(color: Colors.black),
+                ),
+          actions: [
+            IconButton(
+              onPressed: Get.find<HomeController>().logOut,
+              icon: const Icon(
+                Icons.logout_sharp,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+        body: GetX<HomeController>(
+          // ignore: invalid_use_of_protected_member
+          builder: (controller) => controller.usersLisnter.value.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              // ignore: invalid_use_of_protected_member
+              : DatesList(dates: controller.datesLisnter.value),
+        ),
+      );
       //return SizedBox();
+    } else {
       return UserPage();
     }
   }

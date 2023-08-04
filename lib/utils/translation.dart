@@ -9,6 +9,13 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      "Remember , you deserve to be the best version of yourself.":
+          'افتكر، انت تستحق انك تكون افضل نسخه منك',
+      "Everyday is a start day, don't give up.":
+          'كل يوم هو بداية جديدة، ماتستسلمش',
+      "Failure is a phase, not a final result.":
+          'الفشل مرحلة ، وليس النتيجة النهائيه',
+      "10- grams loss, is a success.": 'خسيت ١٠ جرام، ده نجاح.',
       'hello': 'مرحبا',
       'email': 'ايميل',
       'Full Name': 'الاسم بالكامل',

@@ -43,7 +43,7 @@ class StatmentPage extends StatelessWidget {
               TextField(
                 controller: txt,
                 autofocus: false,
-                style: TextStyle(color: Color(0xFFF8F8FF)),
+                style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -69,11 +69,14 @@ class StatmentPage extends StatelessWidget {
                     controller.saveTextToFirebase(txt.text, timestamp);
                     controller.sendAllUsersNotfication(
                         controller.tak!, txt.text, 'New annocmesnt');
+                    txt.clear();
                   },
                   child: Text('Post Statment'.tr)),
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('userText')
+                    .orderBy('timestamp',
+                        descending: true) // Fetch documents in descending order
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -84,6 +87,10 @@ class StatmentPage extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
+
+                  // Reverse the list of documents before mapping them to ListTiles
+                  // List<QueryDocumentSnapshot> reversedDocs =
+                  //     snapshot.data!.docs.reversed.toList();
 
                   return Expanded(
                     child: ListView(
@@ -111,6 +118,15 @@ class StatmentPage extends StatelessWidget {
                 },
               ),
             ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back_ios_new,
+            // color: AppConstants.appColor,
           ),
         ),
       ),

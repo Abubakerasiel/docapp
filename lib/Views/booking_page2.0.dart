@@ -60,6 +60,16 @@ class _BookingScreenState extends State<BookingScreen> {
     }
   }
 
+  int currentIndex = 0;
+  void _startTextChanging(List textList) {
+    Future.delayed(Duration(seconds: 60), () {
+      setState(() {
+        currentIndex = (currentIndex + 1) % textList.length;
+      });
+      _startTextChanging(textList);
+    });
+  }
+
   @override
   void initState() {
     controller.fetchDates();
@@ -67,19 +77,12 @@ class _BookingScreenState extends State<BookingScreen> {
     // controller.retrieveUserData(userId);
   }
 
-  List months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+  final List<String> textList = [
+    "Remember , you deserve to be the best version of yourself.".tr,
+    "Everyday is a start day, don't give up.".tr,
+    "Failure is a phase, not a final result.".tr,
+    "10- grams loss, is a success.".tr,
+    // Add more texts as needed
   ];
 
   // DateTime calendarDate =
@@ -425,7 +428,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                     today.month,
                                     today.day,
                                     8,
-                                    30,
+                                    00,
                                   );
                                 });
                                 // Function to be executed when Button 1 is pressed.
@@ -703,6 +706,9 @@ class _BookingScreenState extends State<BookingScreen> {
                 const SizedBox(
                   height: 20,
                 ),
+                Center(
+                  child: ChangingTextWidget(textList),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(14),
                   child: Center(
@@ -787,6 +793,42 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ChangingTextWidget extends StatefulWidget {
+  final List<String> textList;
+
+  ChangingTextWidget(this.textList);
+
+  @override
+  _ChangingTextWidgetState createState() => _ChangingTextWidgetState();
+}
+
+class _ChangingTextWidgetState extends State<ChangingTextWidget> {
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTextChanging();
+  }
+
+  void _startTextChanging() {
+    Future.delayed(Duration(seconds: 10), () {
+      setState(() {
+        currentIndex = (currentIndex + 1) % widget.textList.length;
+      });
+      _startTextChanging();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      widget.textList[currentIndex],
+      style: TextStyle(fontSize: 24),
     );
   }
 }

@@ -52,6 +52,7 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     ReservationController controller = Get.put(ReservationController());
+    HomeController controller2 = Get.put(HomeController());
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -66,7 +67,9 @@ class _UserPageState extends State<UserPage> {
           ),
           actions: [
             IconButton(
-              onPressed: Get.find<HomeController>().logOut,
+              onPressed: () {
+                controller2.logOut();
+              },
               icon: const Icon(
                 Icons.logout_sharp,
                 color: Colors.black,
@@ -122,8 +125,11 @@ class _UserPageState extends State<UserPage> {
             //   ],
             // ),
             StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('userText').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('userText')
+                  .orderBy('timestamp',
+                      descending: true) // Fetch documents in descending order
+                  .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
@@ -133,6 +139,10 @@ class _UserPageState extends State<UserPage> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 }
+
+                // Reverse the list of documents before mapping them to ListTiles
+                // List<QueryDocumentSnapshot> reversedDocs =
+                //     snapshot.data!.docs.reversed.toList();
 
                 return Expanded(
                   child: ListView(
@@ -148,7 +158,7 @@ class _UserPageState extends State<UserPage> {
 
                       return ListTile(
                         title: Text(
-                          text,
+                          '$text',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
