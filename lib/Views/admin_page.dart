@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/Statemnet_page.dart';
 import 'package:flutterappoinmentapp/Views/constanst.dart';
+import 'package:flutterappoinmentapp/Views/time_editng.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
 import 'package:firebase_auth/firebase_auth.dart' as tl;
 import 'package:get/get.dart';
@@ -404,7 +405,7 @@ class _DatesListState extends State<DatesList> {
                   //   color: AppConstants.appColor,
                 ),
                 onPressed: () {
-                  Get.to(StatmentPage());
+                  Get.to(AdminTimeEdit());
                 },
               )
             : SizedBox());

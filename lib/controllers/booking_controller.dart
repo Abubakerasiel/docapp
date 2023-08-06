@@ -36,10 +36,13 @@ class ReservationController extends GetxController {
 
     notificationService.initNotification();
     retrieveUserData(user!.uid);
+    await getDataFromFirestore();
     sendNotificatonToUser(user!.uid);
     requestNotificationPermission();
     await retrieveTokens();
     await getUserToken();
+
+    //fetchTime();
 
     // await notificationService.initNotification();
 
@@ -70,6 +73,13 @@ class ReservationController extends GetxController {
   List? tak;
   RxBool timeShowing = true.obs;
   RxBool timeShowing2 = false.obs;
+  bool isSaturday = false;
+  bool monTuesM = false;
+  RxBool satL = false.obs;
+  bool sunM = false;
+  bool isSunday = false;
+  bool isMonday = false;
+  bool isTuesday = false;
   TextEditingController stat = TextEditingController();
 
   //  List<Map<String, String>> tokenList = [
@@ -90,6 +100,7 @@ class ReservationController extends GetxController {
   // });
 
   final usersRef = FirebaseFirestore.instance.collection('users');
+  final docTime = FirebaseFirestore.instance.collection('time_visibalilty');
 
   final User? user = FirebaseAuth.instance.currentUser;
 
@@ -106,6 +117,7 @@ class ReservationController extends GetxController {
   }
 
   Future<String?> getUserToken() async {
+    print(isSaturday);
     String? token;
     try {
       // Request for the user's token
@@ -139,6 +151,34 @@ class ReservationController extends GetxController {
   //     return;
   //   }
   // }
+
+  Future<void> getDataFromFirestore() async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await docTime.doc('WTMfaIqjFuL686hKuK9h').get();
+
+      if (snapshot.exists) {
+        // Data is retrieved successfully
+        final data = snapshot.data();
+
+        // Store each field value in separate variables
+        isSaturday = data!['is_satruday'];
+        isSunday = data['is_sunday'];
+        isMonday = data['is_monday'];
+        isTuesday = data['is_tuesday'];
+
+        // Now you can use these variables as needed
+        // print('Value 1: $isSaturday');
+        // print('Value 2: $isSunday');
+        // print('Value 3: $isMonday');
+      } else {
+        print('Document not found!');
+      }
+    } catch (e) {
+      print('Error getting document: $e');
+    }
+    update();
+  }
 
   Future<void> requestNotificationPermission() async {
     final messaging = FirebaseMessaging.instance;
