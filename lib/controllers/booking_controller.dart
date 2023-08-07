@@ -73,13 +73,13 @@ class ReservationController extends GetxController {
   List? tak;
   RxBool timeShowing = true.obs;
   RxBool timeShowing2 = false.obs;
-  bool isSaturday = false;
-  bool monTuesM = false;
-  RxBool satL = false.obs;
-  bool sunM = false;
-  bool isSunday = false;
-  bool isMonday = false;
-  bool isTuesday = false;
+  RxBool isSaturday = false.obs;
+  // bool monTuesM = false;
+  // RxBool satL = false.obs;
+  // bool sunM = false;
+  RxBool isSunday = false.obs;
+  RxBool isMonday = false.obs;
+  RxBool isTuesday = false.obs;
   TextEditingController stat = TextEditingController();
 
   //  List<Map<String, String>> tokenList = [
@@ -162,10 +162,10 @@ class ReservationController extends GetxController {
         final data = snapshot.data();
 
         // Store each field value in separate variables
-        isSaturday = data!['is_satruday'];
-        isSunday = data['is_sunday'];
-        isMonday = data['is_monday'];
-        isTuesday = data['is_tuesday'];
+        isSaturday.value = data!['is_satruday'];
+        isSunday.value = data['is_sunday'];
+        isMonday.value = data['is_monday'];
+        isTuesday.value = data['is_tuesday'];
 
         // Now you can use these variables as needed
         // print('Value 1: $isSaturday');
@@ -745,6 +745,10 @@ class ReservationController extends GetxController {
           .add(Duration(hours: 12));
     }
 
+    DateTime getEndOfDay2(DateTime date) {
+      return DateTime(date.year, date.month, date.day, 11, 59, 59);
+    }
+
     int randomID = generateRandomID(8);
     final DateFormat dateFormatter = DateFormat('yyyy-MM-dd hh:mm a');
 
@@ -782,33 +786,27 @@ class ReservationController extends GetxController {
 
     // Check if the selected time slot is already booked
     Future<bool> isTimeSlotAlreadyBooked(DateTime selectedDateTime) async {
-      // Get the start and end times of the selected date (whole day)
       final DateTime selectedDateStart = getStartOfDay(selectedDateTime);
       final DateTime selectedDateEnd = getEndOfDay(selectedDateTime);
 
-      // Fetch all appointments for the selected date
-      // Assuming 'datesCollection' contains documents representing appointments
-      // where each document has a field 'selectedDate' representing the appointment date.
       final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
           await datesCollection
-              .where('selectedDate',
-                  isGreaterThanOrEqualTo: selectedDateStart,
-                  isLessThanOrEqualTo: selectedDateEnd)
+              .where('selectedDate', isGreaterThanOrEqualTo: selectedDateStart)
+              .where('selectedDate', isLessThan: selectedDateEnd)
               .get() as QuerySnapshot<Map<String, dynamic>>;
 
-      // Iterate through the appointments and check for overlapping time slots
       for (final doc in appointmentsSnapshot.docs) {
         final DateTime appointmentDateTime = doc['selectedDate'].toDate();
-        // Check if the appointment time falls within the selected date
-        if (appointmentDateTime.isAfter(selectedDateStart) &&
-            appointmentDateTime.isBefore(selectedDateEnd)) {
-          // The selected time slot is already booked
-          return true;
+
+        // Check if the appointment time overlaps with the selected time slot
+        if (appointmentDateTime.isAtSameMomentAs(selectedDateTime) ||
+            (appointmentDateTime.isAfter(selectedDateTime) &&
+                appointmentDateTime.isBefore(selectedDateEnd))) {
+          return true; // The selected time slot is already booked
         }
       }
 
-      // No overlapping appointments found
-      return false;
+      return false; // No overlapping appointments found
     }
 
     // Check if the user is already in the waiting list for the selected date
@@ -887,12 +885,13 @@ class ReservationController extends GetxController {
         );
       }
     } else if (await isTimeSlotAlreadyBooked(selectedDate.value!)) {
+      print(selectedDate.value!);
       Get.snackbar(
-        'Time Slot Not Available'.tr,
+        'Time Slot Not Available '.tr,
         'The selected time slot is already booked.'.tr,
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 3),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.orangeAccent,
         colorText: Colors.white,
       );
     } else {

@@ -37,11 +37,11 @@ class _BookingScreenState extends State<BookingScreen> {
         today = day;
         controller.selectedDate.value = today;
         controller.timeShowing.value = false;
-        if (controller.isSaturday == true) {
-          controller.satL.value = true;
-        } else {
-          controller.satL.value = false;
-        }
+        // if (controller.isSaturday.value == true) {
+        //   controller.satL.value = true;
+        // } else {
+        //   controller.satL.value = false;
+        // }
       });
     } else if (day.weekday == 7) {
       setState(() {
@@ -50,14 +50,14 @@ class _BookingScreenState extends State<BookingScreen> {
 
         controller.timeShowing2.value = false;
         controller.timeShowing.value = true;
-        if (controller.isSunday == true) {
-          controller.satL.value = false;
+        // if (controller.isSunday == true) {
+        //   controller.satL.value = false;
 
-          controller.sunM = true;
-          controller.monTuesM = false;
-        } else {
-          controller.sunM = false;
-        }
+        //   controller.sunM = true;
+        //   controller.monTuesM = false;
+        // } else {
+        //   controller.sunM = false;
+        // }
       });
     } else if (day.weekday == 1) {
       setState(() {
@@ -65,13 +65,13 @@ class _BookingScreenState extends State<BookingScreen> {
         controller.selectedDate.value = today;
         controller.timeShowing.value = true;
         controller.timeShowing2.value = true;
-        if (controller.isMonday == true) {
-          controller.monTuesM = true;
-          // controller.satL = false;
-          // controller.sunM = false;
-        } else {
-          controller.monTuesM = false;
-        }
+        // if (controller.isMonday == true) {
+        //   controller.monTuesM = true;
+        //   // controller.satL = false;
+        //   // controller.sunM = false;
+        // } else {
+        //   controller.monTuesM = false;
+        // }
       });
     } else if (day.weekday == 2) {
       setState(() {
@@ -79,13 +79,13 @@ class _BookingScreenState extends State<BookingScreen> {
         controller.selectedDate.value = today;
         controller.timeShowing.value = true;
         controller.timeShowing2.value = true;
-        if (controller.isTuesday == true) {
-          controller.monTuesM = true;
-          // controller.satL = false;
-          // controller.sunM = false;
-        } else {
-          controller.monTuesM = false;
-        }
+        // if (controller.isTuesday == true) {
+        //   controller.monTuesM = true;
+        //   // controller.satL = false;
+        //   // controller.sunM = false;
+        // } else {
+        //   controller.monTuesM = false;
+        // }
       });
     } else {
       setState(() {
@@ -111,10 +111,10 @@ class _BookingScreenState extends State<BookingScreen> {
     controller.fetchDates();
     super.initState();
     controller.getDataFromFirestore();
-    controller.isMonday;
-    controller.isSaturday;
-    controller.isSunday;
-    controller.isTuesday;
+    // controller.isMonday;
+    // controller.isSaturday;
+    // controller.isSunday;
+    // controller.isTuesday;
 
     // controller.retrieveUserData(userId);
   }
@@ -132,12 +132,10 @@ class _BookingScreenState extends State<BookingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //  ReservationController controller = Get.put(ReservationController());
-    Get.find<ReservationController>().update();
+    ReservationController controller = Get.put(ReservationController());
     DateTime? selectedDate = controller.selectedDate.value;
-    RxBool isSelectedDateSat =
-        RxBool(selectedDate != null && (selectedDate.weekday == 6));
-    ;
+    bool isSelectedDateSat =
+        selectedDate != null && (selectedDate.weekday == 6);
     void _onItemTapped(int index) {
       if (index == 0) {
         Get.off(UserPage());
@@ -565,6 +563,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                           _buildButton(28, '7:00', () {
                             setState(() {
+                              // controller.satL.value = !controller.satL.value;
                               // controller.isButtonTapped.value =
                               //     !controller.isButtonTapped.value;
                               controller.selectedDate.value = DateTime(
@@ -581,11 +580,12 @@ class _BookingScreenState extends State<BookingScreen> {
                       ),
 
                 Obx(
-                  () => controller.satL.value && isSelectedDateSat.value
+                  () => controller.isSaturday.value && isSelectedDateSat
+                      //  controller.satL.value
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildButton(29, '7:30', () {
+                            _buildButton(29, 'biko', () {
                               setState(() {
                                 // controller.isButtonTapped.value =
                                 //     !controller.isButtonTapped.value;
@@ -599,7 +599,7 @@ class _BookingScreenState extends State<BookingScreen> {
                               });
                               // Function to be executed when Button 1 is pressed.
                             }),
-                            _buildButton(30, '8:00', () {
+                            _buildButton(30, 'biko', () {
                               setState(() {
                                 // controller.isButtonTapped.value =
                                 //     !controller.isButtonTapped.value;
@@ -617,6 +617,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         )
                       : SizedBox(),
                 ),
+
                 const SizedBox(
                   height: 20,
                 ),
@@ -635,7 +636,290 @@ class _BookingScreenState extends State<BookingScreen> {
                         },
                         child: Text('Confirm Booking'.tr)),
                   ),
-                )
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          'is_monday': true,
+                        });
+                        await controller.getDataFromFirestore();
+                        //  controller.onInit();
+
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('add Monday')),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          'is_monday': false,
+                        });
+                        await controller.getDataFromFirestore();
+                        //controller.onInit();
+
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('remove Monday ')),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({'is_satruday': true});
+                        await controller.getDataFromFirestore();
+                        print(controller.isSaturday.value);
+
+                        //  controller.isSaturday.value = true;
+                        // controller.satL.value = true;
+
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('add satruday')),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          'is_satruday': false,
+                        });
+                        await controller.getDataFromFirestore();
+                        print(controller.isSaturday.value);
+
+                        //   controller.isSaturday.value = false;
+                        // controller.isSaturday = false;
+                        // controller.satL.value = false;
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('remove Satruday ')),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({'is_tuesday': true});
+                        await controller.getDataFromFirestore();
+                        print(controller.isSaturday.value);
+
+                        //  controller.isSaturday.value = true;
+                        // controller.satL.value = true;
+
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('add tuesday')),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          'is_tuesday': false,
+                        });
+                        await controller.getDataFromFirestore();
+                        print(controller.isSaturday.value);
+
+                        //   controller.isSaturday.value = false;
+                        // controller.isSaturday = false;
+                        // controller.satL.value = false;
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('remove tuesday ')),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({'is_sunday': true});
+                        await controller.getDataFromFirestore();
+
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('add sunday')),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        // Save the updated weight to Firestore
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          'is_sunday': false,
+                        });
+                        await controller.getDataFromFirestore();
+
+                        // Show a success message
+                        Get.snackbar(
+                          'weight update',
+                          'weight updated successulfy ',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.greenAccent,
+                          colorText: Colors.white,
+                        );
+                      } catch (error) {
+                        // Show an error message if update fails
+                        Get.snackbar(
+                          'weight update',
+                          'the weight did not update',
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: Duration(seconds: 4),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('remove sunday ')),
+                // ElevatedButton(
+                //     onPressed: () {
+                //       setState(() {
+                //         controller.satL.value = !controller.satL.value;
+                //       });
+                //     },
+                //     child: Text('change'))
               ],
             ),
           ),
