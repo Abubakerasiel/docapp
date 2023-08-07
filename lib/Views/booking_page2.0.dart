@@ -1,6 +1,7 @@
 //import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 
+import 'package:flutterappoinmentapp/Views/user_appoiment.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
 import 'package:flutterappoinmentapp/Views/user_page.dart';
 import 'package:flutterappoinmentapp/Wedgits/time_showing.dart';
@@ -21,11 +22,17 @@ class BookingScreen extends StatefulWidget {
 
 class _BookingScreenState extends State<BookingScreen> {
   //bool isButtonTapped = true;
+  Set<int> disabledButtons = {};
+  int selectedTimeIndex = -1;
+
   final ReservationController controller = Get.put(ReservationController());
   List<bool> _isButtonTappedList = List.generate(50, (index) => false);
   // int _selectedIndex = -1;
-  DateTime today = DateTime.now();
+  DateTime today = DateTime.now().add(Duration(days: 7));
   void _onDaySelectd(DateTime day, DateTime focusedDay) {
+    setState(() {
+      selectedTimeIndex = -1; // Reset the selected time index
+    });
     if (day.weekday == 3 || day.weekday == 4 || day.weekday == 5) {
       Get.snackbar(
         'Worng Day',
@@ -147,6 +154,10 @@ class _BookingScreenState extends State<BookingScreen> {
       } else if (index == 2) {
         Get.off(UserDetailsPage(userId: controller.user!.uid),
             arguments: controller.user!.uid);
+        // If 'School' is tapped, do nothing (stay on the current page)
+        return;
+      } else if (index == 2) {
+        Get.off(UserAppoimetn());
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
       }
@@ -292,7 +303,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     rowHeight: 43,
                     //  locale: 'en_US',
                     focusedDay: today,
-                    firstDay: DateTime.now(),
+                    firstDay: DateTime.now().add(Duration(days: 7)),
                     lastDay: DateTime.utc(2030, 3, 14))
                 // ElevatedButton(
                 //   onPressed: () async {
@@ -637,294 +648,14 @@ class _BookingScreenState extends State<BookingScreen> {
                         child: Text('Confirm Booking'.tr)),
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'is_monday': true,
-                        });
-                        await controller.getDataFromFirestore();
-                        //  controller.onInit();
-
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('add Monday')),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'is_monday': false,
-                        });
-                        await controller.getDataFromFirestore();
-                        //controller.onInit();
-
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('remove Monday ')),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'is_satruday': true});
-                        await controller.getDataFromFirestore();
-                        print(controller.isSaturday.value);
-
-                        //  controller.isSaturday.value = true;
-                        // controller.satL.value = true;
-
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('add satruday')),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'is_satruday': false,
-                        });
-                        await controller.getDataFromFirestore();
-                        print(controller.isSaturday.value);
-
-                        //   controller.isSaturday.value = false;
-                        // controller.isSaturday = false;
-                        // controller.satL.value = false;
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('remove Satruday ')),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'is_tuesday': true});
-                        await controller.getDataFromFirestore();
-                        print(controller.isSaturday.value);
-
-                        //  controller.isSaturday.value = true;
-                        // controller.satL.value = true;
-
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('add tuesday')),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'is_tuesday': false,
-                        });
-                        await controller.getDataFromFirestore();
-                        print(controller.isSaturday.value);
-
-                        //   controller.isSaturday.value = false;
-                        // controller.isSaturday = false;
-                        // controller.satL.value = false;
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('remove tuesday ')),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'is_sunday': true});
-                        await controller.getDataFromFirestore();
-
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('add sunday')),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // Save the updated weight to Firestore
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'is_sunday': false,
-                        });
-                        await controller.getDataFromFirestore();
-
-                        // Show a success message
-                        Get.snackbar(
-                          'weight update',
-                          'weight updated successulfy ',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.greenAccent,
-                          colorText: Colors.white,
-                        );
-                      } catch (error) {
-                        // Show an error message if update fails
-                        Get.snackbar(
-                          'weight update',
-                          'the weight did not update',
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: Duration(seconds: 4),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                        );
-                      }
-                    },
-                    child: Text('remove sunday ')),
-                // ElevatedButton(
-                //     onPressed: () {
-                //       setState(() {
-                //         controller.satL.value = !controller.satL.value;
-                //       });
-                //     },
-                //     child: Text('change'))
               ],
             ),
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Get.to(UserAppoimetn());
+      }),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 15,
         selectedLabelStyle: TextStyle(
@@ -943,6 +674,10 @@ class _BookingScreenState extends State<BookingScreen> {
             icon: Icon(Icons.person_sharp),
             label: 'Profile Page'.tr,
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.view_list),
+          //   label: 'appoiment page'.tr,
+          // ),
         ],
         currentIndex: 1,
         selectedItemColor: AppConstants.appColor,
@@ -952,9 +687,12 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   Widget _buildButton(int index, String buttonText, VoidCallback onTap) {
+    bool isButtonDisabled = selectedTimeIndex == index;
+
     return GestureDetector(
       onTap: () {
         setState(() {
+          selectedTimeIndex = index;
           if (_isButtonTappedList[index]) {
             // If the clicked button is already selected, change it back to gray.
             _isButtonTappedList[index] = false;

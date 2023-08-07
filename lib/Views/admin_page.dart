@@ -357,7 +357,7 @@ class _DatesListState extends State<DatesList> {
                                                         ),
                                                         onPressed: () {
                                                           controller
-                                                              .deleteDateAndRpalceIt(
+                                                              .deleteDateAndReplaceIt(
                                                                   controller
                                                                       .dates[
                                                                           index]
