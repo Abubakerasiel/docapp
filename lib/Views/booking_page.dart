@@ -44,7 +44,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         : 'Select Date'.tr,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // ElevatedButton(
                 //   onPressed: () async {
                 //     await controller.TimePicker(context);
@@ -55,7 +55,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 //         : 'Select Time',
                 //   ),
                 // ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     controller.makeReservation(context);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
-import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
+
 import 'package:get/get.dart';
 
 import '../Views/constanst.dart';
@@ -49,7 +49,7 @@ class SignUpScreen extends GetView<SignUpController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Center(
@@ -60,7 +60,7 @@ class SignUpScreen extends GetView<SignUpController> {
                       color: AppConstants.appColor,
                       fontSize: 30),
                 )),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 // GestureDetector(
@@ -89,7 +89,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Full Name'.tr,
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -108,7 +108,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -118,7 +118,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Email'.tr,
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -139,7 +139,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -149,7 +149,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Age'.tr,
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -167,7 +167,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -178,7 +178,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Height'.tr,
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -197,7 +197,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -207,7 +207,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Weight'.tr,
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -226,15 +226,15 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 DropdownButtonFormField<Gender>(
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xff2282B7)),
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(10.0),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
                         ),
                       ),
                       filled: true,
@@ -269,7 +269,7 @@ class SignUpScreen extends GetView<SignUpController> {
                   //   hintText: 'Select Gender'.tr,
                   // ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -280,7 +280,7 @@ class SignUpScreen extends GetView<SignUpController> {
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Password'.tr,
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -300,7 +300,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -310,7 +310,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Phone Number'.tr,
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -331,7 +331,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -342,7 +342,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     child: TextFormField(
                       maxLines: 3,
                       decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -370,26 +370,26 @@ class SignUpScreen extends GetView<SignUpController> {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                       side: BorderSide(color: AppConstants.appColor),
                     ),
                   ),
                   onPressed: controller.createAccount,
                   child: Text(
                     'Create New Account'.tr,
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: AppConstants.appColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                       side: BorderSide(color: AppConstants.appColor),
                     ),
                   ),
                   onPressed: () {
-                    Get.to(SignInScreen1());
+                    Get.to(const SignInScreen1());
                   },
                   child: Text('Sign in'.tr),
                 ),

@@ -29,12 +29,12 @@ class SignInScreen1 extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
 
                 SvgPicture.asset('assets/Group.svg'),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
 
                 // Image.asset('assets/Group.png'),
                 Center(
@@ -48,7 +48,7 @@ class SignInScreen1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Center(
@@ -62,7 +62,7 @@ class SignInScreen1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Center(
                   child: Text(
                     'Login',
@@ -74,7 +74,7 @@ class SignInScreen1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Text(
                   'Email'.tr,
                   style: TextStyle(
@@ -84,7 +84,7 @@ class SignInScreen1 extends StatelessWidget {
                     fontFamily: AppConstants.appFont,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   height: 50,
                   child: Material(
@@ -92,7 +92,7 @@ class SignInScreen1 extends StatelessWidget {
                     child: TextFormField(
                       controller: controller.emailController,
                       decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -113,7 +113,7 @@ class SignInScreen1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Password'.tr,
                   style: TextStyle(
@@ -123,7 +123,7 @@ class SignInScreen1 extends StatelessWidget {
                     fontFamily: AppConstants.appFont,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   height: 50,
                   child: Material(
@@ -132,7 +132,7 @@ class SignInScreen1 extends StatelessWidget {
                       obscureText: true,
                       controller: controller.passwordController,
                       decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xff2282B7),
                             width: 1.0,
@@ -188,35 +188,35 @@ class SignInScreen1 extends StatelessWidget {
                 //     ),
                 //   ],
                 // ),
-                Divider(),
-                SizedBox(
+                const Divider(),
+                const SizedBox(
                   height: 80,
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: AppConstants.appColor,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                   ),
                   onPressed: controller.signIn,
                   child: Text('Sign In'.tr),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                       side: BorderSide(color: AppConstants.appColor),
                     ),
                   ),
                   onPressed: () {
-                    Get.offAll(SignUpScreen());
+                    Get.offAll(const SignUpScreen());
                   },
                   child: Text(
                     'Create New Account'.tr,
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
               ],
@@ -233,7 +233,7 @@ class SignInScreen1 extends StatelessWidget {
             Get.updateLocale(const Locale("ar"));
           }
         },
-        child: Icon(Icons.g_translate),
+        child: const Icon(Icons.g_translate),
       ),
     );
   }

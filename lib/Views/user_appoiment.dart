@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
-import 'package:maps_launcher/maps_launcher.dart';
-import 'package:firebase_auth/firebase_auth.dart' as tl;
 
 import '../controllers/booking_controller.dart';
 import 'constanst.dart';
@@ -28,31 +26,22 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUser = tl.FirebaseAuth.instance.currentUser;
-    current() {
-      if (currentUser!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
-        return false;
-      }
-      return true;
-      //else if (currentUser!.uid=='RfY49ef1TtPD7f6spDbaMN7aiKd2'){
-      //   return ;
-      // }
-    }
+    //  final currentUser = tl.FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
-          Text('.الدخول بالمعاد و ليس اولوية الحضور'),
-          Text(''),
-          Text(
+          const Text('.الدخول بالمعاد و ليس اولوية الحضور'),
+          const Text(''),
+          const Text(
               '. الغاء المعاد بيكون قبلها ب ٢٤ ساعة و فى حالة عدم الغاء المعاد تحسب زيارة'),
-          Text('.حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع'),
-          Text(
+          const Text('.حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع'),
+          const Text(
               'ل الاستفسار او الشكوى ب برجاء ارساله رساله واتس اب على رقم :01221246631'),
           // ElevatedButton(
           //   onPressed: () {
@@ -63,7 +52,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
           Expanded(
               child: Obx(
             () => ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(
+              separatorBuilder: (context, index) => const SizedBox(
                 height: 20,
               ),
               itemCount: controller.dates.length,
@@ -83,8 +72,8 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                     userPhone != null) {
                   final dateTime = timestamp.toDate();
 
-                  String formattedTime =
-                      DateFormat.jm().format(dateTime.add(Duration(hours: 1)));
+                  String formattedTime = DateFormat.jm()
+                      .format(dateTime.add(const Duration(hours: 1)));
                   String formattedDate =
                       DateFormat("EEE ,d MMM , ''yyyy").format(dateTime);
                   // Convert Timestamp to DateTime
@@ -95,7 +84,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                   return Container(
                     decoration: BoxDecoration(
                       color: AppConstants.appColor,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -117,7 +106,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                         ),
                                         arguments: userID3);
                                   },
-                                  child: CircleAvatar(
+                                  child: const CircleAvatar(
                                     child: Icon(Icons.person),
                                     backgroundColor: Colors.white,
                                   ),
@@ -137,7 +126,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                             arguments: userID3);
                                       },
                                       child: Text('Name: $userName',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
@@ -146,7 +135,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                     ),
                                     Text('Phone Number: $userPhone',
                                         textAlign: TextAlign.start,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
                                           decoration: TextDecoration.none,
@@ -191,7 +180,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                             //       fontSize: 15,
                             //       decoration: TextDecoration.none,
                             //     )),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
@@ -199,32 +188,32 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                               width: 300,
                               color: Colors.white,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   size: 20,
                                   Icons.calendar_month_outlined,
                                   color: Colors.white,
                                 ),
                                 Text(
                                   " ${formattedDate}   ",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
                                     decoration: TextDecoration.none,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   size: 20,
                                   Icons.access_time_outlined,
                                   color: Colors.white,
                                 ),
                                 Text(
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
                                       decoration: TextDecoration.none,
@@ -232,7 +221,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                     ' ${formattedTime.toString().padLeft(2, '0')}'),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -240,14 +229,15 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                               children: [
                                 ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          Colors.greenAccent),
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll(
+                                              Colors.greenAccent),
                                       shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(18.0),
-                                              side: BorderSide(
+                                              side: const BorderSide(
                                                   color: Colors.greenAccent))),
                                     ),
                                     onPressed: () {
@@ -277,14 +267,15 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                 //     child: Text('Cancel Date'.tr)),
                                 ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          Colors.redAccent),
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll(
+                                              Colors.redAccent),
                                       shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(18.0),
-                                              side: BorderSide(
+                                              side: const BorderSide(
                                                   color: Colors.redAccent))),
                                     ),
                                     onPressed: () {

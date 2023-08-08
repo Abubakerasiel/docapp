@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/user_page.dart';
 import 'package:get/get.dart';
@@ -11,7 +9,7 @@ import 'constanst.dart';
 class UserDetailsPage extends StatefulWidget {
   final String userId;
 
-  UserDetailsPage({required this.userId});
+  const UserDetailsPage({required this.userId});
   @override
   State<UserDetailsPage> createState() => _UserDetailsPageState();
 }
@@ -42,7 +40,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             onChanged: (value) {
               editedWeight = value;
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
             ),
           ),
@@ -51,7 +49,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               onPressed: () {
                 Navigator.pop(context); // Close the dialog
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -61,7 +59,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
                 Navigator.pop(context); // Close the dialog
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         );
@@ -116,7 +114,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Column(
@@ -125,35 +123,35 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     children: [
                       Text(
                         'Name :'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         'Phone :'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         'Age :'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         'Height :'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         'Gender :'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         'Weight :'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         'Medical Issue :'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -162,28 +160,28 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     children: [
                       Text(
                         ' ${_reservationController.userName.value}',
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         '${_reservationController.userPhone.value}',
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         '${_reservationController.age.value}',
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         '${_reservationController.height.value}',
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         '${_reservationController.gender.value}'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                       TextButton(
                         child: Text(
                           '${_reservationController.weight.value}',
-                          style: TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 18),
                         ),
 
                         // Open the weight edit dialog when weight is tapped
@@ -191,7 +189,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       ),
                       Text(
                         '${_reservationController.medicalIssue.value}'.tr,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ],
                   ),
@@ -313,19 +311,19 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         bottomNavigationBar: y
             ? BottomNavigationBar(
                 selectedFontSize: 15,
-                selectedLabelStyle:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                selectedLabelStyle: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white),
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
+                    icon: const Icon(Icons.home),
                     label: 'Home'.tr,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.calendar_month_outlined),
+                    icon: const Icon(Icons.calendar_month_outlined),
                     label: 'Booking Page'.tr,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.person_sharp),
+                    icon: const Icon(Icons.person_sharp),
                     label: 'Profile Page'.tr,
                   ),
                 ],
@@ -340,8 +338,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       ElevatedButton(
                           style: ButtonStyle(
                               backgroundColor: _reservationController.y.value
-                                  ? MaterialStatePropertyAll(Colors.green)
-                                  : MaterialStatePropertyAll(Colors.amber)),
+                                  ? const MaterialStatePropertyAll(Colors.green)
+                                  : const MaterialStatePropertyAll(
+                                      Colors.amber)),
                           onPressed: () async {
                             _reservationController.paidPackge(data);
                             _reservationController.paymentStatus(data);
@@ -359,14 +358,14 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       //   width: 100,
                       // ),
                       _reservationController.y.value
-                          ? Icon(
+                          ? const Icon(
                               Icons.check_circle_outlined,
                               color: Colors.green,
                             )
-                          : SizedBox()
+                          : const SizedBox()
                     ],
                   )
-                : SizedBox());
+                : const SizedBox());
   }
 
   void _updateWeight(BuildContext context) async {
@@ -381,7 +380,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         'weight update',
         'weight updated successulfy ',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 4),
+        duration: const Duration(seconds: 4),
         backgroundColor: Colors.greenAccent,
         colorText: Colors.white,
       );
@@ -391,7 +390,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         'weight update',
         'the weight did not update',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 4),
+        duration: const Duration(seconds: 4),
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

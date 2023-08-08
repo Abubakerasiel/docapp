@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart ';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/booking_page2.0.dart';
-
-import 'package:flutterappoinmentapp/Views/booking_page.dart';
 
 import 'package:get/get.dart';
 
@@ -63,7 +61,7 @@ class _UserPageState extends State<UserPage> {
           leading: Image.asset('assets/Frame.png'),
           title: Text(
             "Hello ${controller.userName}",
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
           actions: [
             IconButton(
@@ -137,7 +135,7 @@ class _UserPageState extends State<UserPage> {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 // Reverse the list of documents before mapping them to ListTiles
@@ -159,7 +157,7 @@ class _UserPageState extends State<UserPage> {
                       return ListTile(
                         title: Text(
                           '$text',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         subtitle: Text(formattedTime),
@@ -185,20 +183,20 @@ class _UserPageState extends State<UserPage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedFontSize: 15,
-          selectedLabelStyle: TextStyle(
+          selectedLabelStyle: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: const Icon(Icons.home),
               label: 'Home'.tr,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month_outlined),
+              icon: const Icon(Icons.calendar_month_outlined),
               label: 'Booking Page'.tr,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_sharp),
+              icon: const Icon(Icons.person_sharp),
               label: 'Profile Page'.tr,
             ),
           ],

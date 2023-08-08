@@ -7,9 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
-import 'package:flutterappoinmentapp/Views/user_page.dart';
-import '../Views/booking_page2.0.dart';
-import '../Views/user_detail_page.dart';
+
 import '../utils/Notification_service.dart';
 // import 'package:timezone/timezone.dart' as tz;
 // import 'package:timezone/data/latest.dart' as tz;
@@ -73,13 +71,20 @@ class ReservationController extends GetxController {
   List? tak;
   RxBool timeShowing = true.obs;
   RxBool timeShowing2 = false.obs;
-  RxBool isSaturday = false.obs;
-  // bool monTuesM = false;
-  // RxBool satL = false.obs;
-  // bool sunM = false;
-  RxBool isSunday = false.obs;
-  RxBool isMonday = false.obs;
-  RxBool isTuesday = false.obs;
+  RxBool isSaturday1H = false.obs;
+
+  RxBool isSunday1H = false.obs;
+  RxBool isMonday1H = false.obs;
+  RxBool isTuesday1H = false.obs;
+  RxBool isSaturday2H = false.obs;
+
+  RxBool isSunday2H = false.obs;
+  RxBool isMonday2H = false.obs;
+  RxBool isTuesday2H = false.obs;
+  RxBool disableSunday = false.obs;
+  RxBool disableMonday = false.obs;
+  RxBool disableTuesday = false.obs;
+  RxBool disableSaturday = false.obs;
   TextEditingController stat = TextEditingController();
 
   //  List<Map<String, String>> tokenList = [
@@ -117,7 +122,7 @@ class ReservationController extends GetxController {
   }
 
   Future<String?> getUserToken() async {
-    print(isSaturday);
+    print(isSaturday1H);
     String? token;
     try {
       // Request for the user's token
@@ -162,10 +167,18 @@ class ReservationController extends GetxController {
         final data = snapshot.data();
 
         // Store each field value in separate variables
-        isSaturday.value = data!['is_satruday'];
-        isSunday.value = data['is_sunday'];
-        isMonday.value = data['is_monday'];
-        isTuesday.value = data['is_tuesday'];
+        isSaturday1H.value = data!['is_satruday'];
+        isSunday1H.value = data['is_sunday'];
+        isMonday1H.value = data['is_monday'];
+        isTuesday1H.value = data['is_tuesday'];
+        isSaturday2H.value = data['is_saturday2h'];
+        isSunday2H.value = data['is_sunday2h'];
+        isMonday2H.value = data['is_monday2h'];
+        isTuesday2H.value = data['is_tuesday2h'];
+        disableSaturday.value = data['saturdayDisabled'];
+        disableSunday.value = data['sundayDisabled'];
+        disableMonday.value = data['mondayDisabled'];
+        disableTuesday.value = data['tuesdayDisabled'];
 
         // Now you can use these variables as needed
         // print('Value 1: $isSaturday');
@@ -330,7 +343,7 @@ class ReservationController extends GetxController {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(Duration(days: 365)),
+        lastDate: DateTime.now().add(const Duration(days: 365)),
         selectableDayPredicate: (DateTime date) {
           // Check if the selected date is Sunday to Thursday
           return date.weekday == 1 ||
@@ -350,7 +363,7 @@ class ReservationController extends GetxController {
           pickedDate.weekday == 6) {
         final TimeOfDay? pickedTime = await showTimePicker(
           context: context,
-          initialTime: TimeOfDay(hour: 12, minute: 0),
+          initialTime: const TimeOfDay(hour: 12, minute: 0),
           builder: (BuildContext context, Widget? child) {
             return MediaQuery(
               data:
@@ -381,7 +394,7 @@ class ReservationController extends GetxController {
               'Please choose the time: Saturday 12 am to 7:30 pm, Sunday 5:00 pm to 8:00 pm, Monday and Tuesday, 4:00 pm to 8:30 pm'
                   .tr,
               snackPosition: SnackPosition.BOTTOM,
-              duration: Duration(seconds: 4),
+              duration: const Duration(seconds: 4),
               backgroundColor: Colors.red,
               colorText: Colors.white,
             );
@@ -391,7 +404,7 @@ class ReservationController extends GetxController {
             'Invalid date'.tr,
             'Please select a date from Saturday to tuesday.'.tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             backgroundColor: Colors.red,
             colorText: Colors.white,
           );
@@ -405,7 +418,7 @@ class ReservationController extends GetxController {
           'Invalid Day',
           'Please select a date from Saturday to tuesday.'.tr,
           snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           backgroundColor: Colors.red,
           colorText: Colors.white,
         );
@@ -437,7 +450,7 @@ class ReservationController extends GetxController {
         DateTime(now.year, now.month, now.day, 12, 0, 0);
     final DateTime endOfToday =
         DateTime(now.year, now.month, now.day, 11, 59, 59)
-            .add(Duration(hours: 12));
+            .add(const Duration(hours: 12));
 
     final QuerySnapshot<Map<String, dynamic>> todayAppointmentsSnapshot =
         await datesCollection
@@ -474,7 +487,7 @@ class ReservationController extends GetxController {
     if (package2 != null && package2 < 3) {
       await notificationService.showNotification(
         id: generateRandomID(8),
-        notificationTime: DateTime.now().add(Duration(minutes: 1)),
+        notificationTime: DateTime.now().add(const Duration(minutes: 1)),
         title: 'Package Reminder Update'.tr,
         body: 'Hello please  pay  for your pakacge.'.tr,
         data: null,
@@ -806,7 +819,8 @@ class ReservationController extends GetxController {
               // Show a notification for the replacement
               await notificationService.showNotification(
                 id: generateRandomID(8),
-                notificationTime: DateTime.now().add(Duration(minutes: 4)),
+                notificationTime:
+                    DateTime.now().add(const Duration(minutes: 4)),
                 title: 'Reservation Update'.tr,
                 body: 'Hello You have been assigned an appointment slot.'.tr,
                 data: null,
@@ -821,7 +835,7 @@ class ReservationController extends GetxController {
             'Deleting Not Allowed'.tr,
             'Cannot delete appointment less than 24 hours away.'.tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             backgroundColor: Colors.red,
             colorText: Colors.black,
           );
@@ -840,7 +854,7 @@ class ReservationController extends GetxController {
 
     DateTime getEndOfDay(DateTime date) {
       return DateTime(date.year, date.month, date.day, 11, 59, 59)
-          .add(Duration(hours: 12));
+          .add(const Duration(hours: 12));
     }
 
     DateTime getEndOfDay2(DateTime date) {
@@ -851,16 +865,16 @@ class ReservationController extends GetxController {
     final DateFormat dateFormatter = DateFormat('yyyy-MM-dd hh:mm a');
 
     final String selectedDateString = dateFormatter.format(selectedDate.value!
-            .add(Duration(hours: 12)) // Add 12 hours to switch to PM
+            .add(const Duration(hours: 12)) // Add 12 hours to switch to PM
         );
 
     final DateTime notificationTime =
-        selectedDate.value!.subtract(Duration(hours: 12));
+        selectedDate.value!.subtract(const Duration(hours: 12));
 
     final DateTime notificationTimeSameDay =
-        selectedDate.value!.subtract(Duration(hours: 3));
+        selectedDate.value!.subtract(const Duration(hours: 3));
 
-    selectedDate.value = selectedDate.value!.add(Duration(hours: -1));
+    selectedDate.value = selectedDate.value!.add(const Duration(hours: -1));
 
     final notificationTitle = 'Reservation Reminder';
     final notificationBody =
@@ -906,6 +920,13 @@ class ReservationController extends GetxController {
 
       return false; // No overlapping appointments found
     }
+    // final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
+    //     await datesCollection
+    //         .where('selectedDate', isEqualTo: selectedDate.value)
+    //         .get() as QuerySnapshot<Map<String, dynamic>>;
+    // final int selectedTimeAppointmentsCount =
+    //     selectedTimeAppointmentsSnapshot.size;
+    // print(selectedTimeAppointmentsCount);
 
     // Check if the user is already in the waiting list for the selected date
     final QuerySnapshot<
@@ -935,7 +956,7 @@ class ReservationController extends GetxController {
             'phone': userPhone.value,
             'userName': userName.value,
             'Notification Time':
-                notificationTimeSameDay.add(Duration(hours: -1)),
+                notificationTimeSameDay.add(const Duration(hours: -1)),
             'insertionTimestamp': FieldValue.serverTimestamp(),
             'user token': userToken
           };
@@ -946,7 +967,7 @@ class ReservationController extends GetxController {
             'Sorry, no available appointments. You have been added to the waiting list.'
                 .tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             backgroundColor: Colors.yellow,
             colorText: Colors.black,
           );
@@ -965,7 +986,7 @@ class ReservationController extends GetxController {
             'Sorry, no available appointments. The waiting list for this date is already full..'
                 .tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             backgroundColor: Colors.orange,
             colorText: Colors.black,
           );
@@ -977,7 +998,7 @@ class ReservationController extends GetxController {
           'Multiple Bookings Not Allowed'.tr,
           'You have already booked an appointment on the waiting list.'.tr,
           snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           backgroundColor: Colors.red,
           colorText: Colors.black,
         );
@@ -988,7 +1009,7 @@ class ReservationController extends GetxController {
         'Time Slot Not Available '.tr,
         'The selected time slot is already booked.'.tr,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         backgroundColor: Colors.orangeAccent,
         colorText: Colors.white,
       );
@@ -999,7 +1020,7 @@ class ReservationController extends GetxController {
             'Invalid Date'.tr,
             'Please select a future date and time.'.tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             backgroundColor: Colors.redAccent,
             colorText: Colors.white,
           );
@@ -1026,7 +1047,7 @@ class ReservationController extends GetxController {
             'Multiple Bookings Not Allowed'.tr,
             'You have already booked an appointment on the selected date.'.tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             backgroundColor: Colors.redAccent,
             colorText: Colors.white,
           );
@@ -1049,15 +1070,15 @@ class ReservationController extends GetxController {
             selectedDate.value!.month == now.month &&
             selectedDate.value!.day == now.day;
         final reservationData = {
-          'selectedDate':
-              dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
+          //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
+          'selectedDate': selectedDate.value,
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,
           'userName': userName.value,
           'Notification Time': isSameDay
-              ? notificationTimeSameDay.add(Duration(hours: -1))
-              : notificationTime.add(Duration(hours: -1)),
+              ? notificationTimeSameDay.add(const Duration(hours: -1))
+              : notificationTime.add(const Duration(hours: -1)),
           // Add more relevant data as needed
         };
         final dateDoc = await datesCollection.add(reservationData);
@@ -1086,11 +1107,11 @@ class ReservationController extends GetxController {
             'Successful booking'.tr,
             'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(BookingConfirmed(), arguments: selectedDate);
+          Get.to(const BookingConfirmed(), arguments: selectedDate);
         } else {
           // Schedule notification 3 hours before the appointment
           await notificationService.showNotification(
@@ -1104,21 +1125,21 @@ class ReservationController extends GetxController {
             'Successful booking'.tr,
             'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,
-            duration: Duration(seconds: 5),
+            duration: const Duration(seconds: 5),
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(BookingConfirmed(), arguments: selectedDate);
+          Get.to(const BookingConfirmed(), arguments: selectedDate);
         }
       } else {
         Get.dialog(
           AlertDialog(
-            title: Text('Error'),
-            content: Text('Please select a date and time.'),
+            title: const Text('Error'),
+            content: const Text('Please select a date and time.'),
             actions: [
               TextButton(
                 onPressed: () => Get.back(),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),

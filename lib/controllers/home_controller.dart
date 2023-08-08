@@ -6,7 +6,6 @@ import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
 
 import 'package:get/get.dart';
 
-import '../Auth/sigin_screen.dart';
 import '../Model/User.dart';
 import 'Firebase_Repo.dart';
 

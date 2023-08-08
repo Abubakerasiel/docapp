@@ -56,11 +56,11 @@ class HomeScreen1 extends StatelessWidget {
             backgroundColor: Colors.white,
             leading: Image.asset('assets/Frame.png'),
             title: current()
-                ? Text(
+                ? const Text(
                     "Hello Secretary",
                     style: TextStyle(color: Colors.black),
                   )
-                : Text(
+                : const Text(
                     "Hello Dr.Perry",
                     style: TextStyle(color: Colors.black),
                   ),
@@ -151,11 +151,11 @@ class HomeScreen1 extends StatelessWidget {
           backgroundColor: Colors.white,
           leading: Image.asset('assets/Frame.png'),
           title: current()
-              ? Text(
+              ? const Text(
                   "Hello Secretary",
                   style: TextStyle(color: Colors.black),
                 )
-              : Text(
+              : const Text(
                   "Hello Dr.Perry",
                   style: TextStyle(color: Colors.black),
                 ),

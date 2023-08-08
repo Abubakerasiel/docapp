@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterappoinmentapp/Views/Statemnet_page.dart';
+
 import 'package:flutterappoinmentapp/Views/constanst.dart';
 import 'package:flutterappoinmentapp/Views/time_editng.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
@@ -46,7 +46,7 @@ class _DatesListState extends State<DatesList> {
   final ReservationController controller = Get.put(ReservationController());
   Future<void> _loadData() async {
     // Simulate an asynchronous delay with Future.delayed
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     controller.fetchAllDates();
 
@@ -86,12 +86,13 @@ class _DatesListState extends State<DatesList> {
               // ),
               Expanded(
                   child: isLoading
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(),
                         )
                       : Obx(
                           () => ListView.separated(
-                            separatorBuilder: (context, index) => SizedBox(
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
                               height: 10,
                             ),
                             itemCount: controller.dates.length,
@@ -114,8 +115,8 @@ class _DatesListState extends State<DatesList> {
                                   userPhone != null) {
                                 final dateTime = timestamp.toDate();
 
-                                String formattedTime = DateFormat.jm()
-                                    .format(dateTime.add(Duration(hours: 1)));
+                                String formattedTime = DateFormat.jm().format(
+                                    dateTime.add(const Duration(hours: 1)));
                                 String formattedDate =
                                     DateFormat("EEE ,d MMM , ''yyyy")
                                         .format(dateTime);
@@ -127,8 +128,8 @@ class _DatesListState extends State<DatesList> {
                                 return Container(
                                   decoration: BoxDecoration(
                                     color: AppConstants.appColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(30)),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -156,7 +157,7 @@ class _DatesListState extends State<DatesList> {
                                                       ),
                                                       arguments: userID3);
                                                 },
-                                                child: CircleAvatar(
+                                                child: const CircleAvatar(
                                                   child: Icon(Icons.person),
                                                   backgroundColor: Colors.white,
                                                 ),
@@ -179,7 +180,7 @@ class _DatesListState extends State<DatesList> {
                                                     },
                                                     child: Text(
                                                         'Name: $userName',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 16,
                                                           fontWeight:
@@ -193,7 +194,7 @@ class _DatesListState extends State<DatesList> {
                                                       'Phone Number: $userPhone',
                                                       textAlign:
                                                           TextAlign.start,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 16,
                                                         decoration:
@@ -239,7 +240,7 @@ class _DatesListState extends State<DatesList> {
                                           //       fontSize: 15,
                                           //       decoration: TextDecoration.none,
                                           //     )),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Container(
@@ -247,34 +248,34 @@ class _DatesListState extends State<DatesList> {
                                             width: 300,
                                             color: Colors.white,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 15,
                                           ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 size: 20,
                                                 Icons.calendar_month_outlined,
                                                 color: Colors.white,
                                               ),
                                               Text(
                                                 " ${formattedDate}   ",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,
                                                   decoration:
                                                       TextDecoration.none,
                                                 ),
                                               ),
-                                              Icon(
+                                              const Icon(
                                                 size: 20,
                                                 Icons.access_time_outlined,
                                                 color: Colors.white,
                                               ),
                                               Text(
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
                                                     decoration:
@@ -283,7 +284,7 @@ class _DatesListState extends State<DatesList> {
                                                   ' ${formattedTime.toString().padLeft(2, '0')}'),
                                             ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           current2()
@@ -295,7 +296,7 @@ class _DatesListState extends State<DatesList> {
                                                     ElevatedButton(
                                                         style: ButtonStyle(
                                                           backgroundColor:
-                                                              MaterialStatePropertyAll(
+                                                              const MaterialStatePropertyAll(
                                                                   Colors
                                                                       .greenAccent),
                                                           shape: MaterialStateProperty.all<
@@ -305,7 +306,7 @@ class _DatesListState extends State<DatesList> {
                                                                       BorderRadius
                                                                           .circular(
                                                                               18.0),
-                                                                  side: BorderSide(
+                                                                  side: const BorderSide(
                                                                       color: Colors
                                                                           .greenAccent))),
                                                         ),
@@ -341,7 +342,7 @@ class _DatesListState extends State<DatesList> {
                                                     ElevatedButton(
                                                         style: ButtonStyle(
                                                           backgroundColor:
-                                                              MaterialStatePropertyAll(
+                                                              const MaterialStatePropertyAll(
                                                                   Colors
                                                                       .redAccent),
                                                           shape: MaterialStateProperty.all<
@@ -351,7 +352,7 @@ class _DatesListState extends State<DatesList> {
                                                                       BorderRadius
                                                                           .circular(
                                                                               18.0),
-                                                                  side: BorderSide(
+                                                                  side: const BorderSide(
                                                                       color: Colors
                                                                           .redAccent))),
                                                         ),
@@ -370,13 +371,13 @@ class _DatesListState extends State<DatesList> {
                                                             'Cancel Date'.tr)),
                                                   ],
                                                 )
-                                              : SizedBox()
+                                              : const SizedBox()
                                         ]),
                                   ),
                                 );
                               } else {
                                 return Container(
-                                  child: Text('hi'),
+                                  child: const Text('hi'),
                                 ); // Skip rendering if data is null
                               }
                             },
@@ -400,14 +401,14 @@ class _DatesListState extends State<DatesList> {
         ),
         floatingActionButton: current()
             ? FloatingActionButton(
-                child: Icon(
+                child: const Icon(
                   Icons.post_add,
                   //   color: AppConstants.appColor,
                 ),
                 onPressed: () {
-                  Get.to(AdminTimeEdit());
+                  Get.to(const AdminTimeEdit());
                 },
               )
-            : SizedBox());
+            : const SizedBox());
   }
 }

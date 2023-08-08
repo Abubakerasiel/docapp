@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -15,7 +13,7 @@ class BookingConfirmed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Rx<DateTime?> data = Get.arguments;
-    var time1 = data.value!.add(Duration(hours: 1)).toString();
+    var time1 = data.value!.add(const Duration(hours: 1)).toString();
 
     DateTime dateTime = DateTime.parse(time1);
 
@@ -31,7 +29,7 @@ class BookingConfirmed extends StatelessWidget {
         padding: const EdgeInsets.all(14),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Row(
@@ -41,7 +39,7 @@ class BookingConfirmed extends StatelessWidget {
                   onTap: () {
                     Get.back();
                   },
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     radius: 15,
                     child: Icon(
                       Icons.arrow_back,
@@ -76,7 +74,7 @@ class BookingConfirmed extends StatelessWidget {
                 // )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             Text(
@@ -86,30 +84,30 @@ class BookingConfirmed extends StatelessWidget {
                   fontSize: 24,
                   color: AppConstants.appColor),
             ),
-            SizedBox(
+            const SizedBox(
               height: 29,
             ),
-            Text(
+            const Text(
               'Your booking has been confirmed ',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 24,
                   color: Colors.black),
             ),
-            SizedBox(
+            const SizedBox(
               height: 29,
             ),
             Text(
               '$formattedDate $formattedTime',
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 24,
                   color: Colors.black),
             ),
-            SizedBox(
+            const SizedBox(
               height: 29,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
@@ -119,7 +117,7 @@ class BookingConfirmed extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 29,
             ),
             GestureDetector(

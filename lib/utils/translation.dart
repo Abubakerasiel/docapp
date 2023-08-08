@@ -63,7 +63,6 @@ Map<String, String> get arKeys => {
       'Sign Up': 'انشاء حساب',
       'Name': 'الاسم',
       'Sign In': 'تسجيل الدخول',
-      'email': 'ايميل',
       'hello_getx': 'Getx مرحبا',
       'change_lang': 'تغير اللغة',
       'make an appoimnet': 'عمل حجز',

@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart%20';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/home.dart';
@@ -73,7 +73,7 @@ class SignInController extends GetxController {
         .signIn(email: email!, password: password!);
     if (response == null) return;
     log('${response.user?.email}');
-    Get.to(HomeScreen1());
+    Get.to(const HomeScreen1());
     emailController.clear();
     passwordController.clear();
 

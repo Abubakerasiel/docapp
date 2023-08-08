@@ -43,7 +43,7 @@ class StatmentPage extends StatelessWidget {
               TextField(
                 controller: txt,
                 autofocus: false,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -85,7 +85,7 @@ class StatmentPage extends StatelessWidget {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   // Reverse the list of documents before mapping them to ListTiles
@@ -106,8 +106,8 @@ class StatmentPage extends StatelessWidget {
 
                         return ListTile(
                           title: Text(
-                            '$text',
-                            style: TextStyle(
+                            text,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           subtitle: Text(formattedTime),
@@ -124,7 +124,7 @@ class StatmentPage extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios_new,
             // color: AppConstants.appColor,
           ),
