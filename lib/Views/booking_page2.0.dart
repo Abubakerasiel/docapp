@@ -36,6 +36,11 @@ class _BookingScreenState extends State<BookingScreen> {
   // int _selectedIndex = -1;
   DateTime today = DateTime.now().add(const Duration(days: 7));
   void _onDaySelectd(DateTime day, DateTime focusedDay) {
+    void call() async {
+      await controller.getDataFromFirestore();
+    }
+
+    call();
     setState(() {
       selectedTimeIndex = -1; // Reset the selected time index
     });

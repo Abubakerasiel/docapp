@@ -4,14 +4,14 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterappoinmentapp/controllers/Firebase_Repo.dart';
+import 'package:flutterappoinmentapp/controllers/firebase_repo.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../Auth/sigin_screen.dart';
 import '../Auth/sigin_up_screen.dart';
 import '../Model/User.dart';
-import 'FirebaseUsersData/FirebaseData.dart';
+import 'firebase_users_data/firebase_data.dart';
 
 class SignUpController extends GetxController {
   PackageType? selectedPackageType;

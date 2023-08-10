@@ -7,7 +7,7 @@ import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
 import 'package:get/get.dart';
 
 import '../Model/User.dart';
-import 'Firebase_Repo.dart';
+import 'firebase_repo.dart';
 
 CollectionReference waitingListCollection =
     FirebaseFirestore.instance.collection('waiting_list');

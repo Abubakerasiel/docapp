@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
 
-import '../utils/Notification_service.dart';
+import '../utils/notification_service.dart';
 // import 'package:timezone/timezone.dart' as tz;
 // import 'package:timezone/data/latest.dart' as tz;
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 // import 'package:timezone/data/latest.dart' as tzl;
 // import 'package:timezone/standalone.dart' as tz;
 // import 'package:timezone/timezone.dart' as tz;
@@ -64,6 +64,8 @@ class ReservationController extends GetxController {
   RxString age = RxString('');
   RxString height = RxString('');
   RxString gender = RxString('');
+  RxString packageType = RxString('');
+
   int? package;
   RxBool y = false.obs;
   String? userToken;
@@ -332,100 +334,100 @@ class ReservationController extends GetxController {
   CollectionReference datesCollection =
       FirebaseFirestore.instance.collection('dates');
 
-  Future<void> datePicker(BuildContext context) async {
-    // bool isDateSelectable(DateTime date) {
-    //   // Weekday values: 1 (Monday) to 7 (Sunday)
-    //   final int weekday = date.weekday;
-    //   return weekday >= DateTime.friday && weekday <= DateTime.thursday;
-    // }
+  // Future<void> datePicker(BuildContext context) async {
+  //   // bool isDateSelectable(DateTime date) {
+  //   //   // Weekday values: 1 (Monday) to 7 (Sunday)
+  //   //   final int weekday = date.weekday;
+  //   //   return weekday >= DateTime.friday && weekday <= DateTime.thursday;
+  //   // }
 
-    final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(const Duration(days: 365)),
-        selectableDayPredicate: (DateTime date) {
-          // Check if the selected date is Sunday to Thursday
-          return date.weekday == 1 ||
-              date.weekday == 2 ||
-              date.weekday == 7 ||
-              date.weekday == 6 ||
-              date.weekday == 4 ||
-              date.weekday == 5 ||
-              date.weekday == 3;
-          // ... existing code ...
-        });
+  //   final DateTime? pickedDate = await showDatePicker(
+  //       context: context,
+  //       initialDate: DateTime.now(),
+  //       firstDate: DateTime.now(),
+  //       lastDate: DateTime.now().add(const Duration(days: 365)),
+  //       selectableDayPredicate: (DateTime date) {
+  //         // Check if the selected date is Sunday to Thursday
+  //         return date.weekday == 1 ||
+  //             date.weekday == 2 ||
+  //             date.weekday == 7 ||
+  //             date.weekday == 6 ||
+  //             date.weekday == 4 ||
+  //             date.weekday == 5 ||
+  //             date.weekday == 3;
+  //         // ... existing code ...
+  //       });
 
-    if (pickedDate != null) {
-      if (pickedDate.weekday == 1 ||
-          pickedDate.weekday == 2 ||
-          pickedDate.weekday == 7 ||
-          pickedDate.weekday == 6) {
-        // ignore: use_build_context_synchronously
-        final TimeOfDay? pickedTime = await showTimePicker(
-          context: context,
-          initialTime: const TimeOfDay(hour: 12, minute: 0),
-          builder: (BuildContext context, Widget? child) {
-            return MediaQuery(
-              data:
-                  MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-              child: child!,
-            );
-          },
-        );
+  //   if (pickedDate != null) {
+  //     if (pickedDate.weekday == 1 ||
+  //         pickedDate.weekday == 2 ||
+  //         pickedDate.weekday == 7 ||
+  //         pickedDate.weekday == 6) {
+  //       // ignore: use_build_context_synchronously
+  //       final TimeOfDay? pickedTime = await showTimePicker(
+  //         context: context,
+  //         initialTime: const TimeOfDay(hour: 12, minute: 0),
+  //         builder: (BuildContext context, Widget? child) {
+  //           return MediaQuery(
+  //             data:
+  //                 MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+  //             child: child!,
+  //           );
+  //         },
+  //       );
 
-        if (pickedTime != null) {
-          if (pickedTime.hour < 21) {
-            final DateTime selectedDateTime = DateTime(
-              pickedDate.year,
-              pickedDate.month,
-              pickedDate.day,
-              pickedTime.hour,
-              pickedTime.minute,
-            );
+  //       if (pickedTime != null) {
+  //         if (pickedTime.hour < 21) {
+  //           final DateTime selectedDateTime = DateTime(
+  //             pickedDate.year,
+  //             pickedDate.month,
+  //             pickedDate.day,
+  //             pickedTime.hour,
+  //             pickedTime.minute,
+  //           );
 
-            // Schedule the notification
-            //  await scheduleNotification(selectedDateTime);
+  //           // Schedule the notification
+  //           //  await scheduleNotification(selectedDateTime);
 
-            // Set the selected date and time
-            selectedDate.value = selectedDateTime;
-          } else {
-            Get.snackbar(
-              'Invalid Time'.tr,
-              'Please choose the time: Saturday 12 am to 7:30 pm, Sunday 5:00 pm to 8:00 pm, Monday and Tuesday, 4:00 pm to 8:30 pm'
-                  .tr,
-              snackPosition: SnackPosition.BOTTOM,
-              duration: const Duration(seconds: 4),
-              backgroundColor: Colors.red,
-              colorText: Colors.white,
-            );
-          }
-        } else {
-          Get.snackbar(
-            'Invalid date'.tr,
-            'Please select a date from Saturday to tuesday.'.tr,
-            snackPosition: SnackPosition.BOTTOM,
-            duration: const Duration(seconds: 3),
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
-          // Show
-          //
-          //an error snackbar for invalid time
-          // ...
-        }
-      } else {
-        Get.snackbar(
-          'Invalid Day',
-          'Please select a date from Saturday to tuesday.'.tr,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 3),
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
-    }
-  }
+  //           // Set the selected date and time
+  //           selectedDate.value = selectedDateTime;
+  //         } else {
+  //           Get.snackbar(
+  //             'Invalid Time'.tr,
+  //             'Please choose the time: Saturday 12 am to 7:30 pm, Sunday 5:00 pm to 8:00 pm, Monday and Tuesday, 4:00 pm to 8:30 pm'
+  //                 .tr,
+  //             snackPosition: SnackPosition.BOTTOM,
+  //             duration: const Duration(seconds: 4),
+  //             backgroundColor: Colors.red,
+  //             colorText: Colors.white,
+  //           );
+  //         }
+  //       } else {
+  //         Get.snackbar(
+  //           'Invalid date'.tr,
+  //           'Please select a date from Saturday to tuesday.'.tr,
+  //           snackPosition: SnackPosition.BOTTOM,
+  //           duration: const Duration(seconds: 3),
+  //           backgroundColor: Colors.red,
+  //           colorText: Colors.white,
+  //         );
+  //         // Show
+  //         //
+  //         //an error snackbar for invalid time
+  //         // ...
+  //       }
+  //     } else {
+  //       Get.snackbar(
+  //         'Invalid Day',
+  //         'Please select a date from Saturday to tuesday.'.tr,
+  //         snackPosition: SnackPosition.BOTTOM,
+  //         duration: const Duration(seconds: 3),
+  //         backgroundColor: Colors.red,
+  //         colorText: Colors.white,
+  //       );
+  //     }
+  //   }
+  // }
 
   fetchDates() async {
     try {
@@ -468,10 +470,14 @@ class ReservationController extends GetxController {
 
   void fetchAllDates() async {
     try {
-      final snapshot = await datesCollection.get();
+      // Fetch data from the Firestore collection named 'datesCollection'
+      final snapshot = await datesCollection.orderBy('selectedDate').get();
+
+      // Store the fetched and ordered data in the 'dates' variable
       dates.value =
           snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
     } catch (error) {
+      // Handle any errors that occur during fetching
       logi.log("Failed to fetch dates: $error");
     }
   }
@@ -500,7 +506,7 @@ class ReservationController extends GetxController {
     // }
   }
 
-  void paidPackge(String userID1) async {
+  paidPackge(String userID1) async {
     // ignore: prefer_typing_uninitialized_variables
     var package2;
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
@@ -521,7 +527,7 @@ class ReservationController extends GetxController {
         .update({'package': package2});
   }
 
-  void paymentStatus(String userID1) async {
+  paymentStatus(String userID1) async {
     // ignore: prefer_typing_uninitialized_variables
     late var package3;
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
@@ -574,6 +580,7 @@ class ReservationController extends GetxController {
         gender.value = snapshot.data()?['gender'];
         package = snapshot.data()?['package'];
         medicalIssue.value = snapshot.data()?['medical_issue'];
+        packageType.value = snapshot.data()?['packageType'];
         return snapshot.data();
       } else {
         logi.log('User document does not exist');
@@ -867,7 +874,6 @@ class ReservationController extends GetxController {
     // }
 
     int randomID = generateRandomID(8);
-    final DateFormat dateFormatter = DateFormat('yyyy-MM-dd hh:mm a');
 
     // final String selectedDateString = dateFormatter.format(selectedDate.value!
     //         .add(const Duration(hours: 12)) // Add 12 hours to switch to PM
@@ -899,43 +905,44 @@ class ReservationController extends GetxController {
             .get() as QuerySnapshot<Map<String, dynamic>>;
     final int existingAppointmentsCount = existingAppointmentsSnapshot.size;
 
-    // Check if the selected time slot is already booked
-    Future<bool> isTimeSlotAlreadyBooked(DateTime selectedDateTime) async {
-      final DateTime selectedDateStart = getStartOfDay(selectedDateTime);
-      final DateTime selectedDateEnd = getEndOfDay(selectedDateTime);
-      // print(selectedDateStart);
-      // print(selectedDateEnd);
+    // // Check if the selected time slot is already booked
+    // Future<bool> isTimeSlotAlreadyBooked(DateTime selectedDateTime) async {
+    //   final DateTime selectedDateStart = getStartOfDay(selectedDateTime);
+    //   final DateTime selectedDateEnd = getEndOfDay(selectedDateTime);
+    //   // print(selectedDateStart);
+    //   // print(selectedDateEnd);
 
-      final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
-          await datesCollection
-              .where('selectedDate', isGreaterThanOrEqualTo: selectedDateStart)
-              .where('selectedDate', isLessThan: selectedDateEnd)
-              .get() as QuerySnapshot<Map<String, dynamic>>;
+    //   final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
+    //       await datesCollection
+    //           .where('selectedDate', isGreaterThanOrEqualTo: selectedDateStart)
+    //           .where('selectedDate', isLessThan: selectedDateEnd)
+    //           .get() as QuerySnapshot<Map<String, dynamic>>;
 
-      for (final doc in appointmentsSnapshot.docs) {
-        final DateTime appointmentDateTime = doc['selectedDate'].toDate();
-        // print(selectedDateStart);
-        // print(selectedDateEnd);
-        // print(appointmentDateTime);
+    //   for (final doc in appointmentsSnapshot.docs) {
+    //     final DateTime appointmentDateTime = doc['selectedDate'].toDate();
+    //     // print(selectedDateStart);
+    //     // print(selectedDateEnd);
+    //     // print(appointmentDateTime);
 
-        // Check if the appointment time overlaps with the selected time slot
-        if (appointmentDateTime.isAtSameMomentAs(selectedDateTime) ||
-            (appointmentDateTime.isAfter(selectedDateTime) &&
-                appointmentDateTime.isBefore(selectedDateEnd))) {
-          return true; // The selected time slot is already booked
-        }
-      }
+    //     // Check if the appointment time overlaps with the selected time slot
+    //     if (appointmentDateTime.isAtSameMomentAs(selectedDateTime) ||
+    //         (appointmentDateTime.isAfter(selectedDateTime) &&
+    //             appointmentDateTime.isBefore(selectedDateEnd))) {
+    //       return true; // The selected time slot is already booked
+    //     }
+    //   }
 
-      return false; // No overlapping appointments found
-    }
+    //   return false; // No overlapping appointments found
+    // }
 
-    // final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
-    //     await datesCollection
-    //         .where('selectedDate', isEqualTo: selectedDate.value)
-    //         .get() as QuerySnapshot<Map<String, dynamic>>;
-    // final int selectedTimeAppointmentsCount =
-    //     selectedTimeAppointmentsSnapshot.size;
-    // print(selectedTimeAppointmentsCount);
+    final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
+        await datesCollection
+            .where('selectedDate',
+                isEqualTo: selectedDate.value!.add(const Duration(hours: 12)))
+            .get() as QuerySnapshot<Map<String, dynamic>>;
+    final int selectedTimeAppointmentsCount =
+        selectedTimeAppointmentsSnapshot.size;
+    logi.log(selectedTimeAppointmentsCount.toString());
 
     // Check if the user is already in the waiting list for the selected date
     final QuerySnapshot<
@@ -1012,8 +1019,7 @@ class ReservationController extends GetxController {
           colorText: Colors.black,
         );
       }
-    } else if (await isTimeSlotAlreadyBooked(
-        selectedDate.value!.add(Duration(hours: 12)))) {
+    } else if (selectedTimeAppointmentsCount > 0) {
       // print("Time slot is already booked.");
       // print('biko12');
       // print(selectedDate.value!);
@@ -1087,7 +1093,7 @@ class ReservationController extends GetxController {
         logi.log(selectedDate.value!.toString());
         final reservationData = {
           //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
-          'selectedDate': selectedDate.value!.add(Duration(hours: 12)),
+          'selectedDate': selectedDate.value!.add(const Duration(hours: 12)),
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,

@@ -4,7 +4,7 @@ import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
 import 'package:get/get.dart';
 
 import '../Views/constanst.dart';
-import '../controllers/Sign_up_Controller.dart';
+import '../controllers/sign_up_controller.dart';
 
 enum PackageType { byPackage, byTime }
 

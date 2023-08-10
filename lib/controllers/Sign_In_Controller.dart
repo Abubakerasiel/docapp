@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/User.dart';
 
-import 'Firebase_Repo.dart';
+import 'firebase_repo.dart';
 
 class SignInController extends GetxController {
   @override

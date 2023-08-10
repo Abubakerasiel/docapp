@@ -66,6 +66,21 @@ class _DatesListState extends State<DatesList> {
   Widget build(BuildContext context) {
     //  RxString a = txt.text.obs;
     final ReservationController controller = Get.put(ReservationController());
+    // ignore: no_leading_underscores_for_local_identifiers
+    void _onDeleteConfirmed(String dateId) {
+      setState(() {
+        controller.deleteDate(dateId);
+        controller.dates.removeWhere((date) => date.id == dateId);
+      });
+    }
+
+    // ignore: no_leading_underscores_for_local_identifiers
+    void _onReplaceConfirmed(String dateId) {
+      setState(() {
+        controller.deleteDateAndReplaceIt(dateId);
+        controller.dates.removeWhere((date) => date.id == dateId);
+      });
+    }
     // final User user=FirebaseAuth.instance.currentUser;
     // final  user = FirebaseAuth.instance.currentUser;
 
@@ -311,13 +326,18 @@ class _DatesListState extends State<DatesList> {
                                                                           .greenAccent))),
                                                         ),
                                                         onPressed: () {
-                                                          controller.deleteDate(
-                                                              controller
-                                                                  .dates[index]
-                                                                  .id);
-                                                          //    controller.getTodayAppointments();
-                                                          controller
-                                                              .fetchAllDates();
+                                                          setState(() {
+                                                            _onDeleteConfirmed(
+                                                                controller
+                                                                    .dates[
+                                                                        index]
+                                                                    .id);
+                                                            // controller.deleteDate(
+                                                            //     controller.dates[index].id);
+                                                            // controller.getTodayAppointments();
+                                                            // controller
+                                                            //     .fetchAllDates();
+                                                          });
                                                         },
                                                         child: Text(
                                                             'Confirm Date'.tr)),
@@ -357,14 +377,18 @@ class _DatesListState extends State<DatesList> {
                                                                           .redAccent))),
                                                         ),
                                                         onPressed: () {
-                                                          controller
-                                                              .deleteDateAndReplaceIt(
-                                                                  controller
-                                                                      .dates[
-                                                                          index]
-                                                                      .id);
-                                                          controller
-                                                              .fetchAllDates();
+                                                          setState(() {
+                                                            _onReplaceConfirmed(
+                                                                controller
+                                                                    .dates[
+                                                                        index]
+                                                                    .id);
+                                                            // controller.deleteDate(
+                                                            //     controller.dates[index].id);
+                                                            // controller.getTodayAppointments();
+                                                            // controller
+                                                            //     .fetchAllDates();
+                                                          });
                                                           //controller.getTodayAppointments();
                                                         },
                                                         child: Text(

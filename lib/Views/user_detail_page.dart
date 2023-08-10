@@ -105,7 +105,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     if (reservationController.user!.uid == data) {
       y = true;
     }
-    if (reservationController.user!.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2') {
+    if (reservationController.user!.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2' ||
+        reservationController.user!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
       x = true;
     }
 
@@ -158,6 +159,10 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                         'Medical Issue :'.tr,
                         style: const TextStyle(fontSize: 18),
                       ),
+                      Text(
+                        'Package Type :'.tr,
+                        style: const TextStyle(fontSize: 18),
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -198,6 +203,10 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       ),
                       Text(
                         reservationController.medicalIssue.value.tr,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        reservationController.packageType.value.tr,
                         style: const TextStyle(fontSize: 18),
                       ),
                     ],
@@ -347,39 +356,42 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                 showUnselectedLabels: true,
                 onTap: _onItemTapped,
               )
-            : x
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: reservationController.y.value
-                                  ? const MaterialStatePropertyAll(Colors.green)
-                                  : const MaterialStatePropertyAll(
-                                      Colors.amber)),
-                          onPressed: () async {
-                            reservationController.paidPackge(data);
-                            reservationController.paymentStatus(data);
-                            Get.snackbar(' Successful Payment'.tr,
-                                'The package has been updated successfuly'.tr,
-                                backgroundColor: Colors.greenAccent,
-                                snackPosition: SnackPosition.BOTTOM);
+            : x && reservationController.packageType.value == 'byPackage'
+                ? Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: reservationController.y.value
+                                    ? const MaterialStatePropertyAll(
+                                        Colors.green)
+                                    : const MaterialStatePropertyAll(
+                                        Colors.amber)),
+                            onPressed: () async {
+                              await reservationController.paidPackge(data);
+                              await reservationController.paymentStatus(data);
+                              Get.snackbar(' Successful Payment'.tr,
+                                  'The package has been updated successfuly'.tr,
+                                  backgroundColor: Colors.greenAccent,
+                                  snackPosition: SnackPosition.BOTTOM);
 
-                            //  _reservationController. y.value = true;
-                          },
-                          child: reservationController.y.value
-                              ? Text('Paid'.tr)
-                              : Text('did not Paid'.tr)),
-                      // SizedBox(
-                      //   width: 100,
-                      // ),
-                      reservationController.y.value
-                          ? const Icon(
-                              Icons.check_circle_outlined,
-                              color: Colors.green,
-                            )
-                          : const SizedBox()
-                    ],
+                              //  _reservationController. y.value = true;
+                            },
+                            child: reservationController.y.value
+                                ? Text('Paid'.tr)
+                                : Text('did not Paid'.tr)),
+                        // SizedBox(
+                        //   width: 100,
+                        // ),
+                        reservationController.y.value
+                            ? const Icon(
+                                Icons.check_circle_outlined,
+                                color: Colors.green,
+                              )
+                            : const SizedBox()
+                      ],
+                    ),
                   )
                 : const SizedBox());
   }

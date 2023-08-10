@@ -8,7 +8,7 @@ import 'package:flutterappoinmentapp/Auth/sigin_up_screen.dart';
 
 import 'package:get/get.dart';
 
-import 'utils/Notification_service.dart';
+import 'utils/notification_service.dart';
 import 'global_bindings.dart';
 import 'utils/translation.dart';
 

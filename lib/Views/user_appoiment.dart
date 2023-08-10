@@ -49,6 +49,21 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
+    void _onDeleteConfirmed(String dateId) {
+      setState(() {
+        controller.deleteDate(dateId);
+        controller.dates.removeWhere((date) => date.id == dateId);
+      });
+    }
+
+    // ignore: no_leading_underscores_for_local_identifiers
+    void _onReplaceConfirmed(String dateId) {
+      setState(() {
+        controller.deleteDateAndReplaceIt(dateId);
+        controller.dates.removeWhere((date) => date.id == dateId);
+      });
+    }
     //  final currentUser = tl.FirebaseAuth.instance.currentUser;
 
     return Scaffold(
@@ -264,10 +279,14 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                                   color: Colors.greenAccent))),
                                     ),
                                     onPressed: () {
-                                      controller.deleteDate(
-                                          controller.dates[index].id);
-                                      //    controller.getTodayAppointments();
-                                      controller.fetchAllDates();
+                                      setState(() {
+                                        _onDeleteConfirmed(
+                                            controller.dates[index].id);
+                                        // controller.deleteDate(
+                                        //     controller.dates[index].id);
+                                        // controller.getTodayAppointments();
+                                      });
+                                      //  controller.fetchDates();
                                     },
                                     child: Text('Confirm Date'.tr)),
                                 // ElevatedButton(
@@ -302,9 +321,14 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                                   color: Colors.redAccent))),
                                     ),
                                     onPressed: () {
-                                      controller.deleteDateAndReplaceIt(
-                                          controller.dates[index].id);
-                                      controller.fetchAllDates();
+                                      setState(() {
+                                        _onReplaceConfirmed(
+                                            controller.dates[index].id);
+                                        // controller.deleteDate(
+                                        //     controller.dates[index].id);
+                                        // controller.getTodayAppointments();
+                                      });
+                                      //  controller.fetchDates();
                                       //controller.getTodayAppointments();
                                     },
                                     child: Text('Cancel Date'.tr)),

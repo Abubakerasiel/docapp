@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'sigin_up_screen.dart';
-import '../controllers/Sign_In_Controller.dart';
+import '../controllers/sign_in_controller.dart';
 
 import '../Views/constanst.dart';
 

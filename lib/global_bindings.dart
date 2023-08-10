@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:get/get.dart';
 
-import 'controllers/FirebaseUsersData/FirebaseData.dart';
-import 'controllers/Firebase_Repo.dart';
+import 'controllers/firebase_repo.dart';
+import 'controllers/firebase_users_data/firebase_data.dart';
 
 class GlobalBindings extends Bindings {
   GlobalBindings() {
