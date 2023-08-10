@@ -19,14 +19,18 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  final ReservationController _reservationController =
+      Get.put(ReservationController());
   // int _selectedIndex = 0;
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index) async {
     if (index == 0) {
       // If 'Home' is tapped, do nothing (stay on the current page)
       return;
     } else if (index == 1) {
+      //   await _reservationController.getDataFromFirestore();
+
       // If 'Business' is tapped, navigate to the sign-in screen
-      Get.off(const BookingScreen());
+      Get.to(const BookingScreen());
     } else if (index == 2) {
       Get.off(UserDetailsPage(userId: _reservationController.user!.uid),
           arguments: _reservationController.user!.uid);
@@ -38,9 +42,6 @@ class _UserPageState extends State<UserPage> {
       return;
     }
   }
-
-  final ReservationController _reservationController =
-      Get.put(ReservationController());
 
   // @override
   // void onInit() {

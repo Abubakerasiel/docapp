@@ -298,7 +298,6 @@ class SignUpScreen extends GetView<SignUpController> {
                     return null;
                   },
                   onChanged: (newValue) {
-                    controller.updateSelectedPackageType(newValue!);
                     controller.newUser?.packageType = newValue;
                     controller.newUser?.package =
                         (controller.newUser?.packageType ==

@@ -73,14 +73,15 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     final ReservationController reservationController =
         Get.put(ReservationController());
     // ignore: no_leading_underscores_for_local_identifiers
-    void _onItemTapped(int index) {
+    void _onItemTapped(int index) async {
       if (index == 0) {
         Get.off(const UserPage());
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
+        // await reservationController.getDataFromFirestore();
         // If 'Business' is tapped, navigate to the sign-in screen
-        Get.off(const BookingScreen());
+        Get.to(const BookingScreen());
       } else if (index == 2) {
         // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
         //     arguments: _reservationController.user!.uid);

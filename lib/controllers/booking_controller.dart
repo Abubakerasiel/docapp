@@ -69,8 +69,9 @@ class ReservationController extends GetxController {
   String? userToken;
   List? all;
   List? tak;
-  RxBool timeShowing = true.obs;
-  RxBool timeShowing2 = false.obs;
+  RxBool sundayTimeShowing = true.obs;
+  RxBool tuesTimeShowing = false.obs;
+  RxBool mondayTimeShowing = false.obs;
   RxBool isSaturday1H = false.obs;
 
   RxBool isSunday1H = false.obs;
@@ -868,9 +869,9 @@ class ReservationController extends GetxController {
     int randomID = generateRandomID(8);
     final DateFormat dateFormatter = DateFormat('yyyy-MM-dd hh:mm a');
 
-    final String selectedDateString = dateFormatter.format(selectedDate.value!
-            .add(const Duration(hours: 12)) // Add 12 hours to switch to PM
-        );
+    // final String selectedDateString = dateFormatter.format(selectedDate.value!
+    //         .add(const Duration(hours: 12)) // Add 12 hours to switch to PM
+    //     );
 
     final DateTime notificationTime =
         selectedDate.value!.subtract(const Duration(hours: 12));
@@ -887,10 +888,8 @@ class ReservationController extends GetxController {
         'Hello ${userName.value}! Your appointment is coming up in 3 hours.';
 
     const int maxAppointmentsPerDay = 2;
-    final selectedDateStart =
-        getStartOfDay(dateFormatter.parse(selectedDateString));
-    final selectedDateEnd =
-        getEndOfDay(dateFormatter.parse(selectedDateString));
+    final selectedDateStart = getStartOfDay(selectedDate.value!);
+    final selectedDateEnd = getEndOfDay(selectedDate.value!);
 
     // Check if the maximum number of appointments for the day (4) has been reached
     final QuerySnapshot<Map<String, dynamic>> existingAppointmentsSnapshot =
@@ -960,7 +959,7 @@ class ReservationController extends GetxController {
         if (waitingListCount < 2) {
           // Add the user to the waiting list
           final waitingListData = {
-            'selectedDate': dateFormatter.parse(selectedDateString),
+            'selectedDate': selectedDate.value,
             'userId': user!.uid,
             'userEmail': user!.email,
             'phone': userPhone.value,
@@ -1014,7 +1013,7 @@ class ReservationController extends GetxController {
         );
       }
     } else if (await isTimeSlotAlreadyBooked(
-        selectedDate.value!.add(const Duration(hours: 12)))) {
+        selectedDate.value!.add(Duration(hours: 12)))) {
       // print("Time slot is already booked.");
       // print('biko12');
       // print(selectedDate.value!);
@@ -1085,10 +1084,10 @@ class ReservationController extends GetxController {
         bool isSameDay = selectedDate.value!.year == now.year &&
             selectedDate.value!.month == now.month &&
             selectedDate.value!.day == now.day;
-
+        logi.log(selectedDate.value!.toString());
         final reservationData = {
           //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
-          'selectedDate': selectedDate.value!.add(const Duration(hours: 12)),
+          'selectedDate': selectedDate.value!.add(Duration(hours: 12)),
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,

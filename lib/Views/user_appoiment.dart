@@ -26,14 +26,15 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
     super.initState();
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index) async {
     if (index == 0) {
       Get.off(const UserPage());
       // If 'Home' is tapped, do nothing (stay on the current page)
       return;
     } else if (index == 1) {
+      // await controller.getDataFromFirestore();
       // If 'Business' is tapped, navigate to the sign-in screen
-      Get.off(const BookingScreen());
+      Get.to(const BookingScreen());
     } else if (index == 2) {
       Get.off(UserDetailsPage(userId: controller.user!.uid),
           arguments: controller.user!.uid);
