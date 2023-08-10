@@ -437,6 +437,7 @@ class ReservationController extends GetxController {
       if (currentUser != null) {
         final snapshot = await datesCollection
             .where('userEmail', isEqualTo: currentUser.email)
+            .orderBy('selectedDate') // Order by reservationTime
             .get();
 
         dates.value =
