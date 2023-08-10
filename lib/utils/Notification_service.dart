@@ -21,7 +21,7 @@ class NotificationService {
 
   Future<void> initNotification() async {
     // Android initialization
-    final AndroidInitializationSettings initializationSettingsAndroid =
+    const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
     // ios initialization
@@ -32,7 +32,7 @@ class NotificationService {
     // requestSoundPermission: false,
     // );
 
-    final InitializationSettings initializationSettings =
+    const InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
       //	iOS: initializationSettingsIOS
@@ -86,6 +86,7 @@ class NotificationService {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+      // ignore: deprecated_member_use
       androidAllowWhileIdle:
           true, // To show notification even when the app is closed
     );

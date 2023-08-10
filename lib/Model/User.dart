@@ -10,8 +10,9 @@ class User {
   String? age;
   String? height;
   Gender? gender;
-  String? medical_issue;
-  int? package = 5;
+  PackageType? packageType;
+  String? medicalIssue;
+  int? package;
 
   User(
       {this.name,
@@ -23,8 +24,9 @@ class User {
       this.height,
       this.gender,
       this.weight,
-      this.medical_issue,
-      this.package = 5});
+      this.medicalIssue,
+      this.package,
+      this.packageType});
 
   User.fromJson(Map<String, dynamic> json) {
     name = json['name']?.toString();
@@ -35,10 +37,15 @@ class User {
     age = json['age']?.toString();
     email = json['email']?.toString();
     height = json['height']?.toString();
-    medical_issue = json['medical_issue']?.toString();
-    package = int.tryParse(json['package'].toString());
+    medicalIssue = json['medical_issue']?.toString();
+    package = (packageType == PackageType.byPackage) ? 5 : 50;
     if (json['gender'] != null) {
       gender = json['gender'] == Gender.male.name ? Gender.male : Gender.female;
+    }
+    if (json['packageType'] != null) {
+      packageType = json['packageType'] == PackageType.byPackage.name
+          ? PackageType.byPackage
+          : PackageType.byTime;
     }
   }
 
@@ -52,8 +59,9 @@ class User {
     data['email'] = email;
     data['phone'] = phone;
     data['height'] = height;
-    data['medical_issue'] = medical_issue;
+    data['medical_issue'] = medicalIssue;
     data['package'] = package;
+    data['packageType'] = packageType?.name;
 
     data['gender'] = gender?.name;
     return data;

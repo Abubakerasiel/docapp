@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/booking_page2.0.dart';
+import 'package:flutterappoinmentapp/Views/user_appoiment.dart';
 
 import 'package:get/get.dart';
 
@@ -11,7 +12,7 @@ import 'user_detail_page.dart';
 import 'package:intl/intl.dart';
 
 class UserPage extends StatefulWidget {
-  UserPage({super.key});
+  const UserPage({super.key});
 
   @override
   State<UserPage> createState() => _UserPageState();
@@ -25,10 +26,14 @@ class _UserPageState extends State<UserPage> {
       return;
     } else if (index == 1) {
       // If 'Business' is tapped, navigate to the sign-in screen
-      Get.to(BookingScreen());
+      Get.off(const BookingScreen());
     } else if (index == 2) {
       Get.off(UserDetailsPage(userId: _reservationController.user!.uid),
           arguments: _reservationController.user!.uid);
+      // If 'School' is tapped, do nothing (stay on the current page)
+      return;
+    } else if (index == 3) {
+      Get.off(const UserAppoimetn());
       // If 'School' is tapped, do nothing (stay on the current page)
       return;
     }
@@ -156,7 +161,7 @@ class _UserPageState extends State<UserPage> {
 
                       return ListTile(
                         title: Text(
-                          '$text',
+                          text,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
@@ -199,9 +204,15 @@ class _UserPageState extends State<UserPage> {
               icon: const Icon(Icons.person_sharp),
               label: 'Profile Page'.tr,
             ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today_rounded), // New icon
+              label: 'Dates Page', // Label for the new item
+            ),
           ],
           currentIndex: 0,
           selectedItemColor: AppConstants.appColor,
+          unselectedItemColor: Colors.grey.shade700,
+          showUnselectedLabels: true,
           onTap: _onItemTapped,
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,7 +13,7 @@ import 'global_bindings.dart';
 import 'utils/translation.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message ${message.messageId}');
+  log('Handling a background message ${message.messageId}');
 }
 
 void main() async {
@@ -24,7 +26,7 @@ void main() async {
   NotificationService().initNotification();
 
   runApp(GetMaterialApp(
-    home: SignUpScreen(),
+    home: const SignUpScreen(),
     translations: Translation(),
     locale: const Locale('en'),
   ));

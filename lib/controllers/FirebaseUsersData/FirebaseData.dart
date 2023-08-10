@@ -27,13 +27,11 @@ class UsersRepoImpl implements UsersRepo {
 
   @override
   Future<List<User>?> getAllUsers() {
-    // TODO: implement getAllUsers
     throw UnimplementedError();
   }
 
   @override
   Future<User?> getSingleUser(String uid) {
-    // TODO: implement getSingleUser
     throw UnimplementedError();
   }
 }

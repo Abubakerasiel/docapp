@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'dart:developer';
 import 'dart:io';
 
@@ -8,11 +9,18 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../Auth/sigin_screen.dart';
+import '../Auth/sigin_up_screen.dart';
 import '../Model/User.dart';
 import 'FirebaseUsersData/FirebaseData.dart';
 
 class SignUpController extends GetxController {
+  PackageType? selectedPackageType;
   GlobalKey<FormState> key = GlobalKey();
+  @override
+  void onInit() {
+    super.onInit();
+    newUser = User(); // Initialize newUser object
+  }
 
   User? newUser;
   String? password;
@@ -29,6 +37,7 @@ class SignUpController extends GetxController {
     //   return;
     // }
     newUser = User();
+    newUser!.packageType = selectedPackageType;
     key.currentState!.save();
 
     log('email: ${newUser!.email} , password : $password');
@@ -46,8 +55,13 @@ class SignUpController extends GetxController {
     // newUser!.image = getImageUrl;
     newUser!.id = response!.user!.uid;
     //. store all user date in FireStore Database
+
     storeUserData(newUser!);
-    Get.offAll(SignInScreen1());
+    Get.offAll(const SignInScreen1());
+  }
+
+  void updateSelectedPackageType(PackageType type) {
+    selectedPackageType = type;
   }
 
   storeUserData(User user) async {

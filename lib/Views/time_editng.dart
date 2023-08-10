@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -98,7 +100,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_satruday': true});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    // print(controller.isSaturday1H.value);
 
                     //  controller.isSaturday.value = true;
                     // controller.satL.value = true;
@@ -135,7 +137,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       'is_satruday': false,
                     });
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    log(controller.isSaturday1H.value.toString());
 
                     //   controller.isSaturday.value = false;
                     // controller.isSaturday = false;
@@ -172,7 +174,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_satruday': true, 'is_saturday2h': true});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    log(controller.isSaturday1H.value.toString());
 
                     //  controller.isSaturday.value = true;
                     // controller.satL.value = true;
@@ -207,7 +209,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_satruday': false, 'is_saturday2h': false});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    log(controller.isSaturday1H.value.toString());
 
                     //   controller.isSaturday.value = false;
                     // controller.isSaturday = false;
@@ -243,7 +245,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_sunday': true, 'is_sunday2h': true});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    log(controller.isSaturday1H.value.toString());
 
                     //  controller.isSaturday.value = true;
                     // controller.satL.value = true;
@@ -315,7 +317,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_monday': true, 'is_monday2h': true});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    log(controller.isSaturday1H.value.toString());
 
                     //  controller.isSaturday.value = true;
                     // controller.satL.value = true;
@@ -350,7 +352,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_monday': false, 'is_monday2h': false});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    // print(controller.isSaturday1H.value);
 
                     //   controller.isSaturday.value = false;
                     // controller.isSaturday = false;
@@ -387,7 +389,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_tuesday': true, 'is_tuesday2h': true});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    // print(controller.isSaturday1H.value);
 
                     //  controller.isSaturday.value = true;
                     // controller.satL.value = true;
@@ -422,7 +424,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_tuesday': false, 'is_tuesday2h': false});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    // print(controller.isSaturday1H.value);
 
                     //   controller.isSaturday.value = false;
                     // controller.isSaturday = false;
@@ -458,7 +460,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_tuesday': true});
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    // print(controller.isSaturday1H.value);
 
                     //  controller.isSaturday.value = true;
                     // controller.satL.value = true;
@@ -495,7 +497,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       'is_tuesday': false,
                     });
                     await controller.getDataFromFirestore();
-                    print(controller.isSaturday1H.value);
+                    // print(controller.isSaturday1H.value);
 
                     //   controller.isSaturday.value = false;
                     // controller.isSaturday = false;

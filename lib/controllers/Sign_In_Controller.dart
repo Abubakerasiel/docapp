@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -33,7 +34,7 @@ class SignInController extends GetxController {
       token = await FirebaseMessaging.instance.getToken();
       userToken = token;
     } catch (e) {
-      print('Error getting user token: $e');
+      log('Error getting user token: $e');
     }
     return token;
   }

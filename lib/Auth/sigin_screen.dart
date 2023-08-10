@@ -85,7 +85,7 @@ class SignInScreen1 extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                SizedBox(
                   height: 50,
                   child: Material(
                     elevation: 5,
@@ -124,7 +124,7 @@ class SignInScreen1 extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                SizedBox(
                   height: 50,
                   child: Material(
                     elevation: 5,
@@ -194,6 +194,7 @@ class SignInScreen1 extends StatelessWidget {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    // ignore: deprecated_member_use
                     primary: AppConstants.appColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -205,6 +206,7 @@ class SignInScreen1 extends StatelessWidget {
                 const SizedBox(height: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    // ignore: deprecated_member_use
                     primary: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(8)),

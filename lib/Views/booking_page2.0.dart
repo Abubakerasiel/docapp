@@ -1,5 +1,6 @@
 //import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutterappoinmentapp/Views/user_appoiment.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
@@ -16,6 +17,8 @@ import '../controllers/booking_controller.dart';
 import 'constanst.dart';
 
 class BookingScreen extends StatefulWidget {
+  const BookingScreen({super.key});
+
   @override
   State<BookingScreen> createState() => _BookingScreenState();
 }
@@ -26,7 +29,7 @@ class _BookingScreenState extends State<BookingScreen> {
   int selectedTimeIndex = -1;
 
   final ReservationController controller = Get.put(ReservationController());
-  List<bool> _isButtonTappedList = List.generate(200, (index) => false);
+  final List<bool> _isButtonTappedList = List.generate(200, (index) => false);
   // int _selectedIndex = -1;
   DateTime today = DateTime.now().add(const Duration(days: 7));
   void _onDaySelectd(DateTime day, DateTime focusedDay) {
@@ -88,6 +91,7 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   int currentIndex = 0;
+  // ignore: unused_element
   void _startTextChanging(List textList) {
     Future.delayed(const Duration(seconds: 60), () {
       setState(() {
@@ -127,9 +131,10 @@ class _BookingScreenState extends State<BookingScreen> {
     DateTime? selectedDate = controller.selectedDate.value;
     bool isSelectedDateSat =
         selectedDate != null && (selectedDate.weekday == 6);
+    // ignore: no_leading_underscores_for_local_identifiers
     void _onItemTapped(int index) {
       if (index == 0) {
-        Get.off(UserPage());
+        Get.off(const UserPage());
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
@@ -140,7 +145,7 @@ class _BookingScreenState extends State<BookingScreen> {
             arguments: controller.user!.uid);
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
-      } else if (index == 2) {
+      } else if (index == 3) {
         Get.off(const UserAppoimetn());
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
@@ -322,7 +327,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 ),
                 const SizedBox(height: 10),
                 controller.timeShowing.value
-                    ? TimeShowing()
+                    ? const TimeShowing()
                     : Column(
                         children: [
                           Row(
@@ -537,6 +542,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                     3,
                                     00,
                                   );
+                                  log(controller.selectedDate.value.toString());
                                 });
                                 // Function to be executed when Button 1 is pressed.
                               }),
@@ -986,7 +992,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                       )
                                     ],
                                   )
-                                : SizedBox()
+                                : const SizedBox()
                           ],
                         )
                       : const SizedBox(),
@@ -1007,7 +1013,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 MaterialStatePropertyAll(Color(0xff2282B7))),
                         onPressed: () {
                           if (controller.selectedDate.value != null) {
-                            controller.makeReservation(context);
+                            controller.makeReservation();
                           } else {
                             Get.snackbar('Wrong Date', 'Please Select A Date',
                                 backgroundColor: Colors.red,
@@ -1022,9 +1028,9 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        Get.to(const UserAppoimetn());
-      }),
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   Get.to(const UserAppoimetn());
+      // }),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 15,
         selectedLabelStyle: const TextStyle(
@@ -1043,13 +1049,15 @@ class _BookingScreenState extends State<BookingScreen> {
             icon: const Icon(Icons.person_sharp),
             label: 'Profile Page'.tr,
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.view_list),
-          //   label: 'appoiment page'.tr,
-          // ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today_rounded), // New icon
+            label: 'Dates Page', // Label for the new item
+          ),
         ],
         currentIndex: 1,
         selectedItemColor: AppConstants.appColor,
+        unselectedItemColor: Colors.grey.shade700,
+        showUnselectedLabels: true,
         onTap: _onItemTapped,
       ),
     );
@@ -1106,9 +1114,10 @@ class _BookingScreenState extends State<BookingScreen> {
 class ChangingTextWidget extends StatefulWidget {
   final List<String> textList;
 
-  ChangingTextWidget(this.textList);
+  const ChangingTextWidget(this.textList, {super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChangingTextWidgetState createState() => _ChangingTextWidgetState();
 }
 

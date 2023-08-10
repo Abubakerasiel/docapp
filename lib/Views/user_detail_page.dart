@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterappoinmentapp/Views/user_appoiment.dart';
 import 'package:flutterappoinmentapp/Views/user_page.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,7 @@ import 'constanst.dart';
 class UserDetailsPage extends StatefulWidget {
   final String userId;
 
-  const UserDetailsPage({required this.userId});
+  const UserDetailsPage({super.key, required this.userId});
   @override
   State<UserDetailsPage> createState() => _UserDetailsPageState();
 }
@@ -69,17 +70,24 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ReservationController _reservationController =
+    final ReservationController reservationController =
         Get.put(ReservationController());
+    // ignore: no_leading_underscores_for_local_identifiers
     void _onItemTapped(int index) {
       if (index == 0) {
-        Get.off(UserPage());
+        Get.off(const UserPage());
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
         // If 'Business' is tapped, navigate to the sign-in screen
-        Get.to(BookingScreen());
+        Get.off(const BookingScreen());
       } else if (index == 2) {
+        // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
+        //     arguments: _reservationController.user!.uid);
+        // If 'School' is tapped, do nothing (stay on the current page)
+        return;
+      } else if (index == 3) {
+        Get.off(const UserAppoimetn());
         // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
         //     arguments: _reservationController.user!.uid);
         // If 'School' is tapped, do nothing (stay on the current page)
@@ -93,10 +101,10 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
     bool x = false;
     bool y = false;
-    if (_reservationController.user!.uid == data) {
+    if (reservationController.user!.uid == data) {
       y = true;
     }
-    if (_reservationController.user!.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2') {
+    if (reservationController.user!.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2') {
       x = true;
     }
 
@@ -104,7 +112,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: AppConstants.appColor,
-          title: Text('${_reservationController.userName.value} Profile'),
+          title: Text('${reservationController.userName.value} Profile'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -159,28 +167,28 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        ' ${_reservationController.userName.value}',
+                        ' ${reservationController.userName.value}',
                         style: const TextStyle(fontSize: 18),
                       ),
                       Text(
-                        '${_reservationController.userPhone.value}',
+                        reservationController.userPhone.value,
                         style: const TextStyle(fontSize: 18),
                       ),
                       Text(
-                        '${_reservationController.age.value}',
+                        reservationController.age.value,
                         style: const TextStyle(fontSize: 18),
                       ),
                       Text(
-                        '${_reservationController.height.value}',
+                        reservationController.height.value,
                         style: const TextStyle(fontSize: 18),
                       ),
                       Text(
-                        '${_reservationController.gender.value}'.tr,
+                        reservationController.gender.value.tr,
                         style: const TextStyle(fontSize: 18),
                       ),
                       TextButton(
                         child: Text(
-                          '${_reservationController.weight.value}',
+                          reservationController.weight.value,
                           style: const TextStyle(fontSize: 18),
                         ),
 
@@ -188,7 +196,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                         onPressed: () => _showWeightEditDialog(context),
                       ),
                       Text(
-                        '${_reservationController.medicalIssue.value}'.tr,
+                        reservationController.medicalIssue.value.tr,
                         style: const TextStyle(fontSize: 18),
                       ),
                     ],
@@ -312,7 +320,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             ? BottomNavigationBar(
                 selectedFontSize: 15,
                 selectedLabelStyle: const TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.white),
+                  fontWeight: FontWeight.bold,
+                ),
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.home),
@@ -326,9 +335,15 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     icon: const Icon(Icons.person_sharp),
                     label: 'Profile Page'.tr,
                   ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.calendar_today_rounded), // New icon
+                    label: 'Dates Page', // Label for the new item
+                  ),
                 ],
                 currentIndex: 2,
                 selectedItemColor: AppConstants.appColor,
+                unselectedItemColor: Colors.grey.shade700,
+                showUnselectedLabels: true,
                 onTap: _onItemTapped,
               )
             : x
@@ -337,13 +352,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     children: [
                       ElevatedButton(
                           style: ButtonStyle(
-                              backgroundColor: _reservationController.y.value
+                              backgroundColor: reservationController.y.value
                                   ? const MaterialStatePropertyAll(Colors.green)
                                   : const MaterialStatePropertyAll(
                                       Colors.amber)),
                           onPressed: () async {
-                            _reservationController.paidPackge(data);
-                            _reservationController.paymentStatus(data);
+                            reservationController.paidPackge(data);
+                            reservationController.paymentStatus(data);
                             Get.snackbar(' Successful Payment'.tr,
                                 'The package has been updated successfuly'.tr,
                                 backgroundColor: Colors.greenAccent,
@@ -351,13 +366,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
                             //  _reservationController. y.value = true;
                           },
-                          child: _reservationController.y.value
+                          child: reservationController.y.value
                               ? Text('Paid'.tr)
                               : Text('did not Paid'.tr)),
                       // SizedBox(
                       //   width: 100,
                       // ),
-                      _reservationController.y.value
+                      reservationController.y.value
                           ? const Icon(
                               Icons.check_circle_outlined,
                               color: Colors.green,

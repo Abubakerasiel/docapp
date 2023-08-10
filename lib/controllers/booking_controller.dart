@@ -122,14 +122,14 @@ class ReservationController extends GetxController {
   }
 
   Future<String?> getUserToken() async {
-    print(isSaturday1H);
+    logi.log(isSaturday1H.value.toString());
     String? token;
     try {
       // Request for the user's token
       token = await FirebaseMessaging.instance.getToken();
       userToken = token;
     } catch (e) {
-      print('Error getting user token: $e');
+      logi.log('Error getting user token: $e');
     }
     return token;
   }
@@ -185,10 +185,10 @@ class ReservationController extends GetxController {
         // print('Value 2: $isSunday');
         // print('Value 3: $isMonday');
       } else {
-        print('Document not found!');
+        logi.log('Document not found!');
       }
     } catch (e) {
-      print('Error getting document: $e');
+      logi.log('Error getting document: $e');
     }
     update();
   }
@@ -202,19 +202,18 @@ class ReservationController extends GetxController {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission for notifications.');
+      logi.log('User granted permission for notifications.');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User  granted provisinal permission .');
+      logi.log('User  granted provisinal permission .');
     } else {
-      print('user delined or has not accepted premission');
+      logi.log('user delined or has not accepted premission');
     }
   }
 
   Future<Map<String, dynamic>?> retrieveTokens() async {
     final QuerySnapshot<Map<String, dynamic>> tok =
-        await FirebaseFirestore.instance.collection('UserTokes').get()
-            as QuerySnapshot<Map<String, dynamic>>;
+        await FirebaseFirestore.instance.collection('UserTokes').get();
     all = tok.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
 
     final List<Map<String, dynamic>> todayAppointments =
@@ -223,13 +222,14 @@ class ReservationController extends GetxController {
     List<dynamic> tokens2 = all!.map((element) => element["token"]).toList();
     tak = tokens2;
 
-    print(tak);
+    logi.log(tak.toString());
     return null;
   }
 
   iniitInfo() async {
     var androidInitliaize =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
+    // ignore: non_constant_identifier_names
     var IOSInitialize = const DarwinInitializationSettings();
     var initializationsSettings =
         InitializationSettings(android: androidInitliaize, iOS: IOSInitialize);
@@ -240,8 +240,7 @@ class ReservationController extends GetxController {
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('.................on message...........');
-      print(
+      logi.log(
           'onmessage: ${message.notification?.title} /${message.notification?.body}');
 
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
@@ -271,7 +270,7 @@ class ReservationController extends GetxController {
 
     // If the specified time is in the past, handle the error scenario.
     if (delayDuration.isNegative) {
-      print("Specified time is in the past. Notifications won't be sent.");
+      logi.log("Specified time is in the past. Notifications won't be sent.");
       return;
     }
 
@@ -279,7 +278,7 @@ class ReservationController extends GetxController {
     await Future.delayed(delayDuration);
 
     for (var token in tokens) {
-      print(token);
+      logi.log(token);
       try {
         // ... The remaining code for sending the notifications remains unchanged ...
       } catch (e) {
@@ -361,6 +360,7 @@ class ReservationController extends GetxController {
           pickedDate.weekday == 2 ||
           pickedDate.weekday == 7 ||
           pickedDate.weekday == 6) {
+        // ignore: use_build_context_synchronously
         final TimeOfDay? pickedTime = await showTimePicker(
           context: context,
           initialTime: const TimeOfDay(hour: 12, minute: 0),
@@ -440,7 +440,7 @@ class ReservationController extends GetxController {
             snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
       }
     } catch (error) {
-      print("Failed to fetch dates: $error");
+      logi.log("Failed to fetch dates: $error");
     }
   }
 
@@ -471,11 +471,12 @@ class ReservationController extends GetxController {
       dates.value =
           snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
     } catch (error) {
-      print("Failed to fetch dates: $error");
+      logi.log("Failed to fetch dates: $error");
     }
   }
 
   void sendNotificatonToUser(String userID1) async {
+    // ignore: prefer_typing_uninitialized_variables
     var package2;
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance.collection('users').doc(userID1).get();
@@ -499,6 +500,7 @@ class ReservationController extends GetxController {
   }
 
   void paidPackge(String userID1) async {
+    // ignore: prefer_typing_uninitialized_variables
     var package2;
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance.collection('users').doc(userID1).get();
@@ -519,6 +521,7 @@ class ReservationController extends GetxController {
   }
 
   void paymentStatus(String userID1) async {
+    // ignore: prefer_typing_uninitialized_variables
     late var package3;
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance.collection('users').doc(userID1).get();
@@ -541,8 +544,8 @@ class ReservationController extends GetxController {
           'text': text,
           'timestamp': timestamp,
         })
-        .then((value) => print('Text saved to Firebase'))
-        .catchError((error) => print('Failed to save text: $error'));
+        .then((value) => logi.log('Text saved to Firebase'))
+        .catchError((error) => logi.log('Failed to save text: $error'));
     //    Send a notification at the moment of replacement
     // await notificationService.showNotification(
     //   id: generateRandomID(8),
@@ -572,17 +575,18 @@ class ReservationController extends GetxController {
         medicalIssue.value = snapshot.data()?['medical_issue'];
         return snapshot.data();
       } else {
-        print('User document does not exist');
+        logi.log('User document does not exist');
         return null;
       }
     } catch (e) {
-      print('Error retrieving user data: $e');
+      logi.log('Error retrieving user data: $e');
       return null;
     }
   }
 
   void deleteDate(String documentId) async {
-    var UserIdInDateColletion;
+    // ignore: prefer_typing_uninitialized_variables
+    var userIdInDateColletion;
 
     await FirebaseFirestore.instance
         .collection('dates')
@@ -591,13 +595,13 @@ class ReservationController extends GetxController {
         .then((docSnapshot) {
       if (docSnapshot.exists) {
         String userId = docSnapshot.data()!['userId'];
-        UserIdInDateColletion = userId;
+        userIdInDateColletion = userId;
         // Access the user ID field
         // Now you have the user ID and can use it for any further operations if needed
-        print('User ID: $userId');
-        print(UserIdInDateColletion);
+        logi.log('User ID: $userId');
+        logi.log(userIdInDateColletion);
       } else {
-        print('Document not found.');
+        logi.log('Document not found.');
       }
       // ignore: invalid_return_type_for_catch_error
     }).catchError((error) => logi.log('Error getting document: $error'));
@@ -605,7 +609,7 @@ class ReservationController extends GetxController {
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(UserIdInDateColletion)
+            .doc(userIdInDateColletion)
             .get();
     if (snapshot.exists) {
       package = snapshot.data()?['package'];
@@ -614,15 +618,15 @@ class ReservationController extends GetxController {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(UserIdInDateColletion)
+        .doc(userIdInDateColletion)
         .update({'package': package! - 1});
 
     FirebaseFirestore.instance
         .collection('dates')
         .doc(documentId)
         .delete()
-        .then((value) => print('Date deleted'))
-        .catchError((error) => print('Failed to delete date: $error'));
+        .then((value) => logi.log('Date deleted'))
+        .catchError((error) => logi.log('Failed to delete date: $error'));
   }
 
   // void deleteDateAndRpalceIt(String documentId) async {
@@ -796,7 +800,7 @@ class ReservationController extends GetxController {
 
               // Retrieve the waiting list data
               final Map<String, dynamic> waitingListData =
-                  waitingListDoc.data() as Map<String, dynamic>;
+                  waitingListDoc.data();
 
               // Delete the waiting list entry
               await waitingListCollection.doc(waitingListDocId).delete();
@@ -813,7 +817,7 @@ class ReservationController extends GetxController {
 
               // Replace the appointment with the waiting list entry
               await datesCollection.add(waitingListReservationData);
-              print(
+              logi.log(
                   "Waiting list user assigned to the freed appointment slot.");
 
               // Show a notification for the replacement
@@ -843,11 +847,11 @@ class ReservationController extends GetxController {
         }
       }
     } catch (error) {
-      print('Failed to delete or replace appointment: $error');
+      logi.log('Failed to delete or replace appointment: $error');
     }
   }
 
-  void makeReservation(BuildContext context) async {
+  void makeReservation() async {
     DateTime getStartOfDay(DateTime date) {
       return DateTime(date.year, date.month, date.day, 12, 0, 0);
     }
@@ -857,9 +861,9 @@ class ReservationController extends GetxController {
           .add(const Duration(hours: 12));
     }
 
-    DateTime getEndOfDay2(DateTime date) {
-      return DateTime(date.year, date.month, date.day, 11, 59, 59);
-    }
+    // DateTime getEndOfDay2(DateTime date) {
+    //   return DateTime(date.year, date.month, date.day, 11, 59, 59);
+    // }
 
     int randomID = generateRandomID(8);
     final DateFormat dateFormatter = DateFormat('yyyy-MM-dd hh:mm a');
@@ -876,13 +880,13 @@ class ReservationController extends GetxController {
 
     selectedDate.value = selectedDate.value!.add(const Duration(hours: -1));
 
-    final notificationTitle = 'Reservation Reminder';
+    const notificationTitle = 'Reservation Reminder';
     final notificationBody =
         'Hello ${userName.value}! Your appointment is coming up in 24 hours.';
     final notificationBody2 =
         'Hello ${userName.value}! Your appointment is coming up in 3 hours.';
 
-    final int maxAppointmentsPerDay = 2;
+    const int maxAppointmentsPerDay = 2;
     final selectedDateStart =
         getStartOfDay(dateFormatter.parse(selectedDateString));
     final selectedDateEnd =
@@ -900,6 +904,8 @@ class ReservationController extends GetxController {
     Future<bool> isTimeSlotAlreadyBooked(DateTime selectedDateTime) async {
       final DateTime selectedDateStart = getStartOfDay(selectedDateTime);
       final DateTime selectedDateEnd = getEndOfDay(selectedDateTime);
+      // print(selectedDateStart);
+      // print(selectedDateEnd);
 
       final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
           await datesCollection
@@ -909,6 +915,9 @@ class ReservationController extends GetxController {
 
       for (final doc in appointmentsSnapshot.docs) {
         final DateTime appointmentDateTime = doc['selectedDate'].toDate();
+        // print(selectedDateStart);
+        // print(selectedDateEnd);
+        // print(appointmentDateTime);
 
         // Check if the appointment time overlaps with the selected time slot
         if (appointmentDateTime.isAtSameMomentAs(selectedDateTime) ||
@@ -920,6 +929,7 @@ class ReservationController extends GetxController {
 
       return false; // No overlapping appointments found
     }
+
     // final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
     //     await datesCollection
     //         .where('selectedDate', isEqualTo: selectedDate.value)
@@ -1003,8 +1013,11 @@ class ReservationController extends GetxController {
           colorText: Colors.black,
         );
       }
-    } else if (await isTimeSlotAlreadyBooked(selectedDate.value!)) {
-      print(selectedDate.value!);
+    } else if (await isTimeSlotAlreadyBooked(
+        selectedDate.value!.add(const Duration(hours: 12)))) {
+      // print("Time slot is already booked.");
+      // print('biko12');
+      // print(selectedDate.value!);
       Get.snackbar(
         'Time Slot Not Available '.tr,
         'The selected time slot is already booked.'.tr,
@@ -1014,6 +1027,7 @@ class ReservationController extends GetxController {
         colorText: Colors.white,
       );
     } else {
+      logi.log("Time slot is available.");
       if (selectedDate.value != null) {
         if (selectedDate.value!.isBefore(DateTime.now())) {
           Get.snackbar(
@@ -1029,19 +1043,21 @@ class ReservationController extends GetxController {
         final QuerySnapshot<Map<String, dynamic>> userAppointmentsSnapshot =
             await datesCollection.where('userId', isEqualTo: user!.uid).get()
                 as QuerySnapshot<Map<String, dynamic>>;
-        final selectedDateStart =
-            getStartOfDay(dateFormatter.parse(selectedDateString));
-        final selectedDateEnd =
-            getEndOfDay(dateFormatter.parse(selectedDateString));
+        // final selectedDateStart =
+        //     getStartOfDay(dateFormatter.parse(selectedDateString));
+        // final selectedDateEnd =
+        //     getEndOfDay(dateFormatter.parse(selectedDateString));
         bool userAlreadyBookedForDay = false;
         for (final doc in userAppointmentsSnapshot.docs) {
           final appointmentDate = doc['selectedDate'].toDate() as DateTime;
-          if (appointmentDate.isAfter(selectedDateStart) &&
-              appointmentDate.isBefore(selectedDateEnd)) {
+          if (appointmentDate.year == selectedDate.value!.year &&
+              appointmentDate.month == selectedDate.value!.month &&
+              appointmentDate.day == selectedDate.value!.day) {
             userAlreadyBookedForDay = true;
             break;
           }
         }
+
         if (userAlreadyBookedForDay) {
           Get.snackbar(
             'Multiple Bookings Not Allowed'.tr,
@@ -1069,9 +1085,10 @@ class ReservationController extends GetxController {
         bool isSameDay = selectedDate.value!.year == now.year &&
             selectedDate.value!.month == now.month &&
             selectedDate.value!.day == now.day;
+
         final reservationData = {
           //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
-          'selectedDate': selectedDate.value,
+          'selectedDate': selectedDate.value!.add(const Duration(hours: 12)),
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,
@@ -1082,7 +1099,7 @@ class ReservationController extends GetxController {
           // Add more relevant data as needed
         };
         final dateDoc = await datesCollection.add(reservationData);
-        print("Date saved successfully! Document ID: ${dateDoc.id}");
+        logi.log("Date saved successfully! Document ID: ${dateDoc.id}");
         Map<String, dynamic>? notificationData = {
           // Include any additional data you want to pass with the notification
         };
@@ -1103,7 +1120,7 @@ class ReservationController extends GetxController {
             body: notificationBody,
             data: notificationData,
           );
-          await Get.snackbar(
+          Get.snackbar(
             'Successful booking'.tr,
             'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,
@@ -1121,7 +1138,7 @@ class ReservationController extends GetxController {
             body: notificationBody2,
             data: notificationData,
           );
-          await Get.snackbar(
+          Get.snackbar(
             'Successful booking'.tr,
             'You have successfully booked your appointment'.tr,
             snackPosition: SnackPosition.BOTTOM,

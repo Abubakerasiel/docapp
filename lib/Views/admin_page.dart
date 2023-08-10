@@ -158,8 +158,8 @@ class _DatesListState extends State<DatesList> {
                                                       arguments: userID3);
                                                 },
                                                 child: const CircleAvatar(
-                                                  child: Icon(Icons.person),
                                                   backgroundColor: Colors.white,
+                                                  child: Icon(Icons.person),
                                                 ),
                                               ),
                                               Column(
@@ -261,7 +261,7 @@ class _DatesListState extends State<DatesList> {
                                                 color: Colors.white,
                                               ),
                                               Text(
-                                                " ${formattedDate}   ",
+                                                " $formattedDate   ",
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,
@@ -376,9 +376,8 @@ class _DatesListState extends State<DatesList> {
                                   ),
                                 );
                               } else {
-                                return Container(
-                                  child: const Text('hi'),
-                                ); // Skip rendering if data is null
+                                return const Text(
+                                    'hi'); // Skip rendering if data is null
                               }
                             },
                           ),

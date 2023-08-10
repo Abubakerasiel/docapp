@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
+import 'booking_page2.0.dart';
 import 'constanst.dart';
+import 'user_page.dart';
 
 class UserAppoimetn extends StatefulWidget {
   const UserAppoimetn({super.key});
@@ -22,6 +24,26 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
     controller.fetchDates();
     //controller.getTodayAppointments();
     super.initState();
+  }
+
+  void _onItemTapped(int index) {
+    if (index == 0) {
+      Get.off(const UserPage());
+      // If 'Home' is tapped, do nothing (stay on the current page)
+      return;
+    } else if (index == 1) {
+      // If 'Business' is tapped, navigate to the sign-in screen
+      Get.off(const BookingScreen());
+    } else if (index == 2) {
+      Get.off(UserDetailsPage(userId: controller.user!.uid),
+          arguments: controller.user!.uid);
+      // If 'School' is tapped, do nothing (stay on the current page)
+      return;
+    } else if (index == 3) {
+      // Get.off(const UserAppoimetn());
+      // If 'School' is tapped, do nothing (stay on the current page)
+      return;
+    }
   }
 
   @override
@@ -107,8 +129,8 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                         arguments: userID3);
                                   },
                                   child: const CircleAvatar(
-                                    child: Icon(Icons.person),
                                     backgroundColor: Colors.white,
+                                    child: Icon(Icons.person),
                                   ),
                                 ),
                                 Column(
@@ -200,7 +222,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  " ${formattedDate}   ",
+                                  " $formattedDate   ",
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -304,6 +326,35 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
           //   child: Text('Open Google Maps'.tr),
           // ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 15,
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: 'Home'.tr,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.calendar_month_outlined),
+            label: 'Booking Page'.tr,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person_sharp),
+            label: 'Profile Page'.tr,
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today_rounded), // New icon
+            label: 'Dates Page', // Label for the new item
+          ),
+        ],
+        currentIndex: 3,
+        selectedItemColor: AppConstants.appColor,
+        unselectedItemColor: Colors.grey.shade700,
+        showUnselectedLabels: true,
+        onTap: _onItemTapped,
       ),
     );
   }

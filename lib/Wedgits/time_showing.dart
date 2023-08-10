@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/booking_controller.dart';
 
 class TimeShowing extends StatefulWidget {
-  TimeShowing({super.key});
+  const TimeShowing({super.key});
 
   @override
   State<TimeShowing> createState() => _TimeShowingState();
@@ -13,7 +13,7 @@ class TimeShowing extends StatefulWidget {
 
 class _TimeShowingState extends State<TimeShowing> {
   // DateTime today = DateTime.now();
-  List<bool> _isButtonTappedList = List.generate(100, (index) => false);
+  final List<bool> _isButtonTappedList = List.generate(100, (index) => false);
 
   ReservationController controller = Get.put(ReservationController());
   @override
@@ -47,7 +47,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 4,
                 00,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -62,7 +62,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 4,
                 15,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -82,7 +82,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 4,
                 30,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -97,7 +97,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 4,
                 45,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -117,7 +117,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 5,
                 00,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -132,7 +132,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 5,
                 15,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -152,7 +152,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 5,
                 30,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -167,7 +167,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 5,
                 45,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -187,7 +187,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 6,
                 00,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -202,7 +202,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 6,
                 15,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -222,7 +222,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 6,
                 30,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -237,7 +237,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 6,
                 45,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -257,7 +257,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 7,
                 00,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -272,7 +272,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 7,
                 15,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -292,7 +292,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 7,
                 30,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -307,7 +307,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 7,
                 45,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -327,7 +327,7 @@ class _TimeShowingState extends State<TimeShowing> {
                 8,
                 00,
               );
-              print(controller.selectedDate.value);
+              // print(controller.selectedDate.value);
             });
             // Function to be executed when Button 1 is pressed.
           }),
@@ -348,7 +348,7 @@ class _TimeShowingState extends State<TimeShowing> {
                       8,
                       15,
                     );
-                    print(controller.selectedDate.value);
+                    // print(controller.selectedDate.value);
                   });
                   // Function to be executed when Button 1 is pressed.
                 }),
@@ -363,13 +363,13 @@ class _TimeShowingState extends State<TimeShowing> {
                       8,
                       30,
                     );
-                    print(controller.selectedDate.value);
+                    // print(controller.selectedDate.value);
                   });
                   // Function to be executed when Button 1 is pressed.
                 }),
               ],
             )
-          : SizedBox(),
+          : const SizedBox(),
       Obx(
         () => controller.isMonday1H.value && isSelectedDateMonday
             ? Column(
@@ -511,10 +511,10 @@ class _TimeShowingState extends State<TimeShowing> {
                             ),
                           ],
                         )
-                      : SizedBox()
+                      : const SizedBox()
                 ],
               )
-            : SizedBox(),
+            : const SizedBox(),
       ),
       Obx(
         () => controller.isTuesday1H.value && isSelectedDateTuesday
@@ -657,10 +657,10 @@ class _TimeShowingState extends State<TimeShowing> {
                             ),
                           ],
                         )
-                      : SizedBox()
+                      : const SizedBox()
                 ],
               )
-            : SizedBox(),
+            : const SizedBox(),
       ),
       Obx(
         () => controller.isSunday1H.value && isSelectedDateSunday
@@ -680,14 +680,6 @@ class _TimeShowingState extends State<TimeShowing> {
                             8,
                             15,
                           );
-                          var a = controller.selectedDate.value = DateTime(
-                            today.year,
-                            today.month,
-                            today.day,
-                            8,
-                            30,
-                          );
-                          print(a);
                         });
                         // Function to be executed when Button 1 is pressed.
                       }),
@@ -703,14 +695,7 @@ class _TimeShowingState extends State<TimeShowing> {
                             30,
                           );
                         });
-                        var a = controller.selectedDate.value = DateTime(
-                          today!.year,
-                          today.month,
-                          today.day,
-                          9,
-                          00,
-                        );
-                        print(a);
+
                         // Function to be executed when Button 1 is pressed.
                       }),
                     ],
@@ -729,14 +714,6 @@ class _TimeShowingState extends State<TimeShowing> {
                             8,
                             45,
                           );
-                          var a = controller.selectedDate.value = DateTime(
-                            today.year,
-                            today.month,
-                            today.day,
-                            8,
-                            30,
-                          );
-                          print(a);
                         });
                         // Function to be executed when Button 1 is pressed.
                       }),
@@ -752,14 +729,7 @@ class _TimeShowingState extends State<TimeShowing> {
                             00,
                           );
                         });
-                        var a = controller.selectedDate.value = DateTime(
-                          today!.year,
-                          today.month,
-                          today.day,
-                          9,
-                          00,
-                        );
-                        print(a);
+
                         // Function to be executed when Button 1 is pressed.
                       }),
                     ],
@@ -781,15 +751,6 @@ class _TimeShowingState extends State<TimeShowing> {
                                       9,
                                       15,
                                     );
-                                    var a = controller.selectedDate.value =
-                                        DateTime(
-                                      today.year,
-                                      today.month,
-                                      today.day,
-                                      8,
-                                      30,
-                                    );
-                                    print(a);
                                   });
                                   // Function to be executed when Button 1 is pressed.
                                 }),
@@ -805,15 +766,7 @@ class _TimeShowingState extends State<TimeShowing> {
                                       30,
                                     );
                                   });
-                                  var a =
-                                      controller.selectedDate.value = DateTime(
-                                    today!.year,
-                                    today.month,
-                                    today.day,
-                                    9,
-                                    00,
-                                  );
-                                  print(a);
+
                                   // Function to be executed when Button 1 is pressed.
                                 }),
                               ],
@@ -832,15 +785,15 @@ class _TimeShowingState extends State<TimeShowing> {
                                       9,
                                       45,
                                     );
-                                    var a = controller.selectedDate.value =
-                                        DateTime(
-                                      today.year,
-                                      today.month,
-                                      today.day,
-                                      8,
-                                      30,
-                                    );
-                                    print(a);
+                                    // var a = controller.selectedDate.value =
+                                    //     DateTime(
+                                    //   today.year,
+                                    //   today.month,
+                                    //   today.day,
+                                    //   8,
+                                    //   30,
+                                    // );
+                                    // print(a);
                                   });
                                   // Function to be executed when Button 1 is pressed.
                                 }),
@@ -856,25 +809,25 @@ class _TimeShowingState extends State<TimeShowing> {
                                       00,
                                     );
                                   });
-                                  var a =
-                                      controller.selectedDate.value = DateTime(
-                                    today!.year,
-                                    today.month,
-                                    today.day,
-                                    9,
-                                    00,
-                                  );
-                                  print(a);
+                                  // var a =
+                                  //     controller.selectedDate.value = DateTime(
+                                  //   today!.year,
+                                  //   today.month,
+                                  //   today.day,
+                                  //   9,
+                                  //   00,
+                                  // );
+                                  // print(a);
                                   // Function to be executed when Button 1 is pressed.
                                 }),
                               ],
                             ),
                           ],
                         )
-                      : SizedBox()
+                      : const SizedBox()
                 ],
               )
-            : SizedBox(),
+            : const SizedBox(),
       ),
     ]);
   }
@@ -904,18 +857,19 @@ class _TimeShowingState extends State<TimeShowing> {
         alignment: Alignment.center,
         width: 135,
         height: 35,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: _isButtonTappedList[index]
-              ? Color(0xff2282B7)
-              : Color(0xffF1F1F1),
+              ? const Color(0xff2282B7)
+              : const Color(0xffF1F1F1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           buttonText,
           style: TextStyle(
-            color:
-                _isButtonTappedList[index] ? Color(0xffF1F1F1) : Colors.black,
+            color: _isButtonTappedList[index]
+                ? const Color(0xffF1F1F1)
+                : Colors.black,
           ),
         ),
       ),

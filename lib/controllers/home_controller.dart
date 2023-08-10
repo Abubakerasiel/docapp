@@ -46,7 +46,7 @@ class HomeController extends GetxController {
 
     if (!isLoggedOut) return;
 
-    Get.offAll(SignInScreen1());
+    Get.offAll(const SignInScreen1());
   }
 
   void getData() async {
