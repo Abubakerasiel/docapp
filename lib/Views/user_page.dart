@@ -30,14 +30,23 @@ class _UserPageState extends State<UserPage> {
       //   await _reservationController.getDataFromFirestore();
 
       // If 'Business' is tapped, navigate to the sign-in screen
-      Get.to(const BookingScreen());
+      Get.to(const BookingScreen(),
+          curve: Curves.easeInOut,
+          duration: Duration(seconds: 1),
+          transition: Transition.fadeIn);
     } else if (index == 2) {
       Get.off(UserDetailsPage(userId: _reservationController.user!.uid),
-          arguments: _reservationController.user!.uid);
+          arguments: _reservationController.user!.uid,
+          curve: Curves.easeInOut,
+          duration: Duration(seconds: 1),
+          transition: Transition.fadeIn);
       // If 'School' is tapped, do nothing (stay on the current page)
       return;
     } else if (index == 3) {
-      Get.off(const UserAppoimetn());
+      Get.off(const UserAppoimetn(),
+          curve: Curves.easeInOut,
+          duration: Duration(seconds: 1),
+          transition: Transition.fadeIn);
       // If 'School' is tapped, do nothing (stay on the current page)
       return;
     }

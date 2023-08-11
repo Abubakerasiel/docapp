@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
 
 import 'package:get/get.dart';
@@ -46,7 +47,10 @@ class HomeController extends GetxController {
 
     if (!isLoggedOut) return;
 
-    Get.offAll(const SignInScreen1());
+    Get.offAll(const SignInScreen1(),
+        curve: Curves.easeInOut,
+        duration: Duration(seconds: 1),
+        transition: Transition.fadeIn);
   }
 
   void getData() async {

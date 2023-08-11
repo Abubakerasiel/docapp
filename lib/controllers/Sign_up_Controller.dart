@@ -57,7 +57,10 @@ class SignUpController extends GetxController {
     //. store all user date in FireStore Database
 
     storeUserData(newUser!);
-    Get.offAll(const SignInScreen1());
+    Get.offAll(const SignInScreen1(),
+        curve: Curves.easeInOut,
+        duration: Duration(seconds: 1),
+        transition: Transition.fadeIn);
   }
 
   void updateSelectedPackageType(PackageType type) {

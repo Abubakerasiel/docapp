@@ -437,16 +437,35 @@ class ReservationController extends GetxController {
       if (currentUser != null) {
         final snapshot = await datesCollection
             .where('userEmail', isEqualTo: currentUser.email)
-            .orderBy('selectedDate') // Order by reservationTime
+            .orderBy('selectedDate')
             .get();
 
         dates.value =
             snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
       }
     } catch (error) {
-      logi.log("Failed to fetch dates: $error");
+      print("Failed to fetch dates: $error");
     }
   }
+
+  // fetchDates() async {
+  //   try {
+  //     // Get the current user
+  //     User? currentUser = FirebaseAuth.instance.currentUser;
+
+  //     if (currentUser != null) {
+  //       final snapshot = await datesCollection
+  //           .where('userEmail', isEqualTo: currentUser.email)
+  //           .orderBy('selectedDate') // Order by reservationTime
+  //           .get();
+
+  //       dates.value =
+  //           snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
+  //     }
+  //   } catch (error) {
+  //     logi.log("Failed to fetch dates: $error");
+  //   }
+  // }
 
   Future<List<Map<String, dynamic>>> getTodayAppointments() async {
     final DateTime now = DateTime.now();

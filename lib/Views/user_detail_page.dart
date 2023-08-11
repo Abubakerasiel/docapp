@@ -75,20 +75,29 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     // ignore: no_leading_underscores_for_local_identifiers
     void _onItemTapped(int index) async {
       if (index == 0) {
-        Get.off(const UserPage());
+        Get.off(const UserPage(),
+            curve: Curves.easeInOut,
+            duration: Duration(seconds: 1),
+            transition: Transition.fadeIn);
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
         // await reservationController.getDataFromFirestore();
         // If 'Business' is tapped, navigate to the sign-in screen
-        Get.to(const BookingScreen());
+        Get.to(const BookingScreen(),
+            curve: Curves.easeInOut,
+            duration: Duration(seconds: 1),
+            transition: Transition.fadeIn);
       } else if (index == 2) {
         // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
         //     arguments: _reservationController.user!.uid);
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 3) {
-        Get.off(const UserAppoimetn());
+        Get.off(const UserAppoimetn(),
+            curve: Curves.easeInOut,
+            duration: Duration(seconds: 1),
+            transition: Transition.fadeIn);
         // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
         //     arguments: _reservationController.user!.uid);
         // If 'School' is tapped, do nothing (stay on the current page)
