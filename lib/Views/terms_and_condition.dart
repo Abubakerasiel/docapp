@@ -21,24 +21,24 @@ class TermsAndCondtion extends StatelessWidget {
             ),
             Center(
                 child: Text(
-              '-:قواعد وشروط المكان ',
+              'قواعد وشروط المكان ',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             )),
             const SizedBox(
               height: 20,
             ),
-            const Text('.الدخول بالميعاد وليس اولوية الحضور',
+            const Text('الدخول بالميعاد وليس اولوية الحضور',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const SizedBox(
               height: 20,
             ),
-            const Text(':الباكدج',
+            const Text('الباكدج',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const SizedBox(
               height: 20,
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
                     '٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج لمدة  ',
@@ -46,7 +46,7 @@ class TermsAndCondtion extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                         color: Colors.blueGrey)),
-                Text('.شهر واسبوع و بعد ذلك تعتبر منتهية',
+                Text('شهر واسبوع و بعد ذلك تعتبر منتهية',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
@@ -56,7 +56,7 @@ class TermsAndCondtion extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Text('.او بالمرة : ٢٠٠ جنية كل كشف او  متابعة',
+            Text('او بالمرة : ٢٠٠ جنية كل كشف او  متابعة',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
@@ -64,13 +64,13 @@ class TermsAndCondtion extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Text('.حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع',
+            const Text('حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const SizedBox(
               height: 20,
             ),
             const Text(
-                ':ل الاستفسار او الشكوى ب برجاء ارساله رساله واتس اب على رقم ',
+                ' الاستفسار او الشكوى ب برجاء ارساله رساله واتس اب على رقم ',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const SizedBox(
               height: 20,
@@ -135,6 +135,17 @@ class TermsAndCondtion extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppConstants.appColor,
+        onPressed: () {
+          if (Get.locale!.languageCode == "ar") {
+            Get.updateLocale(const Locale("en"));
+          } else {
+            Get.updateLocale(const Locale("ar"));
+          }
+        },
+        child: const Icon(Icons.g_translate),
       ),
     );
   }

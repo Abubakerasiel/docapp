@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -88,6 +89,7 @@ class ReservationController extends GetxController {
   RxBool disableMonday = false.obs;
   RxBool disableTuesday = false.obs;
   RxBool disableSaturday = false.obs;
+
   TextEditingController stat = TextEditingController();
 
   //  List<Map<String, String>> tokenList = [
@@ -292,7 +294,7 @@ class ReservationController extends GetxController {
     }
   }
 
-  void sendAllUsersNotfication(List tokens, String body, String title) async {
+  sendAllUsersNotfication(List tokens, String body, String title) async {
     for (var token in tokens) {
       logi.log(token);
       try {
@@ -809,21 +811,33 @@ class ReservationController extends GetxController {
           QueryDocumentSnapshot<Map<String, dynamic>>? waitingListDoc;
 
           if (waitingListDocs.isNotEmpty) {
+            print('Waiting list has entries 55');
+            print('selectedDate: $selectedDate');
             // Find the first waiting list entry with the same date as the deleted appointment
             for (var doc in waitingListDocs) {
-              final DateTime waitingListSelectedDate = DateTime(
-                doc.data()['selectedDate'].toDate().year,
-                doc.data()['selectedDate'].toDate().month,
-                doc.data()['selectedDate'].toDate().day,
+              final DateTime waitingListSelectedDate =
+                  doc.data()['selectedDate'].toDate();
+              final DateTime waitingListDateOnly = DateTime(
+                waitingListSelectedDate.year,
+                waitingListSelectedDate.month,
+                waitingListSelectedDate.day,
+              );
+              selectedDate = DateTime(
+                selectedDate.year,
+                selectedDate.month,
+                selectedDate.day,
               );
 
-              if (selectedDate.isAtSameMomentAs(waitingListSelectedDate)) {
+              print(waitingListDateOnly.toString());
+              if (selectedDate.isAtSameMomentAs(waitingListDateOnly)) {
+                print('true');
                 waitingListDoc = doc;
                 break;
               }
             }
 
             if (waitingListDoc != null) {
+              print('iam in');
               final String waitingListDocId = waitingListDoc.id;
 
               // Retrieve the waiting list data
@@ -835,7 +849,7 @@ class ReservationController extends GetxController {
 
               // Assign the waiting list user to the freed appointment slot
               final Map<String, dynamic> waitingListReservationData = {
-                'selectedDate': selectedDate,
+                'selectedDate': waitingListData['selectedDate'],
                 'userId': waitingListData['userId'],
                 'userEmail': waitingListData['userEmail'],
                 'phone': waitingListData['phone'],
@@ -849,17 +863,46 @@ class ReservationController extends GetxController {
                   "Waiting list user assigned to the freed appointment slot.");
 
               // Show a notification for the replacement
-              await notificationService.showNotification(
-                id: generateRandomID(8),
-                notificationTime:
-                    DateTime.now().add(const Duration(minutes: 4)),
-                title: 'Reservation Update'.tr,
-                body: 'Hello You have been assigned an appointment slot.'.tr,
-                data: null,
-              );
+              print(waitingListData['user token']);
+              //    Send a notification at the moment of replacement
+              await sendAllUsersNotfication(
+                  [waitingListData['user token']],
+                  'Your date has been confirmed on'
+                      '${waitingListData['selectedDate']}',
+                  'booking confimation');
+
+              void scheduleNotification(DateTime notificationTime) {
+                var currentTime = DateTime.now();
+                var timeDifference = notificationTime.difference(currentTime);
+
+                if (timeDifference.isNegative) {
+                  print("The specified time has already passed.");
+                  return;
+                }
+
+                Timer(timeDifference, () {
+                  sendAllUsersNotfication(
+                      [waitingListData['user token']],
+                      'Your appointment is coming up in 24 hours'.tr,
+                      'booking Reminder'.tr);
+                });
+              }
+
+              scheduleNotification(waitingListData['Notification Time']);
+              //
+              // await notificationService.showNotification(
+              //   id: generateRandomID(8),
+              //   notificationTime:
+              //       DateTime.now().add(const Duration(minutes: 4)),
+              //   title: 'Reservation Update'.tr,
+              //   body: 'Hello You have been assigned an appointment slot.'.tr,
+              //   data: null,
+              // );
 
               // Schedule notifications for the new appointment
               // ...
+            } else {
+              print('no data');
             }
           }
         } else {
@@ -880,6 +923,15 @@ class ReservationController extends GetxController {
   }
 
   void makeReservation() async {
+    bool isSelectedDateMonday =
+        selectedDate.value != null && (selectedDate.value!.weekday == 1);
+    bool isSelectedDateSunday =
+        selectedDate.value != null && (selectedDate.value!.weekday == 7);
+
+    bool isSelectedDateTuesday =
+        selectedDate.value != null && (selectedDate.value!.weekday == 2);
+    bool isSelectedDateSaturday =
+        selectedDate.value != null && (selectedDate.value!.weekday == 6);
     DateTime getStartOfDay(DateTime date) {
       return DateTime(date.year, date.month, date.day, 12, 0, 0);
     }
@@ -907,13 +959,13 @@ class ReservationController extends GetxController {
 
     selectedDate.value = selectedDate.value!.add(const Duration(hours: -1));
 
-    const notificationTitle = 'Reservation Reminder';
+    final notificationTitle = 'Reservation Reminder'.tr;
     final notificationBody =
-        'Hello ${userName.value}! Your appointment is coming up in 24 hours.';
+        'Hello  Your appointment is coming up in 24 hours.'.tr;
     final notificationBody2 =
-        'Hello ${userName.value}! Your appointment is coming up in 3 hours.';
+        'Hello  Your appointment is coming up in 3 hours.'.tr;
 
-    const int maxAppointmentsPerDay = 2;
+    //  const int maxAppointmentsPerDay = 34;
     final selectedDateStart = getStartOfDay(selectedDate.value!);
     final selectedDateEnd = getEndOfDay(selectedDate.value!);
 
@@ -981,18 +1033,21 @@ class ReservationController extends GetxController {
             .get() as QuerySnapshot<Map<String, dynamic>>;
     final int waitingListCount = waitingListSnapshot.size;
 
-    if (existingAppointmentsCount >= maxAppointmentsPerDay) {
+    if (existingAppointmentsCount >= 38 && isSelectedDateSaturday ||
+        existingAppointmentsCount >= 24 && isSelectedDateSunday ||
+        existingAppointmentsCount >= 26 && isSelectedDateMonday ||
+        existingAppointmentsCount >= 26 && isSelectedDateTuesday) {
       if (userWaitingListCount == 0) {
-        if (waitingListCount < 2) {
+        if (waitingListCount < 5) {
           // Add the user to the waiting list
           final waitingListData = {
-            'selectedDate': selectedDate.value,
+            'selectedDate': selectedDate.value!.add(Duration(hours: 12)),
             'userId': user!.uid,
             'userEmail': user!.email,
             'phone': userPhone.value,
             'userName': userName.value,
             'Notification Time':
-                notificationTimeSameDay.add(const Duration(hours: -1)),
+                notificationTime.add(const Duration(hours: -1)),
             'insertionTimestamp': FieldValue.serverTimestamp(),
             'user token': userToken
           };
@@ -1000,7 +1055,7 @@ class ReservationController extends GetxController {
           await waitingListCollection.add(waitingListData);
           Get.snackbar(
             'Waiting List'.tr,
-            'Sorry, no available appointments. You have been added to the waiting list.'
+            'Sorry, no available appointments on this day. You have been added to the waiting list.'
                 .tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: const Duration(seconds: 3),

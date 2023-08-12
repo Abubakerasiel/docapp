@@ -69,7 +69,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'monday has been enabled  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -79,7 +79,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to enable monday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -107,7 +107,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'an Hour has been addit to saturday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -117,7 +117,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'the hour has  not been addit to sturday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -145,7 +145,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '2 hours has been addit to saturday successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -155,7 +155,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '2 hours has not been addit to saturday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -184,7 +184,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'monday has been enabled  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -194,7 +194,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to enable monday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -218,7 +218,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '1 hour has been addit to sunday successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -228,7 +228,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to add the hour  ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -256,7 +256,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '2 hours has been addit to sunday successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -266,7 +266,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       ' faild to add 2 hours  sunday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -295,7 +295,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'monday has been enabled  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -305,7 +305,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to enable monday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -332,7 +332,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'An Hour has been add to monday successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -342,7 +342,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'faild to add an hour to monday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -370,7 +370,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '2 hours has been addit to monday successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -380,7 +380,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to add 2 hours to monday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -409,7 +409,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'monday has been enabled  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -419,7 +419,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to enable monday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -447,7 +447,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '1 hour has been addit to tuesday  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -457,7 +457,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to add the hour',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -485,7 +485,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '2 hours has been addit to tuesday  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -495,7 +495,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'faild to add 2 hours ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -524,7 +524,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'monday has been disabled successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -534,7 +534,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'failed to disable monday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -565,7 +565,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // controller.satL.value = false;
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'the edit hour has been removed from saturday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -575,7 +575,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'the edit hour has not been removed from saturday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -603,7 +603,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // controller.satL.value = false;
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'the addit 2 house has been removed successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -613,7 +613,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'the addit 2 house has not been removed ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -643,7 +643,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'monday has been disabled successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -653,7 +653,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'failed to disable monday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -679,7 +679,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'the addit hour has been removed from sunday successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -689,7 +689,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to remove the hour ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -717,7 +717,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // controller.satL.value = false;
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '2 hours addit to sunday has been removed  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -727,7 +727,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'faild to removed  2 hours to sunday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -756,7 +756,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit  update',
+                      'Time update',
                       'monday has been disabled successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -766,7 +766,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit  update',
+                      'Time update',
                       'failed to disable monday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -794,7 +794,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'Edit update',
+                      'Time update',
                       'the Edit hour has been removed ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -804,7 +804,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'Edit update',
+                      'Time update',
                       'the edited hour was not removed',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -840,7 +840,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // controller.satL.value = false;
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       '2 hours addit to monday has been removed  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -850,7 +850,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'failed to remove the 2 hours ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -879,7 +879,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
 
                     // Show a success message
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'monday has been disabled successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -889,7 +889,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit  update',
+                      'Time  update',
                       'failed to disable monday',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -920,7 +920,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // controller.satL.value = false;
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'the addit hour has been removed from tuesday successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -930,7 +930,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'faild to remove the hour ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -959,7 +959,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // controller.satL.value = false;
                     // Show a success message
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'the 2 hours addit to tuesday has been removed successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
@@ -969,7 +969,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
-                      'edit update',
+                      'Time update',
                       'faild to remove the 2 hours ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),

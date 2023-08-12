@@ -65,7 +65,7 @@ class SignInScreen1 extends StatelessWidget {
                 const SizedBox(height: 50),
                 Center(
                   child: Text(
-                    'Login',
+                    'Login'.tr,
                     style: TextStyle(
                       fontSize: 30,
                       color: AppConstants.appColor,
@@ -228,17 +228,6 @@ class SignInScreen1 extends StatelessWidget {
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppConstants.appColor,
-        onPressed: () {
-          if (Get.locale!.languageCode == "ar") {
-            Get.updateLocale(const Locale("en"));
-          } else {
-            Get.updateLocale(const Locale("ar"));
-          }
-        },
-        child: const Icon(Icons.g_translate),
       ),
     );
   }

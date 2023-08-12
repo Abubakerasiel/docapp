@@ -354,9 +354,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     icon: const Icon(Icons.person_sharp),
                     label: 'Profile Page'.tr,
                   ),
-                  const BottomNavigationBarItem(
+                  BottomNavigationBarItem(
                     icon: Icon(Icons.calendar_today_rounded), // New icon
-                    label: 'Dates Page', // Label for the new item
+                    label: 'Dates Page'.tr, // Label for the new item
                   ),
                 ],
                 currentIndex: 2,
@@ -414,8 +414,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
       // Show a success message
       Get.snackbar(
-        'weight update',
-        'weight updated successulfy ',
+        'weight update'.tr,
+        'weight updated successulfy '.tr,
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 4),
         backgroundColor: Colors.greenAccent,
@@ -424,8 +424,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     } catch (error) {
       // Show an error message if update fails
       Get.snackbar(
-        'weight update',
-        'the weight did not update',
+        'weight update'.tr,
+        'the weight did not update'.tr,
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 4),
         backgroundColor: Colors.red,

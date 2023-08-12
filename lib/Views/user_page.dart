@@ -214,9 +214,9 @@ class _UserPageState extends State<UserPage> {
               icon: const Icon(Icons.person_sharp),
               label: 'Profile Page'.tr,
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today_rounded), // New icon
-              label: 'Dates Page', // Label for the new item
+              label: 'Dates Page'.tr, // Label for the new item
             ),
           ],
           currentIndex: 0,

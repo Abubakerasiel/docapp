@@ -9,6 +9,40 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      'Name :': 'الاسم',
+      'Phone :': 'رقم التلفون',
+      'Age :': 'العمر',
+      'Height :': 'الطول',
+      'Gender :': 'النوع',
+      'Weight :': 'الوزن',
+      'Medical Issue :': 'المشاكل الصحية',
+      'Package Type :': 'نوع الباكدج',
+      'weight update': 'تعديل الزون',
+      'weight updated successulfy ': 'تم تعديل الوزن بنجاح',
+      'the weight did not update': 'لم يتم تعديل الوزن',
+      'Select Package Type': 'اختار نوع الباكدج',
+      'Please select package type': 'الرجاء اختيار نوع الباكدج',
+      'By Package': 'بالباكدج',
+      'By Time': 'بالمرة',
+      'Please Select A Date': 'الرجاء اختيار تاريخ',
+      'The Day is off': 'اليوم اجازة',
+      'Please Select Another day': 'الرجاء اختيار يوم آخر',
+      'Please Select A Day from Saturday To Tuesday':
+          'الرجاء اختيار يوم من الأحد إلى الثلاثاء',
+      'Your appointment is coming up in 24 hours':
+          'تذكير موعدك بعد ٢٤ ساعة من الان',
+      'booking Reminder': 'تذكير بالحجز',
+      'Deleting Not Allowed': 'غير مسموح بالالغاء',
+      'Cannot delete appointment less than 24 hours away.':
+          'غير مسموح الغاء الموعد في أقل من ٢٤ ساعة من تاريخ الموعد',
+      'Hello  Your appointment is coming up in 24 hours.':
+          'تذكير موعدك بعد ٢٤ ساعة من الان',
+      'Sorry, no available appointments on this day. You have been added to the waiting list.':
+          'عفوا لا يوجد مواعيد متاحة في هذا اليوم تم اضافتك إلى قائمة الانتظار',
+      'Wrong Date': 'تاريخ خطأ',
+      'Cancel Date': 'إلغاء الموعد',
+      'Login': 'تسجيل الدخول',
+      'Dates Page': 'صفحة المواعيد',
       'Booking Date:': ":تاريخ الحجز",
       'Booking Time:': ':زمن الحجز',
       'Confirm Booking': 'تأكيد الحجز',
@@ -23,6 +57,7 @@ Map<String, String> get arKeys => {
           'الفشل مرحلة ، وليس النتيجة النهائيه',
       "10- grams loss, is a success.": 'خسيت ١٠ جرام، ده نجاح.',
       'hello': 'مرحبا',
+      'Email': 'ايميل',
       'email': 'ايميل',
       'Full Name': 'الاسم بالكامل',
       'Please enter full name': 'الرجاء إدخال الاسم كامل',

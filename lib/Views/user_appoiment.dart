@@ -79,20 +79,20 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
               height: 70,
             ),
             Center(
                 child: Text(
-              '-:قواعد وشروط المكان ',
+              'قواعد وشروط المكان ',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             )),
-            const Text('.الدخول بالميعاد وليس اولوية الحضور',
+            const Text('الدخول بالميعاد وليس اولوية الحضور',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-            const Text(':الباكدج',
+            const Text('الباكدج',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const Text(
                 '٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج لمدة  ',
@@ -101,21 +101,21 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                     fontSize: 15,
                     color: Colors.blueGrey)),
 
-            Text('.شهر واسبوع و بعد ذلك تعتبر منتهية',
+            Text('شهر واسبوع و بعد ذلك تعتبر منتهية',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                     color: Colors.blueGrey)),
 
-            Text('.او بالمرة : ٢٠٠ جنية كل كشف او  متابعة',
+            Text('او بالمرة : ٢٠٠ جنية كل كشف او  متابعة',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                     color: Colors.blueGrey)),
-            const Text('.حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع',
+            const Text('حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const Text(
-                ':ل الاستفسار او الشكوى ب برجاء ارساله رساله واتس اب على رقم ',
+                ' الاستفسار او الشكوى ب برجاء ارساله رساله واتس اب على رقم ',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             Center(
               child: Text('01221246631',
@@ -373,6 +373,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                           //     controller.dates[index].id);
                                           // controller.getTodayAppointments();
                                         });
+
                                         //  controller.fetchDates();
                                         //controller.getTodayAppointments();
                                       },
@@ -416,9 +417,9 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             icon: const Icon(Icons.person_sharp),
             label: 'Profile Page'.tr,
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_rounded), // New icon
-            label: 'Dates Page', // Label for the new item
+            label: 'Dates Page'.tr, // Label for the new item
           ),
         ],
         currentIndex: 3,

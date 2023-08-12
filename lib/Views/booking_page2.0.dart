@@ -49,8 +49,8 @@ class _BookingScreenState extends State<BookingScreen> {
 
     if (day.weekday == 3 || day.weekday == 4 || day.weekday == 5) {
       Get.snackbar(
-        'Wrong Day',
-        'Please Select A Day from Saturday To Tuesday',
+        'Wrong Day'.tr,
+        'Please Select A Day from Saturday To Tuesday'.tr,
         backgroundColor: Colors.red,
       );
     }
@@ -112,8 +112,8 @@ class _BookingScreenState extends State<BookingScreen> {
       });
     } else {
       Get.snackbar(
-        'The Day is off',
-        'Please Select Another day',
+        'The Day is off'.tr,
+        'Please Select Another day'.tr,
         backgroundColor: Colors.red,
       );
       // setState(() {
@@ -1113,7 +1113,8 @@ class _BookingScreenState extends State<BookingScreen> {
                             if (controller.selectedDate.value != null) {
                               controller.makeReservation();
                             } else {
-                              Get.snackbar('Wrong Date', 'Please Select A Date',
+                              Get.snackbar(
+                                  'Wrong Date'.tr, 'Please Select A Date'.tr,
                                   backgroundColor: Colors.red,
                                   snackPosition: SnackPosition.BOTTOM);
                             }
@@ -1148,9 +1149,9 @@ class _BookingScreenState extends State<BookingScreen> {
             icon: const Icon(Icons.person_sharp),
             label: 'Profile Page'.tr,
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_rounded), // New icon
-            label: 'Dates Page', // Label for the new item
+            label: 'Dates Page'.tr, // Label for the new item
           ),
         ],
         currentIndex: 1,
