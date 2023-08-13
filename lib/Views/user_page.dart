@@ -65,29 +65,45 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     ReservationController controller = Get.put(ReservationController());
-    HomeController controller2 = Get.put(HomeController());
+    // HomeController controller2 = Get.put(HomeController());
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          bottomOpacity: 0,
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: Image.asset('assets/Frame.png'),
+          backgroundColor: Colors.lightBlue,
+          toolbarHeight: 70,
+          elevation: 14,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(70),
+                  bottomLeft: Radius.circular(70))),
           title: Text(
             "Hello ${controller.userName}",
-            style: const TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                controller2.logOut();
-              },
-              icon: const Icon(
-                Icons.logout_sharp,
-                color: Colors.black,
-              ),
-            ),
+            Row(
+              children: [
+                Container(
+                  height: 40,
+                  width: 40,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                  ], shape: BoxShape.circle, color: Colors.redAccent),
+                  child: IconButton(
+                    onPressed: Get.find<HomeController>().logOut,
+                    icon: Icon(
+                      Icons.logout,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 26,
+                )
+              ],
+            )
           ],
         ),
         body: Column(

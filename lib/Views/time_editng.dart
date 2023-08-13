@@ -5,6 +5,7 @@ import 'package:flutterappoinmentapp/Views/statemnet_page.dart';
 import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
+import '../controllers/home_controller.dart';
 import 'constanst.dart';
 import 'home.dart';
 
@@ -43,6 +44,42 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
     }
 
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.lightBlue,
+          toolbarHeight: 70,
+          elevation: 14,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(70),
+                  bottomLeft: Radius.circular(70))),
+          title: Text(
+            'Appoiments Setting Page',
+          ),
+          actions: [
+            Row(
+              children: [
+                Container(
+                  height: 40,
+                  width: 40,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                  ], shape: BoxShape.circle, color: Colors.redAccent),
+                  child: IconButton(
+                    onPressed: Get.find<HomeController>().logOut,
+                    icon: Icon(
+                      Icons.logout,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 26,
+                )
+              ],
+            )
+          ],
+        ),
         body: GridView.count(
           primary: false,
           padding: const EdgeInsets.all(20),
@@ -55,7 +92,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -70,17 +107,17 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // Show a success message
                     Get.snackbar(
                       'Time update',
-                      'monday has been enabled  successulfy ',
+                      'Saturday has been enabled  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
                       'Time update',
-                      'failed to enable monday ',
+                      'failed to enable Saturday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.red,
@@ -92,7 +129,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -112,7 +149,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -126,11 +163,11 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add 1 hour to satruday')),
+                child: const Text('Saturday +1')),
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -150,7 +187,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -164,13 +201,13 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add 2 hours to satruday')),
+                child: const Text('Saturday +2')),
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -185,17 +222,17 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // Show a success message
                     Get.snackbar(
                       'Time update',
-                      'monday has been enabled  successulfy ',
+                      'Sunday has been enabled  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
                       'Time update',
-                      'failed to enable monday ',
+                      'failed to enable Sunday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.red,
@@ -207,7 +244,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -223,7 +260,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -237,11 +274,11 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add 1 hour to  sunday')),
+                child: const Text('Sunday +1')),
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -261,7 +298,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -275,13 +312,13 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add 2 hours to sunday')),
+                child: const Text('Sunday +2')),
 
             //////////////////////////////////////////////////////////////////////////
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -300,7 +337,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -318,7 +355,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -337,7 +374,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -351,11 +388,11 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add An Hour to  Monday')),
+                child: const Text('Monday +1')),
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -375,7 +412,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -389,13 +426,13 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add 2 hours to monday')),
+                child: const Text('Monday +2')),
 
             ////////////////////////////////////////////////////////////////////////////////
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -410,17 +447,17 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     // Show a success message
                     Get.snackbar(
                       'Time update',
-                      'monday has been enabled  successulfy ',
+                      'Tuesday has been enabled  successulfy ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
                     Get.snackbar(
                       'Time update',
-                      'failed to enable monday ',
+                      'failed to enable Tuesday ',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.red,
@@ -432,7 +469,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -452,7 +489,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -466,11 +503,11 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add 1 hour to  tuesday')),
+                child: const Text('Tuesday +1')),
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.blueAccent)),
+                        MaterialStatePropertyAll(Colors.lightBlue)),
                 onPressed: () async {
                   try {
                     // Save the updated weight to Firestore
@@ -490,7 +527,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -504,7 +541,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('add 2 hours to tuesday')),
+                child: const Text('Tuesday +2')),
 
             /////////////////////////////////////////////////////////////////////////////////////
             ElevatedButton(
@@ -529,7 +566,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -570,7 +607,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -584,7 +621,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 1 hour from Satruday ')),
+                child: const Text('Saturday -1 ')),
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
@@ -608,7 +645,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -622,7 +659,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 2 hours  from Saturday ')),
+                child: const Text('Saturday -2 ')),
 
             /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -648,7 +685,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -684,7 +721,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -698,7 +735,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 1 hour from sunday ')),
+                child: const Text('Sunday -1 ')),
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
@@ -722,7 +759,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -736,7 +773,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 2 hours from sunday ')),
+                child: const Text('Sunday -2')),
 
             ///////////////////////////////////////////////////////////////////////////////////////
             ElevatedButton(
@@ -761,7 +798,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -799,7 +836,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -813,7 +850,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 1 hour on Monday ')),
+                child: const Text('Monday -1 ')),
             //////////// /// //////////////////////////////////////////////////////////////////////////////////////////////
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -845,7 +882,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -859,7 +896,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 2 hours from monday ')),
+                child: const Text('Monday -2 ')),
 
             ///////// ////////////////////////////////////////////////////////////////////////////////////////////
             ElevatedButton(
@@ -884,7 +921,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -925,7 +962,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -939,7 +976,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 1 hour from tuesday ')),
+                child: const Text('Tuesday -1 ')),
 
             ElevatedButton(
                 style: ButtonStyle(
@@ -964,7 +1001,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 4),
                       backgroundColor: Colors.greenAccent,
-                      colorText: Colors.white,
+                      colorText: Colors.black,
                     );
                   } catch (error) {
                     // Show an error message if update fails
@@ -978,7 +1015,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     );
                   }
                 },
-                child: const Text('remove 2 hours from tuesday ')),
+                child: const Text('Tuesday -2 ')),
             /////////////////////////////////////////////////////////////////////////////////////////////////////
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+    apiKey: 'AIzaSyAYmgkd-f6kzFJwKWOioow1bYSeQDAc7Gw',
+    appId: '1:210121926161:android:d18622becb3abdfe2273b0',
+    messagingSenderId: '210121926161',
+    projectId: 'doctorapp-6c1c8',
+  ));
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   GlobalBindings();

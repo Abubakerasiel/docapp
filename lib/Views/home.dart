@@ -49,29 +49,49 @@ class HomeScreen1 extends StatelessWidget {
           //     Row(
           //       children: [Text('data'), Image.asset('assets/Frame.png')],
           //     ),
+
           appBar: AppBar(
             centerTitle: true,
-            bottomOpacity: 0,
-            elevation: 0,
-            backgroundColor: Colors.white,
-            leading: Image.asset('assets/Frame.png'),
+            backgroundColor: Colors.lightBlue,
+            toolbarHeight: 70,
+            elevation: 14,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(70),
+                    bottomLeft: Radius.circular(70))),
             title: current()
                 ? const Text(
                     "Hello Secretary",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   )
                 : const Text(
                     "Hello Dr.Perry",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
             actions: [
-              IconButton(
-                onPressed: Get.find<HomeController>().logOut,
-                icon: const Icon(
-                  Icons.logout_sharp,
-                  color: Colors.black,
-                ),
-              ),
+              Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                    ], shape: BoxShape.circle, color: Colors.redAccent),
+                    child: IconButton(
+                      onPressed: Get.find<HomeController>().logOut,
+                      icon: Icon(
+                        Icons.logout,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 26,
+                  )
+                ],
+              )
             ],
           ),
           // body: GetBuilder<HomeControlleuer>(
@@ -143,39 +163,59 @@ class HomeScreen1 extends StatelessWidget {
       );
     } else if (currentUser != null &&
         currentUser.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          bottomOpacity: 0,
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: Image.asset('assets/Frame.png'),
-          title: current()
-              ? const Text(
-                  "Hello Secretary",
-                  style: TextStyle(color: Colors.black),
+      return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: Colors.lightBlue,
+              toolbarHeight: 70,
+              elevation: 14,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(70),
+                      bottomLeft: Radius.circular(70))),
+              title: current()
+                  ? const Text(
+                      "Hello Secretary",
+                      style: TextStyle(color: Colors.white),
+                    )
+                  : const Text(
+                      "Hello Dr.Perry",
+                      style: TextStyle(color: Colors.white),
+                    ),
+              actions: [
+                Row(
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                      ], shape: BoxShape.circle, color: Colors.redAccent),
+                      child: IconButton(
+                        onPressed: Get.find<HomeController>().logOut,
+                        icon: Icon(
+                          Icons.logout,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 26,
+                    )
+                  ],
                 )
-              : const Text(
-                  "Hello Dr.Perry",
-                  style: TextStyle(color: Colors.black),
-                ),
-          actions: [
-            IconButton(
-              onPressed: Get.find<HomeController>().logOut,
-              icon: const Icon(
-                Icons.logout_sharp,
-                color: Colors.black,
-              ),
+              ],
             ),
-          ],
-        ),
-        body: GetX<HomeController>(
-          // ignore: invalid_use_of_protected_member
-          builder: (controller) => controller.usersLisnter.value.isEmpty
-              ? const Center(child: CircularProgressIndicator())
+            body: GetX<HomeController>(
               // ignore: invalid_use_of_protected_member
-              : DatesList(dates: controller.datesLisnter.value),
-        ),
+              builder: (controller) => controller.usersLisnter.value.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  // ignore: invalid_use_of_protected_member
+                  : DatesList(dates: controller.datesLisnter.value),
+            )),
       );
       //return SizedBox();
     } else {

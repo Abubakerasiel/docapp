@@ -4,6 +4,7 @@ import 'package:flutterappoinmentapp/Views/user_page.dart';
 import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
+import '../controllers/home_controller.dart';
 import 'booking_page2.0.dart';
 import 'constanst.dart';
 
@@ -122,8 +123,41 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: AppConstants.appColor,
-          title: Text('${reservationController.userName.value} Profile'),
+          backgroundColor: Colors.lightBlue,
+          toolbarHeight: 70,
+          elevation: 14,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(70),
+                  bottomLeft: Radius.circular(70))),
+          title: Text(
+            "${reservationController.userName} Profile",
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: [
+            Row(
+              children: [
+                Container(
+                  height: 40,
+                  width: 40,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                  ], shape: BoxShape.circle, color: Colors.redAccent),
+                  child: IconButton(
+                    onPressed: Get.find<HomeController>().logOut,
+                    icon: Icon(
+                      Icons.logout,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 26,
+                )
+              ],
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -388,8 +422,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               //  _reservationController. y.value = true;
                             },
                             child: reservationController.y.value
-                                ? Text('Paid'.tr)
-                                : Text('did not Paid'.tr)),
+                                ? Text('Paid For The Package'.tr)
+                                : Text('Did Not Pay For The Package'.tr)),
                         // SizedBox(
                         //   width: 100,
                         // ),

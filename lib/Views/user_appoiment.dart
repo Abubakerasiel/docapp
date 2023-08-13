@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
+import '../controllers/home_controller.dart';
 import 'booking_page2.0.dart';
 import 'constanst.dart';
 import 'user_page.dart';
@@ -76,6 +77,44 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
     //  final currentUser = tl.FirebaseAuth.instance.currentUser;
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.lightBlue,
+        toolbarHeight: 70,
+        elevation: 14,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(70),
+                bottomLeft: Radius.circular(70))),
+        title: Text(
+          "Hello ${controller.userName}",
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          Row(
+            children: [
+              Container(
+                height: 40,
+                width: 40,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                ], shape: BoxShape.circle, color: Colors.redAccent),
+                child: IconButton(
+                  onPressed: Get.find<HomeController>().logOut,
+                  icon: Icon(
+                    Icons.logout,
+                    size: 20,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 26,
+              )
+            ],
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -83,7 +122,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 70,
+              height: 20,
             ),
             Center(
                 child: Text(
@@ -120,6 +159,9 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             Center(
               child: Text('01221246631',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             // ElevatedButton(
             //   onPressed: () {

@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 
 import '../Wedgits/time_showing2.dart';
 import '../controllers/booking_controller.dart';
+import '../controllers/home_controller.dart';
 import 'constanst.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -198,6 +199,44 @@ class _BookingScreenState extends State<BookingScreen> {
     //  DateTime today = DateTime.now();
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.lightBlue,
+        toolbarHeight: 70,
+        elevation: 14,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(70),
+                bottomLeft: Radius.circular(70))),
+        title: Text(
+          "Hello ${controller.userName}",
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          Row(
+            children: [
+              Container(
+                height: 40,
+                width: 40,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                ], shape: BoxShape.circle, color: Colors.redAccent),
+                child: IconButton(
+                  onPressed: Get.find<HomeController>().logOut,
+                  icon: Icon(
+                    Icons.logout,
+                    size: 20,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 26,
+              )
+            ],
+          )
+        ],
+      ),
       // appBar: AppBar(
       //   title: Text('${today.toString().split('')[0]}'),
       //   elevation: 0,
@@ -211,51 +250,51 @@ class _BookingScreenState extends State<BookingScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: const CircleAvatar(
-                          radius: 15,
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 20,
-                          ),
-                        ),
-                      ),
+                  // const SizedBox(
+                  //   height: 50,
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         Get.back();
+                  //       },
+                  //       child: const CircleAvatar(
+                  //         radius: 15,
+                  //         child: Icon(
+                  //           Icons.arrow_back,
+                  //           size: 20,
+                  //         ),
+                  //       ),
+                  //     ),
 
-                      IconButton(
-                        onPressed: () {
-                          Get.to(
-                              UserDetailsPage(
-                                userId: controller.user!.uid,
-                              ),
-                              arguments: controller.user!.uid);
-                        },
-                        icon: Icon(
-                          Icons.person,
-                          size: 30,
-                          color: AppConstants.appColor,
-                        ),
-                      )
-                      // Image(
-                      //   image: AssetImage(
-                      //     'assets/back_btn.png',
-                      //   ),
-                      //   width: 30,
-                      // ),
-                      // Image(
-                      //   image: AssetImage('assets/profile.png'),
-                      //   width: 30,
-                      // )
-                    ],
-                  ),
+                  //     IconButton(
+                  //       onPressed: () {
+                  //         Get.to(
+                  //             UserDetailsPage(
+                  //               userId: controller.user!.uid,
+                  //             ),
+                  //             arguments: controller.user!.uid);
+                  //       },
+                  //       icon: Icon(
+                  //         Icons.person,
+                  //         size: 30,
+                  //         color: AppConstants.appColor,
+                  //       ),
+                  //     )
+                  //     // Image(
+                  //     //   image: AssetImage(
+                  //     //     'assets/back_btn.png',
+                  //     //   ),
+                  //     //   width: 30,
+                  //     // ),
+                  //     // Image(
+                  //     //   image: AssetImage('assets/profile.png'),
+                  //     //   width: 30,
+                  //     // )
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -281,7 +320,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   //   },
                   // ),
                   Text(
-                    'Booking Date:'.tr,
+                    'Booking Date'.tr,
                     style: TextStyle(
                         fontSize: 20,
                         color: AppConstants.appColor,
@@ -314,7 +353,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   TableCalendar(
                       calendarStyle: const CalendarStyle(
                         selectedDecoration: BoxDecoration(
-                            color: Color(0xff2282B7), shape: BoxShape.circle),
+                            color: Colors.lightBlue, shape: BoxShape.circle),
                         // todayDecoration: BoxDecoration(
                         //     color: Colors.white, shape: BoxShape.circle),
                         weekendTextStyle: TextStyle(color: Colors.red),
@@ -363,7 +402,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   ,
                   const SizedBox(height: 10),
                   Text(
-                    'Booking Time:'.tr,
+                    'Booking Time'.tr,
                     style: TextStyle(
                         fontSize: 20,
                         color: AppConstants.appColor,
@@ -1108,7 +1147,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       child: ElevatedButton(
                           style: const ButtonStyle(
                               backgroundColor:
-                                  MaterialStatePropertyAll(Color(0xff2282B7))),
+                                  MaterialStatePropertyAll(Colors.lightBlue)),
                           onPressed: () {
                             if (controller.selectedDate.value != null) {
                               controller.makeReservation();
