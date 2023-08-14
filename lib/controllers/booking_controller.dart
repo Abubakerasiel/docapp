@@ -1166,9 +1166,22 @@ class ReservationController extends GetxController {
             selectedDate.value!.month == now.month &&
             selectedDate.value!.day == now.day;
         logi.log(selectedDate.value!.toString());
+        // time(DateTime time) async {
+        //   if (time.hour == 12 ||
+        //       time.hour == 12 && time.minute == 15 ||
+        //       time.hour == 12 && time.minute == 30 ||
+        //       time.hour == 12 && time.minute == 45) {
+        //     return time.subtract(Duration(hours: 12));
+        //   } else {
+        //     // time.add(Duration(hours: 12));
+        //     return time.add(Duration(hours: 12));
+        //   }
+        // }
+
+        //   await time(selectedDate.value!.add(Duration(hours: 12)));
         final reservationData = {
           //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
-          'selectedDate': selectedDate.value!.add(const Duration(hours: 12)),
+          'selectedDate': selectedDate.value!.add(Duration(hours: 12)),
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,

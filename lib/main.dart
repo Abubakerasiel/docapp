@@ -3,9 +3,6 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutterappoinmentapp/Auth/sigin_up_screen.dart';
-import 'package:flutterappoinmentapp/Views/about_us.dart';
-
 import 'package:flutterappoinmentapp/Views/terms_and_condition.dart';
 
 import 'package:get/get.dart';

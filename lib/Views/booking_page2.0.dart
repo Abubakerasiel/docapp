@@ -30,6 +30,9 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   //bool isButtonTapped = true;
   Set<int> disabledButtons = {};
+
+  // Initialize a Map to track the disabled state for each date
+  Map<DateTime, bool> disabledDates = {};
   int selectedTimeIndex = -1;
 
   final ReservationController controller = Get.put(ReservationController());
@@ -41,6 +44,13 @@ class _BookingScreenState extends State<BookingScreen> {
       await controller.getDataFromFirestore();
     }
 
+    setState(() {
+      // Reset the disabled state for the selected date
+      if (disabledDates.containsKey(today)) {
+        disabledDates[today] = false;
+      }
+      selectedTimeIndex = -1; // Reset the selected time index
+    });
     call();
     setState(() {
       selectedTimeIndex = -1; // Reset the selected time index
@@ -431,7 +441,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               today.year,
                                               today.month,
                                               today.day,
-                                              12,
+                                              00,
                                               00,
                                             );
                                           });
@@ -446,7 +456,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               today.year,
                                               today.month,
                                               today.day,
-                                              12,
+                                              00,
                                               15,
                                             );
                                           });
@@ -467,7 +477,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               today.year,
                                               today.month,
                                               today.day,
-                                              12,
+                                              00,
                                               30,
                                             );
                                           });
@@ -482,7 +492,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               today.year,
                                               today.month,
                                               today.day,
-                                              12,
+                                              00,
                                               45,
                                             );
                                           });
@@ -1207,6 +1217,15 @@ class _BookingScreenState extends State<BookingScreen> {
 
     return GestureDetector(
       onTap: () {
+        setState(() {
+          // Toggle the disabled state for the selected date
+          if (disabledDates.containsKey(controller.selectedDate.value)) {
+            disabledDates[controller.selectedDate.value!] =
+                !disabledDates[controller.selectedDate.value]!;
+          } else {
+            disabledDates[controller.selectedDate.value!] = true;
+          }
+        });
         setState(() {
           selectedTimeIndex = index;
           if (_isButtonTappedList[index]) {
