@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Auth/sigin_up_screen.dart';
+import 'package:flutterappoinmentapp/Views/about_us.dart';
 import 'package:get/get.dart';
 
 import '../Auth/sigin_screen.dart';
@@ -42,12 +43,13 @@ class TermsAndCondtion extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                      '٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج لمدة  ',
+                      ' ٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج   ',
+                      maxLines: 2,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: Colors.blueGrey)),
-                  Text('شهر واسبوع و بعد ذلك تعتبر منتهية',
+                  Text('  لمدة شهر واسبوع و بعد ذلك تعتبر منتهية   ',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
@@ -71,7 +73,7 @@ class TermsAndCondtion extends StatelessWidget {
                 height: 20,
               ),
               const Text(
-                  ' الاستفسار او الشكوى ب برجاء ارساله رساله واتس اب على رقم ',
+                  ' الاستفسار او الشكوى  برجاء ارساله رساله واتس اب على رقم ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
               const SizedBox(
                 height: 20,
@@ -111,6 +113,9 @@ class TermsAndCondtion extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -135,6 +140,22 @@ class TermsAndCondtion extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      // ignore: deprecated_member_use
+                      primary: AppConstants.appColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        side: BorderSide(color: AppConstants.appColor),
+                      )),
+                  onPressed: () {
+                    Get.to(AboutUsPage());
+                  },
+                  child: Text('About Us'))
             ],
           ),
         ),

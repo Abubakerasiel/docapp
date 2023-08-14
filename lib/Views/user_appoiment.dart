@@ -19,6 +19,7 @@ class UserAppoimetn extends StatefulWidget {
 
 class _UserAppoimetnState extends State<UserAppoimetn> {
   final ReservationController controller = Get.put(ReservationController());
+  HomeController controller2 = Get.put(HomeController());
 
   @override
   void initState() {
@@ -101,7 +102,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                   BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
                 ], shape: BoxShape.circle, color: Colors.redAccent),
                 child: IconButton(
-                  onPressed: Get.find<HomeController>().logOut,
+                  onPressed: () => controller2.logOut(),
                   icon: Icon(
                     Icons.logout,
                     size: 20,
@@ -134,13 +135,13 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             const Text('الباكدج',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const Text(
-                '٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج لمدة  ',
+                '٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج  ',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                     color: Colors.blueGrey)),
 
-            Text('شهر واسبوع و بعد ذلك تعتبر منتهية',
+            Text(' لمدة شهر واسبوع و بعد ذلك تعتبر منتهية',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
@@ -154,7 +155,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             const Text('حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const Text(
-                ' الاستفسار او الشكوى ب برجاء ارساله رساله واتس اب على رقم ',
+                ' الاستفسار او الشكوى  برجاء ارساله رساله واتس اب على رقم ',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             Center(
               child: Text('01221246631',
