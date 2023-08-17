@@ -29,6 +29,7 @@ void main() async {
   GlobalBindings();
 
   NotificationService().initNotification();
+  NotificationService().requestNotificationPermission();
 
   runApp(GetMaterialApp(
     home: TermsAndCondtion(),

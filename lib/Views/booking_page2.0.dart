@@ -173,6 +173,7 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
     ReservationController controller = Get.put(ReservationController());
+    HomeController controller2 = Get.put(HomeController());
 
     DateTime? selectedDate = controller.selectedDate.value;
     bool isSelectedDateSat =
@@ -180,7 +181,7 @@ class _BookingScreenState extends State<BookingScreen> {
     // ignore: no_leading_underscores_for_local_identifiers
     void _onItemTapped(int index) {
       if (index == 0) {
-        Get.off(const UserPage(),
+        Get.off(UserPage(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -219,7 +220,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 bottomRight: Radius.circular(70),
                 bottomLeft: Radius.circular(70))),
         title: Text(
-          "Hello ${controller.userName}",
+          " ${controller.userName}",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
@@ -233,7 +234,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
                 ], shape: BoxShape.circle, color: Colors.redAccent),
                 child: IconButton(
-                  onPressed: Get.find<HomeController>().logOut,
+                  onPressed: () => controller2.logOut(),
                   icon: Icon(
                     Icons.logout,
                     size: 20,

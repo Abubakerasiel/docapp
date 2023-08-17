@@ -18,7 +18,7 @@ class StatmentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController txt = TextEditingController();
     final ReservationController controller = Get.put(ReservationController());
-    // HomeController controller2 = Get.put(HomeController());
+    HomeController controller2 = Get.put(HomeController());
     void _onItemTapped(int index) async {
       if (index == 0) {
         Get.off(HomeScreen1(),
@@ -70,7 +70,7 @@ class StatmentPage extends StatelessWidget {
                           blurRadius: 7, spreadRadius: 3, color: Colors.red)
                     ], shape: BoxShape.circle, color: Colors.redAccent),
                     child: IconButton(
-                      onPressed: Get.find<HomeController>().logOut,
+                      onPressed: () => controller2.logOut(),
                       icon: Icon(
                         Icons.logout,
                         size: 20,

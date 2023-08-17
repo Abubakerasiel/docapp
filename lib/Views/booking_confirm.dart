@@ -78,7 +78,7 @@ class BookingConfirmed extends StatelessWidget {
               height: 100,
             ),
             Text(
-              'Congratulation',
+              'Congratulation'.tr,
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 24,
@@ -87,11 +87,11 @@ class BookingConfirmed extends StatelessWidget {
             const SizedBox(
               height: 29,
             ),
-            const Text(
-              'Your booking has been confirmed ',
+            Text(
+              'Your booking has been confirmed '.tr,
               style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 24,
+                  fontSize: 20,
                   color: Colors.black),
             ),
             const SizedBox(
@@ -107,15 +107,23 @@ class BookingConfirmed extends StatelessWidget {
             const SizedBox(
               height: 29,
             ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  textAlign: TextAlign.start,
-                  'Location :\n aklknwldkansdklabsdlka\nsnd,samdn, Cairo, Egypt',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                  textAlign: TextAlign.center,
+                  'Location'.tr,
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              textAlign: TextAlign.center,
+              ' aklknwldkansdklabsdlka\nsnd,samdn, Cairo, Egypt',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
             ),
             const SizedBox(
               height: 29,

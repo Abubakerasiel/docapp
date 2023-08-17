@@ -207,6 +207,7 @@ class _DatesListState extends State<DatesList> {
                               //     controller.formatDateTime(dateTime, userName, userPhone);
 
                               return Container(
+                                width: double.infinity,
                                 decoration: BoxDecoration(
                                   color: AppConstants.appColor,
                                   borderRadius: const BorderRadius.all(
@@ -220,33 +221,31 @@ class _DatesListState extends State<DatesList> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
+                                        GestureDetector(
+                                          onTap: () async {
+                                            await controller
+                                                .retrieveUserData(userID3!);
+
+                                            Get.to(
+                                                UserDetailsPage(
+                                                  userId: userID3,
+                                                ),
+                                                arguments: userID3,
+                                                curve: Curves.easeInOut,
+                                                duration: Duration(seconds: 1),
+                                                transition: Transition.fadeIn);
+                                          },
+                                          child: const CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            child: Icon(Icons.person),
+                                          ),
+                                        ),
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                              MainAxisAlignment.center,
                                           children: [
-                                            GestureDetector(
-                                              onTap: () async {
-                                                await controller
-                                                    .retrieveUserData(userID3!);
-
-                                                Get.to(
-                                                    UserDetailsPage(
-                                                      userId: userID3,
-                                                    ),
-                                                    arguments: userID3,
-                                                    curve: Curves.easeInOut,
-                                                    duration:
-                                                        Duration(seconds: 1),
-                                                    transition:
-                                                        Transition.fadeIn);
-                                              },
-                                              child: const CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                child: Icon(Icons.person),
-                                              ),
-                                            ),
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,

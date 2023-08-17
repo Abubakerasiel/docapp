@@ -9,6 +9,10 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      'No announcements yet.': 'لا توجد إعلانات حتى الآن',
+      'Location': 'الموقع',
+      'Congratulation': 'تهانينا',
+      'Your booking has been confirmed ': 'تم تأكيد حجزك في يوم',
       'Name :': 'الاسم',
       'Phone :': 'رقم التلفون',
       'Age :': 'العمر',
@@ -43,8 +47,8 @@ Map<String, String> get arKeys => {
       'Cancel Date': 'إلغاء الموعد',
       'Login': 'تسجيل الدخول',
       'Dates Page': 'صفحة المواعيد',
-      'Booking Date': ":تاريخ الحجز",
-      'Booking Time': ':زمن الحجز',
+      'Booking Date': "تاريخ الحجز",
+      'Booking Time': 'زمن الحجز',
       'Confirm Booking': 'تأكيد الحجز',
       'Home': 'الصفحة الرئيسية',
       'Booking Page': 'صفحة الحجز',
@@ -90,6 +94,7 @@ Map<String, String> get arKeys => {
       'Phone Number': 'رقم الهاتف',
       'Weight': 'الوزن',
       'Male': 'ذكر',
+      'male': 'ذكر',
       'Female': 'انثى',
       'female': 'انثى',
       'medical issue': 'مشاكل صحية',
@@ -148,6 +153,8 @@ Map<String, String> get arKeys => {
     };
 Map<String, String> get enKeys => {
       'hello': 'Hello',
+      'By Package': 'byPackage',
+      'By Time': 'byTime',
       'hello_getx': 'Hello Getx',
       'change_lang': 'Change Language',
     };

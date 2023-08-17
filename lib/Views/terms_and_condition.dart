@@ -4,6 +4,7 @@ import 'package:flutterappoinmentapp/Views/about_us.dart';
 import 'package:get/get.dart';
 
 import '../Auth/sigin_screen.dart';
+
 import 'constanst.dart';
 
 class TermsAndCondtion extends StatelessWidget {
@@ -11,6 +12,7 @@ class TermsAndCondtion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Get.put(ReservationController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -73,8 +75,8 @@ class TermsAndCondtion extends StatelessWidget {
                 height: 20,
               ),
               const Text(
-                  ' الاستفسار او الشكوى  برجاء ارساله رساله واتس اب على رقم ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  'الاستفسار او الشكوى  برجاء ارساله رساله واتس اب على رقم',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(
                 height: 20,
               ),

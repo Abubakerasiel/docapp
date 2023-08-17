@@ -11,8 +11,10 @@ import 'constanst.dart';
 import 'user_detail_page.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+  String? Uid;
+  UserPage({super.key, this.Uid});
 
   @override
   State<UserPage> createState() => _UserPageState();
@@ -21,6 +23,9 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   final ReservationController _reservationController =
       Get.put(ReservationController());
+
+  HomeController controller2 = Get.put(HomeController());
+
   // int _selectedIndex = 0;
   void _onItemTapped(int index) async {
     if (index == 0) {
@@ -52,19 +57,9 @@ class _UserPageState extends State<UserPage> {
     }
   }
 
-  // @override
-  // void onInit() {
-  //   // super.onInit();
-
-  //   // notificationService.initNotification();
-  //   // retrieveUserData(user!.uid);
-  //   // sendNotificatonToUser(user!.uid);
-  //   // streamSubscription.listen((event) { })
-  // }
-
   @override
   Widget build(BuildContext context) {
-    ReservationController controller = Get.put(ReservationController());
+    // ReservationController controller = Get.put(ReservationController());
     // HomeController controller2 = Get.put(HomeController());
     return MaterialApp(
       home: Scaffold(
@@ -77,9 +72,11 @@ class _UserPageState extends State<UserPage> {
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(70),
                   bottomLeft: Radius.circular(70))),
-          title: Text(
-            "Hello ${controller.userName}",
-            style: TextStyle(color: Colors.white),
+          title: Obx(
+            () => Text(
+              " ${_reservationController.userName.value}",
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           actions: [
             Row(
@@ -92,7 +89,7 @@ class _UserPageState extends State<UserPage> {
                     BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
                   ], shape: BoxShape.circle, color: Colors.redAccent),
                   child: IconButton(
-                    onPressed: Get.find<HomeController>().logOut,
+                    onPressed: () => controller2.logOut(),
                     icon: Icon(
                       Icons.logout,
                       size: 20,
@@ -107,10 +104,16 @@ class _UserPageState extends State<UserPage> {
           ],
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // SizedBox(
-            //   height: 50,
-            // ),
+            Text(
+              " ${_reservationController.userName.value}",
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              height: 50,
+            ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //   children: [
@@ -156,8 +159,7 @@ class _UserPageState extends State<UserPage> {
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('userText')
-                  .orderBy('timestamp',
-                      descending: true) // Fetch documents in descending order
+                  .orderBy('timestamp', descending: true)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -169,9 +171,11 @@ class _UserPageState extends State<UserPage> {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                // Reverse the list of documents before mapping them to ListTiles
-                // List<QueryDocumentSnapshot> reversedDocs =
-                //     snapshot.data!.docs.reversed.toList();
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  // No data or data is empty, display a message
+                  return Expanded(
+                      child: Center(child: Text('No announcements yet.'.tr)));
+                }
 
                 return Expanded(
                   child: ListView(
@@ -186,18 +190,25 @@ class _UserPageState extends State<UserPage> {
                           DateFormat("hh:mm a, dd MMM yyyy").format(dateTime);
 
                       return ListTile(
+                        dense: false,
+                        // titleAlignment: ListTileTitleAlignment.threeLine,
+
                         title: Text(
                           text,
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                         ),
                         subtitle: Text(formattedTime),
+                        //trailing: SizedBox(),
                       );
-                    }).toList(),
+                    }).toList(), // Ensure that you're returning a List<Widget>
                   ),
                 );
               },
             ),
+
             // ElevatedButton(
             //     onPressed: () {
             //       Get.to(BookingScreen());

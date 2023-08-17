@@ -8,6 +8,7 @@ import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
 import 'package:get/get.dart';
 
 import '../Model/User.dart';
+import 'booking_controller.dart';
 import 'firebase_repo.dart';
 
 CollectionReference waitingListCollection =
@@ -18,6 +19,7 @@ CollectionReference datesCollection =
     FirebaseFirestore.instance.collection('dates');
 
 class HomeController extends GetxController {
+  ReservationController controller = ReservationController();
   static HomeController get instance => Get.find();
 
   List<User>? users;

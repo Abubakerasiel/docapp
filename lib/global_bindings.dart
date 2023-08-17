@@ -8,11 +8,14 @@ import 'controllers/firebase_users_data/firebase_data.dart';
 
 class GlobalBindings extends Bindings {
   GlobalBindings() {
+    //  Get.put(ReservationController());
+
     dependencies();
   }
 
   @override
   void dependencies() {
+    //   Get.put(ReservationController());
     Get.lazyPut<FirebaseRepoImpl>(
       () => FirebaseRepoImpl(FirebaseAuth.instance),
       fenix: true,

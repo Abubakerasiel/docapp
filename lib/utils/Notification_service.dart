@@ -1,5 +1,8 @@
 //import 'package:flutter/material.dart';
 
+import 'dart:developer';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:timezone/timezone.dart' as tz;
@@ -18,6 +21,24 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   NotificationService._internal();
+
+  Future<void> requestNotificationPermission() async {
+    final messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      log('User granted permission for notifications.');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      log('User  granted provisinal permission .');
+    } else {
+      log('user delined or has not accepted premission');
+    }
+  }
 
   Future<void> initNotification() async {
     // Android initialization

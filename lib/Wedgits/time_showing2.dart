@@ -33,18 +33,22 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildButton4(0, '4:00', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  4,
-                  00,
-                );
-                // print(controller.selectedDate.value);
-              });
+              if (controller.selectedDate.value != null) {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+
+                  controller.selectedDate.value = DateTime(
+                    today!.year,
+                    today.month,
+                    today.day,
+                    4,
+                    00,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+              }
+
               // Function to be executed when Button 1 is pressed.
             }),
             _buildButton4(1, '4:15', () {
@@ -521,7 +525,6 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
         });
 
         // Execute the callback function when the button is tapped.
-        onTap();
       },
       child: Container(
         alignment: Alignment.center,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutterappoinmentapp/Views/admin_page.dart';
 import 'package:flutterappoinmentapp/Views/user_page.dart';
+import 'package:flutterappoinmentapp/controllers/booking_controller.dart';
 import 'package:flutterappoinmentapp/controllers/home_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart' as tl;
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class HomeScreen1 extends StatelessWidget {
     //  var name = F
     // irebaseRepoImpl.instance.currentUser?.displayName;
     final currentUser = tl.FirebaseAuth.instance.currentUser;
+
     current() {
       if (currentUser!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
         return true;
@@ -219,7 +221,8 @@ class HomeScreen1 extends StatelessWidget {
       );
       //return SizedBox();
     } else {
-      return const UserPage();
+      Get.put(ReservationController());
+      return UserPage();
     }
   }
 }

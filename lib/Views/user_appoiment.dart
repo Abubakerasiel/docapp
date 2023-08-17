@@ -30,7 +30,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
 
   void _onItemTapped(int index) async {
     if (index == 0) {
-      Get.off(const UserPage(),
+      Get.off(UserPage(),
           curve: Curves.easeInOut,
           duration: Duration(seconds: 1),
           transition: Transition.fadeIn);
@@ -88,7 +88,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                 bottomRight: Radius.circular(70),
                 bottomLeft: Radius.circular(70))),
         title: Text(
-          "Hello ${controller.userName}",
+          " ${controller.userName}",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
@@ -130,36 +130,57 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
               'قواعد وشروط المكان ',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             )),
+            const SizedBox(
+              height: 10,
+            ),
             const Text('الدخول بالميعاد وليس اولوية الحضور',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const SizedBox(
+              height: 10,
+            ),
             const Text('الباكدج',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const SizedBox(
+              height: 10,
+            ),
             const Text(
                 '٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج  ',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 16,
                     color: Colors.blueGrey)),
+            const SizedBox(
+              height: 10,
+            ),
 
             Text(' لمدة شهر واسبوع و بعد ذلك تعتبر منتهية',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 16,
                     color: Colors.blueGrey)),
+            const SizedBox(
+              height: 10,
+            ),
 
             Text('او بالمرة : ٢٠٠ جنية كل كشف او  متابعة',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 16,
                     color: Colors.blueGrey)),
+            const SizedBox(
+              height: 10,
+            ),
             const Text('حجز المعاد من الابليكشن مفتوح قبل المعاد ب اسبوع',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const SizedBox(
+              height: 10,
+            ),
             const Text(
-                ' الاستفسار او الشكوى  برجاء ارساله رساله واتس اب على رقم ',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                ' الاستفسار او الشكوى  برجاء ارسال رساله واتس اب على رقم ',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
             Center(
               child: Text('01221246631',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             ),
             const SizedBox(
               height: 20,
@@ -239,32 +260,55 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TextButton(
-                                        onPressed: () async {
-                                          await controller
-                                              .retrieveUserData(userID3!);
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () async {
+                                              await controller
+                                                  .retrieveUserData(userID3!);
 
-                                          Get.to(
-                                              UserDetailsPage(
-                                                userId: userID3,
-                                              ),
-                                              arguments: userID3);
-                                        },
-                                        child: Text('Name: $userName',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              decoration: TextDecoration.none,
-                                            )),
+                                              Get.to(
+                                                  UserDetailsPage(
+                                                    userId: userID3,
+                                                  ),
+                                                  arguments: userID3);
+                                            },
+                                            child: Text('Name'.tr,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration:
+                                                      TextDecoration.none,
+                                                )),
+                                          ),
+                                          Text('$userName',
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                decoration: TextDecoration.none,
+                                              )),
+                                        ],
                                       ),
-                                      Text('Phone Number: $userPhone',
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            decoration: TextDecoration.none,
-                                          )),
+                                      Row(
+                                        children: [
+                                          Text('Phone Number'.tr,
+                                              textAlign: TextAlign.start,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                decoration: TextDecoration.none,
+                                              )),
+                                          Text('  $userPhone',
+                                              textAlign: TextAlign.start,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                decoration: TextDecoration.none,
+                                              )),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ],

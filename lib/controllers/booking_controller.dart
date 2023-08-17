@@ -34,10 +34,10 @@ class ReservationController extends GetxController {
     super.onInit();
 
     notificationService.initNotification();
-    retrieveUserData(user!.uid);
+    await retrieveUserData(user!.uid);
     await getDataFromFirestore();
     sendNotificatonToUser(user!.uid);
-    requestNotificationPermission();
+    await requestNotificationPermission();
     await retrieveTokens();
     await getUserToken();
 
@@ -50,14 +50,7 @@ class ReservationController extends GetxController {
     iniitInfo();
   }
 
-  // @override
-  // void onClose() {
-  //   // Dispose of the controller properly
-  //   super.onClose();
-  //   // flutterLocalNotificationsPlugin.dispose();
-  // } print('$userToken   the one');
-
-  RxString userName = RxString('');
+  RxString userName = ''.obs;
   RxString userPhone = RxString('');
   RxString medicalIssue = RxString('');
   RxString weight = RxString('');
@@ -233,7 +226,7 @@ class ReservationController extends GetxController {
 
   iniitInfo() async {
     var androidInitliaize =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/launcher_icon');
     // ignore: non_constant_identifier_names
     var IOSInitialize = const DarwinInitializationSettings();
     var initializationsSettings =
@@ -586,6 +579,7 @@ class ReservationController extends GetxController {
   }
 
   Future<Map<String, dynamic>?> retrieveUserData(String userId) async {
+    print('jkkkk');
     try {
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
           await FirebaseFirestore.instance
@@ -919,6 +913,26 @@ class ReservationController extends GetxController {
       }
     } catch (error) {
       logi.log('Failed to delete or replace appointment: $error');
+    }
+  }
+
+  RxBool k = true.obs;
+  Future<bool> timeslot(DateTime t) async {
+    final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
+        await datesCollection
+            .where('selectedDate', isEqualTo: t.add(Duration(hours: 12)))
+            .get() as QuerySnapshot<Map<String, dynamic>>;
+    final int selectedTimeAppointmentsCount =
+        selectedTimeAppointmentsSnapshot.size;
+    logi.log(selectedTimeAppointmentsCount.toString());
+    if (selectedTimeAppointmentsCount > 0) {
+      k.value = true;
+      print(t.toString());
+      return true;
+    } else {
+      k.value = false;
+      print(t.toString());
+      return false;
     }
   }
 

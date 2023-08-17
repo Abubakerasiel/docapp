@@ -71,12 +71,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    HomeController controller2 = Get.put(HomeController());
     final ReservationController reservationController =
         Get.put(ReservationController());
     // ignore: no_leading_underscores_for_local_identifiers
     void _onItemTapped(int index) async {
       if (index == 0) {
-        Get.off(const UserPage(),
+        Get.off(UserPage(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -127,11 +128,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
           toolbarHeight: 70,
           elevation: 14,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(70),
-                  bottomLeft: Radius.circular(70))),
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(70),
+              bottomLeft: Radius.circular(70),
+            ),
+          ),
           title: Text(
-            "${reservationController.userName} Profile",
+            "${reservationController.userName} ",
             style: TextStyle(color: Colors.white),
           ),
           actions: [
@@ -141,11 +144,19 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                   height: 40,
                   width: 40,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
-                  ], shape: BoxShape.circle, color: Colors.redAccent),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 7,
+                        spreadRadius: 3,
+                        color: Colors.red,
+                      )
+                    ],
+                    shape: BoxShape.circle,
+                    color: Colors.redAccent,
+                  ),
                   child: IconButton(
-                    onPressed: Get.find<HomeController>().logOut,
+                    onPressed: () => controller2.logOut(),
                     icon: Icon(
                       Icons.logout,
                       size: 20,
@@ -159,215 +170,76 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             )
           ],
         ),
-        body: Padding(
+        body: ListView(
           padding: const EdgeInsets.all(16.0),
-          child: Obx(
-            () {
-              return Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Name :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        'Phone :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        'Age :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        'Height :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        'Gender :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        'Weight :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        'Medical Issue :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        'Package Type :'.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        ' ${reservationController.userName.value}',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        reservationController.userPhone.value,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        reservationController.age.value,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        reservationController.height.value,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        reservationController.gender.value.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      TextButton(
-                        child: Text(
-                          reservationController.weight.value,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-
-                        // Open the weight edit dialog when weight is tapped
-                        onPressed: () => _showWeightEditDialog(context),
-                      ),
-                      Text(
-                        reservationController.medicalIssue.value.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        reservationController.packageType.value.tr,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     Text(
-                  //       'Name'.tr,
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //     Text(
-                  //       ' ${_reservationController.userName.value}',
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     Text(
-                  //       'Phone'.tr,
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //     Text(
-                  //       '${_reservationController.userPhone.value}',
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     Text(
-                  //       'Age'.tr,
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //     Text(
-                  //       '${_reservationController.age.value}',
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     Text(
-                  //       'Height'.tr,
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //     Text(
-                  //       '${_reservationController.height.value}',
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     Text(
-                  //       'Gender'.tr,
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //     Text(
-                  //       '${_reservationController.gender.value}'.tr,
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 20),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     Text(
-                  //       'Weight'.tr,
-                  //       style: TextStyle(fontSize: 18),
-                  //     ),
-                  //     ElevatedButton(
-                  //       child: Text(
-                  //         '${_reservationController.weight.value}',
-                  //         style: TextStyle(fontSize: 18),
-                  //       ),
-
-                  //       // Open the weight edit dialog when weight is tapped
-                  //       onPressed: () => _showWeightEditDialog(context),
-                  //     ),
-                  //   ],
-                  // ),
-                  // x
-                  //     ? ElevatedButton(
-                  //         style: ButtonStyle(
-                  //             backgroundColor: _reservationController.y.value
-                  //                 ? MaterialStatePropertyAll(Colors.green)
-                  //                 : MaterialStatePropertyAll(Colors.amber)),
-                  //         onPressed: () async {
-                  //           _reservationController.paidPackge(data);
-                  //           _reservationController.paymentStatus(data);
-                  //           Get.snackbar(' Successful Payment',
-                  //               'The package has been updated successfuly',
-                  //               backgroundColor: Colors.greenAccent,
-                  //               snackPosition: SnackPosition.BOTTOM);
-
-                  //           //  _reservationController. y.value = true;
-                  //         },
-                  //         child: _reservationController.y.value
-                  //             ? Text('paid'.tr)
-                  //             : Text('did not paid'.tr))
-                  //     : SizedBox(),
-                  // _reservationController.y.value
-                  //     ? Icon(
-                  //         Icons.check_circle_outlined,
-                  //         color: Colors.green,
-                  //       )
-                  //     : SizedBox()
-                ],
-              );
-            },
-          ),
+          children: [
+            ListTile(
+              title: Text('Name :'.tr),
+              subtitle: Text(
+                ' ${reservationController.userName.value}',
+                style: const TextStyle(fontSize: 17),
+                maxLines: 3,
+              ),
+            ),
+            ListTile(
+              title: Text('Phone :'.tr),
+              subtitle: Text(
+                reservationController.userPhone.value,
+                style: const TextStyle(fontSize: 17),
+              ),
+            ),
+            ListTile(
+              title: Text('Age :'.tr,
+                  style: const TextStyle(
+                    fontSize: 17,
+                  )),
+              subtitle: Text(
+                reservationController.age.value,
+                style: const TextStyle(
+                  fontSize: 17,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Height :'.tr),
+              subtitle: Text(
+                reservationController.height.value,
+                style: const TextStyle(fontSize: 17),
+              ),
+            ),
+            ListTile(
+              title: Text('Gender :'.tr),
+              subtitle: reservationController.gender.value == 'male'
+                  ? Text('male'.tr, style: const TextStyle(fontSize: 14))
+                  : Text('female'.tr, style: const TextStyle(fontSize: 14)),
+            ),
+            ListTile(
+              title: Text('Weight :'.tr),
+              subtitle: GestureDetector(
+                onTap: () => _showWeightEditDialog(context),
+                child: Text(
+                  reservationController.weight.value,
+                  style: const TextStyle(fontSize: 17),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Medical Issue :'.tr),
+              subtitle: Text(
+                reservationController.medicalIssue.value.tr,
+                style: const TextStyle(fontSize: 17),
+                maxLines: 2,
+                overflow: TextOverflow.fade,
+              ),
+            ),
+            ListTile(
+              title: Text('Package Type :'.tr),
+              subtitle: reservationController.packageType.value == 'byPackage'
+                  ? Text('By Package'.tr, style: const TextStyle(fontSize: 17))
+                  : Text('By Time'.tr, style: const TextStyle(fontSize: 17)),
+            ),
+            // ... continue with other ListTiles as needed ...
+          ],
         ),
         bottomNavigationBar: y
             ? BottomNavigationBar(
