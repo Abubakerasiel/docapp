@@ -10,12 +10,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
 
 import '../utils/notification_service.dart';
-// import 'package:timezone/timezone.dart' as tz;
-// import 'package:timezone/data/latest.dart' as tz;
-// import 'package:intl/intl.dart';
-// import 'package:timezone/data/latest.dart' as tzl;
-// import 'package:timezone/standalone.dart' as tz;
-// import 'package:timezone/timezone.dart' as tz;
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
@@ -40,12 +34,6 @@ class ReservationController extends GetxController {
     await requestNotificationPermission();
     await retrieveTokens();
     await getUserToken();
-
-    //fetchTime();
-
-    // await notificationService.initNotification();
-
-    // sendAllUsersNotfication(userToken!, 'hi', 'hello');
 
     iniitInfo();
   }
@@ -85,23 +73,6 @@ class ReservationController extends GetxController {
 
   TextEditingController stat = TextEditingController();
 
-  //  List<Map<String, String>> tokenList = [
-  //   {
-  //     "token": "czHpV7RvRq--UtG1sv528b:APA91bHYB04Qx00kaf5gB7h0ulmTXFrFoQwqQDgnNVnZhbKpBQYLFbueoroCFNsz1jPQh9rosepUd21_ca-mPF3syW_zGAamnOYa7TZnW_LryYwOBP9jwaINEIquBrK1QciRNlXxYpAR"
-  //   },
-  //   {
-  //     "token": "e3eRr2mkTimvfhTaeFamoB:APA91bFI8M72-EvV4b4V7hlW4VGnP59Rn57MXrkK4fflXi2zXKHVjNKyEE2jk0xPBqDIFO9N3IMSb8CE6VqJ3reLiPpjpclVj3Nd6IHXefFNjm7a9hYIqUopqSadKTGEkCt-ihbJJzSr"
-  //   }
-  // ];
-
-  // Extract tokens from the list
-  // List<String> tokens2 = tokenList.map((element) => element["token"]).toList();
-
-  // Print the tokens
-  // tokens2.forEach((token) {
-  //   print(token);
-  // });
-
   final usersRef = FirebaseFirestore.instance.collection('users');
   final docTime = FirebaseFirestore.instance.collection('time_visibalilty');
 
@@ -140,20 +111,6 @@ class ReservationController extends GetxController {
     }
     return id;
   }
-  //  void onItemTapped(int index) {
-  //   if (index == 0) {
-  //     // If 'Home' is tapped, do nothing (stay on the current page)
-  //     return;
-  //   } else if (index == 1) {
-  //     // If 'Business' is tapped, navigate to the sign-in screen
-  //     Get.to(BookingScreen());
-  //   } else if (index == 2) {
-  //     Get.to(UserDetailsPage(userId: user!.uid),
-  //         arguments: user!.uid);
-  //     // If 'School' is tapped, do nothing (stay on the current page)
-  //     return;
-  //   }
-  // }
 
   Future<void> getDataFromFirestore() async {
     try {
@@ -177,11 +134,6 @@ class ReservationController extends GetxController {
         disableSunday.value = data['sundayDisabled'];
         disableMonday.value = data['mondayDisabled'];
         disableTuesday.value = data['tuesdayDisabled'];
-
-        // Now you can use these variables as needed
-        // print('Value 1: $isSaturday');
-        // print('Value 2: $isSunday');
-        // print('Value 3: $isMonday');
       } else {
         logi.log('Document not found!');
       }
@@ -252,8 +204,18 @@ class ReservationController extends GetxController {
               styleInformation: bigTextStyleInformation,
               priority: Priority.high,
               playSound: true);
+      DarwinNotificationDetails iOSPlatformChannelSpecifics =
+          DarwinNotificationDetails(
+        interruptionLevel: InterruptionLevel.timeSensitive,
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+        presentBanner: true,
+      );
+
       NotificationDetails platformchannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics,
       );
       await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
           message.notification?.body, platformchannelSpecifics,
@@ -329,101 +291,6 @@ class ReservationController extends GetxController {
   CollectionReference datesCollection =
       FirebaseFirestore.instance.collection('dates');
 
-  // Future<void> datePicker(BuildContext context) async {
-  //   // bool isDateSelectable(DateTime date) {
-  //   //   // Weekday values: 1 (Monday) to 7 (Sunday)
-  //   //   final int weekday = date.weekday;
-  //   //   return weekday >= DateTime.friday && weekday <= DateTime.thursday;
-  //   // }
-
-  //   final DateTime? pickedDate = await showDatePicker(
-  //       context: context,
-  //       initialDate: DateTime.now(),
-  //       firstDate: DateTime.now(),
-  //       lastDate: DateTime.now().add(const Duration(days: 365)),
-  //       selectableDayPredicate: (DateTime date) {
-  //         // Check if the selected date is Sunday to Thursday
-  //         return date.weekday == 1 ||
-  //             date.weekday == 2 ||
-  //             date.weekday == 7 ||
-  //             date.weekday == 6 ||
-  //             date.weekday == 4 ||
-  //             date.weekday == 5 ||
-  //             date.weekday == 3;
-  //         // ... existing code ...
-  //       });
-
-  //   if (pickedDate != null) {
-  //     if (pickedDate.weekday == 1 ||
-  //         pickedDate.weekday == 2 ||
-  //         pickedDate.weekday == 7 ||
-  //         pickedDate.weekday == 6) {
-  //       // ignore: use_build_context_synchronously
-  //       final TimeOfDay? pickedTime = await showTimePicker(
-  //         context: context,
-  //         initialTime: const TimeOfDay(hour: 12, minute: 0),
-  //         builder: (BuildContext context, Widget? child) {
-  //           return MediaQuery(
-  //             data:
-  //                 MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-  //             child: child!,
-  //           );
-  //         },
-  //       );
-
-  //       if (pickedTime != null) {
-  //         if (pickedTime.hour < 21) {
-  //           final DateTime selectedDateTime = DateTime(
-  //             pickedDate.year,
-  //             pickedDate.month,
-  //             pickedDate.day,
-  //             pickedTime.hour,
-  //             pickedTime.minute,
-  //           );
-
-  //           // Schedule the notification
-  //           //  await scheduleNotification(selectedDateTime);
-
-  //           // Set the selected date and time
-  //           selectedDate.value = selectedDateTime;
-  //         } else {
-  //           Get.snackbar(
-  //             'Invalid Time'.tr,
-  //             'Please choose the time: Saturday 12 am to 7:30 pm, Sunday 5:00 pm to 8:00 pm, Monday and Tuesday, 4:00 pm to 8:30 pm'
-  //                 .tr,
-  //             snackPosition: SnackPosition.BOTTOM,
-  //             duration: const Duration(seconds: 4),
-  //             backgroundColor: Colors.red,
-  //             colorText: Colors.white,
-  //           );
-  //         }
-  //       } else {
-  //         Get.snackbar(
-  //           'Invalid date'.tr,
-  //           'Please select a date from Saturday to tuesday.'.tr,
-  //           snackPosition: SnackPosition.BOTTOM,
-  //           duration: const Duration(seconds: 3),
-  //           backgroundColor: Colors.red,
-  //           colorText: Colors.white,
-  //         );
-  //         // Show
-  //         //
-  //         //an error snackbar for invalid time
-  //         // ...
-  //       }
-  //     } else {
-  //       Get.snackbar(
-  //         'Invalid Day',
-  //         'Please select a date from Saturday to tuesday.'.tr,
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         duration: const Duration(seconds: 3),
-  //         backgroundColor: Colors.red,
-  //         colorText: Colors.white,
-  //       );
-  //     }
-  //   }
-  // }
-
   fetchDates() async {
     try {
       // Get the current user
@@ -442,25 +309,6 @@ class ReservationController extends GetxController {
       print("Failed to fetch dates: $error");
     }
   }
-
-  // fetchDates() async {
-  //   try {
-  //     // Get the current user
-  //     User? currentUser = FirebaseAuth.instance.currentUser;
-
-  //     if (currentUser != null) {
-  //       final snapshot = await datesCollection
-  //           .where('userEmail', isEqualTo: currentUser.email)
-  //           .orderBy('selectedDate') // Order by reservationTime
-  //           .get();
-
-  //       dates.value =
-  //           snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
-  //     }
-  //   } catch (error) {
-  //     logi.log("Failed to fetch dates: $error");
-  //   }
-  // }
 
   Future<List<Map<String, dynamic>>> getTodayAppointments() async {
     final DateTime now = DateTime.now();
@@ -516,9 +364,6 @@ class ReservationController extends GetxController {
         data: null,
       );
     }
-    //else if (package2 == null) {
-    //   return;
-    // }
   }
 
   paidPackge(String userID1) async {
@@ -579,7 +424,7 @@ class ReservationController extends GetxController {
   }
 
   Future<Map<String, dynamic>?> retrieveUserData(String userId) async {
-    print('jkkkk');
+    //print('jkkkk');
     try {
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
           await FirebaseFirestore.instance
@@ -653,128 +498,6 @@ class ReservationController extends GetxController {
         .catchError((error) => logi.log('Failed to delete date: $error'));
   }
 
-  // void deleteDateAndRpalceIt(String documentId) async {
-  //   try {
-  //     final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-  //         await datesCollection.doc(documentId).get()
-  //             as DocumentSnapshot<Map<String, dynamic>>;
-  //     final Map<String, dynamic> appointmentData =
-  //         documentSnapshot.data() ?? {};
-
-  //     if (appointmentData.isNotEmpty) {
-  //       // Get the selectedDate of the appointment to be deleted (ignoring the time)
-  //       DateTime deletedDate = DateTime(
-  //         appointmentData['selectedDate'].toDate().year,
-  //         appointmentData['selectedDate'].toDate().month,
-  //         appointmentData['selectedDate'].toDate().day,
-  //       );
-
-  //       // Delete the appointment
-  //       await datesCollection.doc(documentId).delete();
-
-  //       // Check if there are users on the waiting list and order them by insertion timestamp
-  //       final QuerySnapshot<Map<String, dynamic>> waitingListSnapshot =
-  //           await waitingListCollection
-  //               .orderBy('insertionTimestamp') // Order by insertion timestamp
-  //               .limit(5)
-  //               .get() as QuerySnapshot<Map<String, dynamic>>;
-
-  //       final List<QueryDocumentSnapshot<Map<String, dynamic>>>
-  //           waitingListDocs = waitingListSnapshot.docs;
-
-  //       QueryDocumentSnapshot<Map<String, dynamic>>? waitingListDoc;
-
-  //       if (waitingListDocs.isNotEmpty) {
-  //         // Find the first waiting list entry with the same date as the deleted appointment
-  //         for (var doc in waitingListDocs) {
-  //           final DateTime waitingListSelectedDate = DateTime(
-  //             doc.data()['selectedDate'].toDate().year,
-  //             doc.data()['selectedDate'].toDate().month,
-  //             doc.data()['selectedDate'].toDate().day,
-  //           );
-
-  //           if (deletedDate.isAtSameMomentAs(waitingListSelectedDate)) {
-  //             waitingListDoc = doc;
-  //             break;
-  //           }
-  //         }
-
-  //         if (waitingListDoc != null) {
-  //           final String waitingListDocId = waitingListDoc.id;
-
-  //           // Retrieve the waiting list data
-  //           final Map<String, dynamic> waitingListData =
-  //               waitingListDoc.data() as Map<String, dynamic>;
-
-  //           // Delete the waiting list entry
-  //           await waitingListCollection.doc(waitingListDocId).delete();
-
-  //           // Assign the waiting list user to the freed appointment slot
-  //           final Map<String, dynamic> waitingListReservationData = {
-  //             'selectedDate': appointmentData[
-  //                 'selectedDate'], // Use the original date with time
-  //             'userId': waitingListData['userId'],
-  //             'userEmail': waitingListData['userEmail'],
-  //             'phone': waitingListData['phone'],
-  //             'userName': waitingListData['userName'],
-  //             'Notification Time': waitingListData['Notification Time'],
-  //           };
-
-  //           // Replace the appointment with the waiting list entry
-  //           await datesCollection.add(waitingListReservationData);
-  //           print("Waiting list user assigned to the freed appointment slot.");
-
-  //           //    Send a notification at the moment of replacement
-  //           //   sendAllUsersNotfication( waitingListData['user token'], 'Your date has been confirmed','booking confimation');
-  //           await notificationService.showNotification(
-  //             id: generateRandomID(8),
-  //             notificationTime: DateTime.now().add(Duration(minutes: 4)),
-  //             title: 'Reservation Update'.tr,
-  //             body:
-  //                 //  'Hello ${waitingListData['userName']}! You have been assigned an appointment slot.',
-  //                 'Hello  You have been assigned an appointment slot.'.tr,
-  //             data: null,
-  //           );
-
-  //           // Send a notification 24 hours before the appointment if it's in the future
-  //           final DateTime now = DateTime.now();
-  //           final DateTime appointmentDateTime = deletedDate;
-
-  //           if (appointmentDateTime.isAfter(now)) {
-  //             final DateTime notificationDateTime =
-  //                 appointmentDateTime.subtract(Duration(hours: 24));
-
-  //             await notificationService.showNotification(
-  //               id: generateRandomID(8),
-  //               notificationTime: notificationDateTime,
-  //               title: 'Upcoming Appointment'.tr,
-  //               body:
-  //                   //'Hello ${waitingListData['userName']}! Your appointment is scheduled for tomorrow.',
-  //                   'Hello Your appointment is scheduled for tomorrow.'.tr,
-  //               data: null,
-  //             );
-  //           } else {
-  //             // Send a notification 3 hours before the appointment if it's on the same day
-  //             final DateTime notificationDateTime =
-  //                 appointmentDateTime.subtract(Duration(hours: 3));
-
-  //             await notificationService.showNotification(
-  //               id: generateRandomID(8),
-  //               notificationTime: notificationDateTime,
-  //               title: 'Upcoming Appointment'.tr,
-  //               body:
-  //                   //  'Hello ${waitingListData['userName']}! Your appointment is scheduled for today.',
-  //                   'Hello  Your appointment is scheduled for today.'.tr,
-  //               data: null,
-  //             );
-  //           }
-  //         }
-  //       }
-  //     }
-  //   } catch (error) {
-  //     print('Failed to delete or replace appointment: $error');
-  //   }
-  // }
   void deleteDateAndReplaceIt(String documentId) async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
@@ -883,18 +606,6 @@ class ReservationController extends GetxController {
               }
 
               scheduleNotification(waitingListData['Notification Time']);
-              //
-              // await notificationService.showNotification(
-              //   id: generateRandomID(8),
-              //   notificationTime:
-              //       DateTime.now().add(const Duration(minutes: 4)),
-              //   title: 'Reservation Update'.tr,
-              //   body: 'Hello You have been assigned an appointment slot.'.tr,
-              //   data: null,
-              // );
-
-              // Schedule notifications for the new appointment
-              // ...
             } else {
               print('no data');
             }
@@ -990,36 +701,6 @@ class ReservationController extends GetxController {
                 isGreaterThan: selectedDateStart, isLessThan: selectedDateEnd)
             .get() as QuerySnapshot<Map<String, dynamic>>;
     final int existingAppointmentsCount = existingAppointmentsSnapshot.size;
-
-    // // Check if the selected time slot is already booked
-    // Future<bool> isTimeSlotAlreadyBooked(DateTime selectedDateTime) async {
-    //   final DateTime selectedDateStart = getStartOfDay(selectedDateTime);
-    //   final DateTime selectedDateEnd = getEndOfDay(selectedDateTime);
-    //   // print(selectedDateStart);
-    //   // print(selectedDateEnd);
-
-    //   final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
-    //       await datesCollection
-    //           .where('selectedDate', isGreaterThanOrEqualTo: selectedDateStart)
-    //           .where('selectedDate', isLessThan: selectedDateEnd)
-    //           .get() as QuerySnapshot<Map<String, dynamic>>;
-
-    //   for (final doc in appointmentsSnapshot.docs) {
-    //     final DateTime appointmentDateTime = doc['selectedDate'].toDate();
-    //     // print(selectedDateStart);
-    //     // print(selectedDateEnd);
-    //     // print(appointmentDateTime);
-
-    //     // Check if the appointment time overlaps with the selected time slot
-    //     if (appointmentDateTime.isAtSameMomentAs(selectedDateTime) ||
-    //         (appointmentDateTime.isAfter(selectedDateTime) &&
-    //             appointmentDateTime.isBefore(selectedDateEnd))) {
-    //       return true; // The selected time slot is already booked
-    //     }
-    //   }
-
-    //   return false; // No overlapping appointments found
-    // }
 
     final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
         await datesCollection
@@ -1163,36 +844,13 @@ class ReservationController extends GetxController {
           );
           return;
         }
-        // if (selectedDate.value!.weekday == DateTime.monday ||
-        //     selectedDate.value!.weekday == DateTime.friday) {
-        //   Get.snackbar(
-        //     'Invalid Day',
-        //     'Please select a date from Monday to Friday.',
-        //     snackPosition: SnackPosition.BOTTOM,
-        //     duration: Duration(seconds: 3),
-        //     backgroundColor: Colors.redAccent,
-        //     colorText: Colors.white,
-        //   );
-        //   return;
-        // }
+
         final DateTime now = DateTime.now();
         bool isSameDay = selectedDate.value!.year == now.year &&
             selectedDate.value!.month == now.month &&
             selectedDate.value!.day == now.day;
         logi.log(selectedDate.value!.toString());
-        // time(DateTime time) async {
-        //   if (time.hour == 12 ||
-        //       time.hour == 12 && time.minute == 15 ||
-        //       time.hour == 12 && time.minute == 30 ||
-        //       time.hour == 12 && time.minute == 45) {
-        //     return time.subtract(Duration(hours: 12));
-        //   } else {
-        //     // time.add(Duration(hours: 12));
-        //     return time.add(Duration(hours: 12));
-        //   }
-        // }
 
-        //   await time(selectedDate.value!.add(Duration(hours: 12)));
         final reservationData = {
           //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
           'selectedDate': selectedDate.value!.add(Duration(hours: 12)),
@@ -1210,13 +868,6 @@ class ReservationController extends GetxController {
         Map<String, dynamic>? notificationData = {
           // Include any additional data you want to pass with the notification
         };
-        // Check if the selected date is on the same day or not
-        // ...
-
-        //  final DateTime startOfToday = getStartOfDay(now);
-
-        // Check if the selected date is on the same day or not
-        // Check if the selected date is on the same day or not
 
         if (!isSameDay) {
           // If the appointment date is not on the same day, schedule a notification

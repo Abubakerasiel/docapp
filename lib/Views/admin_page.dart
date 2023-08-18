@@ -235,7 +235,7 @@ class _DatesListState extends State<DatesList> {
                                                 duration: Duration(seconds: 1),
                                                 transition: Transition.fadeIn);
                                           },
-                                          child: const CircleAvatar(
+                                          child: CircleAvatar(
                                             backgroundColor: Colors.white,
                                             child: Icon(Icons.person),
                                           ),

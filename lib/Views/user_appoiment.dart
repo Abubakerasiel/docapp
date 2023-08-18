@@ -123,7 +123,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 20,
+              height: 15,
             ),
             Center(
                 child: Text(
@@ -143,8 +143,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-                '٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية الباكدج  ',
+            const Text('٥٠٠ فى الشهر : مقسمة  مرة فى الاسبوع و صلاحية   ',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -153,7 +152,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
               height: 10,
             ),
 
-            Text(' لمدة شهر واسبوع و بعد ذلك تعتبر منتهية',
+            Text('  الباكدج لمدة شهر واسبوع و بعد ذلك تعتبر منتهية ',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -178,6 +177,9 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             const Text(
                 ' الاستفسار او الشكوى  برجاء ارسال رساله واتس اب على رقم ',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            const SizedBox(
+              height: 4,
+            ),
             Center(
               child: Text('01221246631',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
