@@ -95,18 +95,11 @@ class NotificationService {
               importance: Importance.max,
               priority: Priority.max),
           iOS: DarwinNotificationDetails(
+              interruptionLevel: InterruptionLevel.timeSensitive,
               presentAlert: true,
               presentSound: true,
               sound: 'default.wav',
-              presentBadge: true)
-          // iOS details
-          // iOS: IOSNotificationDetails(
-          // sound: 'default.wav',
-          // presentAlert: true,
-          // presentBadge: true,
-          // presentSound: true,
-          // ),
-          ),
+              presentBadge: true)),
 
       // Type of time interpretation
       uiLocalNotificationDateInterpretation:
@@ -117,47 +110,4 @@ class NotificationService {
           true, // To show notification even when the app is closed
     );
   }
-
-//   Future<void> showNotification2({
-//     required DateTime notificationTime,
-//     required String title,
-//     required String body,
-//     required Map<String, dynamic>? data,
-//     required int id,
-//   }) async {
-//     tzl.initializeTimeZones();
-//     var localTime = tz.TZDateTime.from(notificationTime, tz.local);
-//     // localTime.add(Duration(days: 1));
-//     log(localTime.toString());
-//     //  log(notificationTime.toString());
-//     // Get the local time zone
-//     // final timeZone = tz.getLocation('your_time_zone_here');
-
-//     // // Convert the notification time to the local time zone
-//     // final scheduledDate = tz.TZDateTime.from(notificationTime, timeZone);
-
-//     // Create the notification details
-//     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
-//       'main_channel',
-//       'Main Channel',
-//       channelDescription: 'ashwin',
-//       importance: Importance.max,
-//       priority: Priority.max,
-//     );
-//     final platformChannelSpecifics =
-//         NotificationDetails(android: androidPlatformChannelSpecifics);
-
-//     // Schedule the notification
-//     await flutterLocalNotificationsPlugin.zonedSchedule(
-//       id,
-//       title,
-//       body,
-//       localTime,
-//       platformChannelSpecifics,
-//       androidAllowWhileIdle: true,
-//       uiLocalNotificationDateInterpretation:
-//           UILocalNotificationDateInterpretation.absoluteTime,
-//       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
-//     );
-//   }
 }

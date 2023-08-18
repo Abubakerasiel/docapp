@@ -9,6 +9,12 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      'Remaining Package ': 'الباكدج المتبقية',
+      'Multiple Bookings In Same Week Not Allowed':
+          'الحجز اكتر من مرة الاسبوع غير مسموح',
+      'You have already booked an appointment on the selected Week.':
+          'لقد قمت بالحجز مسبقا في نفس الأسبوع',
+      'Wrong Day': 'اليوم اجازه',
       'No announcements yet.': 'لا توجد إعلانات حتى الآن',
       'Location': 'الموقع',
       'Congratulation': 'تهانينا',
@@ -32,7 +38,7 @@ Map<String, String> get arKeys => {
       'The Day is off': 'اليوم اجازة',
       'Please Select Another day': 'الرجاء اختيار يوم آخر',
       'Please Select A Day from Saturday To Tuesday':
-          'الرجاء اختيار يوم من الأحد إلى الثلاثاء',
+          'الرجاء اختيار يوم من السبت إلى الثلاثاء',
       'Your appointment is coming up in 24 hours':
           'تذكير موعدك بعد ٢٤ ساعة من الان',
       'booking Reminder': 'تذكير بالحجز',
@@ -135,8 +141,9 @@ Map<String, String> get arKeys => {
           'قائمة الانتظار ممتلئة الرجاء حجز تاريخ اخر',
       'Multiple Bookings Not Allowed': 'غير مسموح الحجز اكتر من مرة',
       'You have already booked an appointment on the waiting list.': '',
-      'Time Slot Not Available': 'زمن الحجز غير متاح',
-      'The selected time slot is already booked.': 'زمن الحجز غير متاح',
+      'Time Slot Not Available ': 'زمن الحجز غير متاح',
+      'The selected time slot is already booked.':
+          'زمن الحجز غير متاح الرجاء اختيار زمن اخر',
       'Please select a future date and time.': '',
       'You have already booked an appointment on the selected date.':
           'لقد تم الحجز مسبقا في نفس اليوم',

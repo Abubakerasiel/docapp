@@ -33,6 +33,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildButton4(0, '4:00', () {
+              print('hhh');
               if (controller.selectedDate.value != null) {
                 setState(() {
                   // controller.isButtonTapped.value =
@@ -525,6 +526,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
         });
 
         // Execute the callback function when the button is tapped.
+        onTap();
       },
       child: Container(
         alignment: Alignment.center,

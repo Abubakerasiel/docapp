@@ -41,14 +41,14 @@ class ReservationController extends GetxController {
   RxString userName = ''.obs;
   RxString userPhone = RxString('');
   RxString medicalIssue = RxString('');
-  RxString weight = RxString('');
+  RxString weight = ''.obs;
 
   RxString age = RxString('');
   RxString height = RxString('');
   RxString gender = RxString('');
   RxString packageType = RxString('');
 
-  int? package;
+  RxInt package = 0.obs;
   RxBool y = false.obs;
   String? userToken;
   List? all;
@@ -177,10 +177,13 @@ class ReservationController extends GetxController {
   }
 
   iniitInfo() async {
-    var androidInitliaize =
-        const AndroidInitializationSettings('@mipmap/launcher_icon');
+    var androidInitliaize = const AndroidInitializationSettings(
+      '@mipmap/launcher_icon',
+    );
     // ignore: non_constant_identifier_names
-    var IOSInitialize = const DarwinInitializationSettings();
+    var IOSInitialize = const DarwinInitializationSettings(
+      requestCriticalPermission: true,
+    );
     var initializationsSettings =
         InitializationSettings(android: androidInitliaize, iOS: IOSInitialize);
     await flutterLocalNotificationsPlugin.initialize(
@@ -439,7 +442,7 @@ class ReservationController extends GetxController {
         age.value = snapshot.data()?['age'];
         height.value = snapshot.data()?['height'];
         gender.value = snapshot.data()?['gender'];
-        package = snapshot.data()?['package'];
+        package.value = snapshot.data()?['package'];
         medicalIssue.value = snapshot.data()?['medical_issue'];
         packageType.value = snapshot.data()?['packageType'];
         return snapshot.data();
@@ -488,7 +491,7 @@ class ReservationController extends GetxController {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userIdInDateColletion)
-        .update({'package': package! - 1});
+        .update({'package': package.value - 1});
 
     FirebaseFirestore.instance
         .collection('dates')
@@ -822,21 +825,37 @@ class ReservationController extends GetxController {
         //     getStartOfDay(dateFormatter.parse(selectedDateString));
         // final selectedDateEnd =
         //     getEndOfDay(dateFormatter.parse(selectedDateString));
-        bool userAlreadyBookedForDay = false;
+        // bool userAlreadyBookedForDay = false;
+        // for (final doc in userAppointmentsSnapshot.docs) {
+        //   final appointmentDate = doc['selectedDate'].toDate() as DateTime;
+        //   if (appointmentDate.year == selectedDate.value!.year &&
+        //       appointmentDate.month == selectedDate.value!.month &&
+        //       appointmentDate.day == selectedDate.value!.day) {
+        //     userAlreadyBookedForDay = true;
+        //     break;
+        //   }
+        // }
+        bool userAlreadyBookedForWeek = false;
+        final selectedWeek = selectedDate.value!
+            .subtract(Duration(days: selectedDate.value!.weekday - 1));
+
         for (final doc in userAppointmentsSnapshot.docs) {
           final appointmentDate = doc['selectedDate'].toDate() as DateTime;
-          if (appointmentDate.year == selectedDate.value!.year &&
-              appointmentDate.month == selectedDate.value!.month &&
-              appointmentDate.day == selectedDate.value!.day) {
-            userAlreadyBookedForDay = true;
+          final appointmentWeek = appointmentDate
+              .subtract(Duration(days: appointmentDate.weekday - 1));
+
+          if (appointmentWeek.year == selectedWeek.year &&
+              appointmentWeek.month == selectedWeek.month &&
+              appointmentWeek.day == selectedWeek.day) {
+            userAlreadyBookedForWeek = true;
             break;
           }
         }
 
-        if (userAlreadyBookedForDay) {
+        if (userAlreadyBookedForWeek) {
           Get.snackbar(
-            'Multiple Bookings Not Allowed'.tr,
-            'You have already booked an appointment on the selected date.'.tr,
+            'Multiple Bookings In Same Week Not Allowed'.tr,
+            'You have already booked an appointment on the selected Week.'.tr,
             snackPosition: SnackPosition.BOTTOM,
             duration: const Duration(seconds: 3),
             backgroundColor: Colors.redAccent,

@@ -217,9 +217,11 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               title: Text('Weight :'.tr),
               subtitle: GestureDetector(
                 onTap: () => _showWeightEditDialog(context),
-                child: Text(
-                  reservationController.weight.value,
-                  style: const TextStyle(fontSize: 17),
+                child: Obx(
+                  () => Text(
+                    reservationController.weight.value,
+                    style: const TextStyle(fontSize: 17),
+                  ),
                 ),
               ),
             ),
@@ -238,6 +240,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                   ? Text('By Package'.tr, style: const TextStyle(fontSize: 17))
                   : Text('By Time'.tr, style: const TextStyle(fontSize: 17)),
             ),
+            reservationController.packageType.value == 'byPackage'
+                ? ListTile(
+                    title: Text('Remaining Package '.tr),
+                    subtitle:
+                        Obx(() => Text('${reservationController.package}')),
+                  )
+                : SizedBox()
             // ... continue with other ListTiles as needed ...
           ],
         ),
