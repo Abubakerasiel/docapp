@@ -44,7 +44,10 @@ class NotificationService {
     // Android initialization
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-
+    var IOSInitialize = const DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true);
     // ios initialization
     // final IOSInitializationSettings initializationSettingsIOS =
     // 	IOSInitializationSettings(
@@ -53,11 +56,8 @@ class NotificationService {
     // requestSoundPermission: false,
     // );
 
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-      //	iOS: initializationSettingsIOS
-    );
+    InitializationSettings initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: IOSInitialize);
     // the initialization settings are initialized after they are setted
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
@@ -89,19 +89,24 @@ class NotificationService {
       // tz.TZDateTime.now(tz.local).add(Duration(
       //     seconds: 1)), //schedule the notification to show after 2 seconds.
       const NotificationDetails(
-        // Android details
-        android: AndroidNotificationDetails('main_channel', 'Main Channel',
-            channelDescription: "ashwin",
-            importance: Importance.max,
-            priority: Priority.max),
-        // iOS details
-        // iOS: IOSNotificationDetails(
-        // sound: 'default.wav',
-        // presentAlert: true,
-        // presentBadge: true,
-        // presentSound: true,
-        // ),
-      ),
+          // Android details
+          android: AndroidNotificationDetails('main_channel', 'Main Channel',
+              channelDescription: "ashwin",
+              importance: Importance.max,
+              priority: Priority.max),
+          iOS: DarwinNotificationDetails(
+              presentAlert: true,
+              presentSound: true,
+              sound: 'default.wav',
+              presentBadge: true)
+          // iOS details
+          // iOS: IOSNotificationDetails(
+          // sound: 'default.wav',
+          // presentAlert: true,
+          // presentBadge: true,
+          // presentSound: true,
+          // ),
+          ),
 
       // Type of time interpretation
       uiLocalNotificationDateInterpretation:
