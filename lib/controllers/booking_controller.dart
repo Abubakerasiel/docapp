@@ -806,7 +806,7 @@ class ReservationController extends GetxController {
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(const BookingConfirmed(), arguments: selectedDate);
+          Get.to(() => const BookingConfirmed(), arguments: selectedDate);
         }
       } else {
         Get.dialog(

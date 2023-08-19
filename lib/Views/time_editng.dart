@@ -23,14 +23,14 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
     HomeController controller2 = HomeController();
     void _onItemTapped(int index) async {
       if (index == 0) {
-        Get.off(HomeScreen1(),
+        Get.off(() => HomeScreen1(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
-        Get.off(const StatmentPage(),
+        Get.off(() => const StatmentPage(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);

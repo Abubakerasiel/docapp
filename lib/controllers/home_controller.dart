@@ -44,7 +44,7 @@ class HomeController extends GetxController {
 
     if (!isLoggedOut) return;
 
-    Get.offAll(const SignInScreen1(),
+    Get.offAll(() => const SignInScreen1(),
         curve: Curves.easeInOut,
         duration: Duration(seconds: 1),
         transition: Transition.fadeIn);

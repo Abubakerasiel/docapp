@@ -132,7 +132,7 @@ class TermsAndCondtion extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Get.to(const SignInScreen1(),
+                        Get.to(() => const SignInScreen1(),
                             curve: Curves.easeInOut,
                             duration: Duration(seconds: 1),
                             transition: Transition.fadeIn);
@@ -155,7 +155,7 @@ class TermsAndCondtion extends StatelessWidget {
                         side: BorderSide(color: AppConstants.appColor),
                       )),
                   onPressed: () {
-                    Get.to(AboutUsPage());
+                    Get.to(() => AboutUsPage());
                   },
                   child: Text('About Us'))
             ],

@@ -116,10 +116,11 @@ class NotificationService {
       //     seconds: 1)), //schedule the notification to show after 2 seconds.
       const NotificationDetails(
           // Android details
-          android: AndroidNotificationDetails('main_channel', 'Main Channel',
+          android: AndroidNotificationDetails('dbfood', 'dbfood',
               channelDescription: "ashwin",
               importance: Importance.max,
-              priority: Priority.max),
+              priority: Priority.max,
+              icon: '@mipmap/launcher_icon'),
           iOS: DarwinNotificationDetails(
               interruptionLevel: InterruptionLevel.timeSensitive,
               presentAlert: true,

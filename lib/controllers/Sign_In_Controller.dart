@@ -71,9 +71,9 @@ class SignInController extends GetxController {
         .signIn(email: email!, password: password!);
     if (response == null) return;
     log('${response.user?.email}');
-    Get.to(const HomeScreen1(),
+    Get.to(() => const HomeScreen1(),
         curve: Curves.easeInOut,
-        duration: Duration(seconds: 1),
+        duration: Duration(seconds: 2),
         transition: Transition.fadeIn);
     emailController.clear();
     passwordController.clear();

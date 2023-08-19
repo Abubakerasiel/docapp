@@ -45,7 +45,16 @@ class SignUpController extends GetxController {
     //. store all user date in FireStore Database
 
     storeUserData(newUser!);
-    Get.offAll(const SignInScreen1(),
+    await Get.snackbar(
+      'Successful Creation'.tr,
+      'You have successfully Create Your Account'.tr,
+      snackPosition: SnackPosition.TOP,
+      duration: const Duration(seconds: 5),
+      backgroundColor: Colors.blueAccent,
+      colorText: Colors.white,
+    );
+
+    Get.offAll(() => const SignInScreen1(),
         curve: Curves.easeInOut,
         duration: Duration(seconds: 1),
         transition: Transition.fadeIn);

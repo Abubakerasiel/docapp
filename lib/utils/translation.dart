@@ -9,6 +9,8 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      'Successful Creation': 'انشاء بنجاح',
+      'You have successfully Create Your Account': 'تم انشاء حسابك بنجاح',
       'Remaining Package:': 'الباكدج المتبقية',
       'Multiple Bookings In Same Week Not Allowed':
           'الحجز اكتر من مرة الاسبوع غير مسموح',

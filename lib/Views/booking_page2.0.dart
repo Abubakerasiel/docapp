@@ -166,7 +166,7 @@ class _BookingScreenState extends State<BookingScreen> {
     // ignore: no_leading_underscores_for_local_identifiers
     void _onItemTapped(int index) {
       if (index == 0) {
-        Get.off(UserPage(),
+        Get.off(() => UserPage(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -176,7 +176,7 @@ class _BookingScreenState extends State<BookingScreen> {
         // If 'Business' is tapped, navigate to the sign-in screen
         // Get.off(BookingScreen());
       } else if (index == 2) {
-        Get.off(UserDetailsPage(userId: controller.user!.uid),
+        Get.off(() => UserDetailsPage(userId: controller.user!.uid),
             arguments: controller.user!.uid,
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
@@ -184,7 +184,7 @@ class _BookingScreenState extends State<BookingScreen> {
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 3) {
-        Get.off(const UserAppoimetn(),
+        Get.off(() => const UserAppoimetn(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);

@@ -65,12 +65,12 @@ class _DatesListState extends State<DatesList> {
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
-        Get.off(const StatmentPage(),
+        Get.off(() => const StatmentPage(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
       } else if (index == 2) {
-        Get.off(const AdminTimeEdit(),
+        Get.off(() => const AdminTimeEdit(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -155,9 +155,9 @@ class _DatesListState extends State<DatesList> {
                                                 .retrieveUserData(userID3!);
 
                                             Get.to(
-                                                UserDetailsPage(
-                                                  userId: userID3,
-                                                ),
+                                                () => UserDetailsPage(
+                                                      userId: userID3,
+                                                    ),
                                                 arguments: userID3,
                                                 curve: Curves.easeInOut,
                                                 duration: Duration(seconds: 1),
@@ -185,9 +185,9 @@ class _DatesListState extends State<DatesList> {
                                                             userID3!);
 
                                                     Get.to(
-                                                        UserDetailsPage(
-                                                          userId: userID3,
-                                                        ),
+                                                        () => UserDetailsPage(
+                                                              userId: userID3,
+                                                            ),
                                                         arguments: userID3,
                                                         curve: Curves.easeInOut,
                                                         duration: Duration(

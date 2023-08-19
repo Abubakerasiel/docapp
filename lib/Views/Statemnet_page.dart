@@ -21,7 +21,7 @@ class StatmentPage extends StatelessWidget {
     HomeController controller2 = Get.put(HomeController());
     void _onItemTapped(int index) async {
       if (index == 0) {
-        Get.off(HomeScreen1(),
+        Get.off(() => HomeScreen1(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -29,7 +29,7 @@ class StatmentPage extends StatelessWidget {
         return;
       } else if (index == 1) {
       } else if (index == 2) {
-        Get.off(const AdminTimeEdit(),
+        Get.off(() => const AdminTimeEdit(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);

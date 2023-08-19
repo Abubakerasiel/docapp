@@ -30,7 +30,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
 
   void _onItemTapped(int index) async {
     if (index == 0) {
-      Get.off(UserPage(),
+      Get.off(() => UserPage(),
           curve: Curves.easeInOut,
           duration: Duration(seconds: 1),
           transition: Transition.fadeIn);
@@ -39,12 +39,12 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
     } else if (index == 1) {
       // await controller.getDataFromFirestore();
       // If 'Business' is tapped, navigate to the sign-in screen
-      Get.to(const BookingScreen(),
+      Get.to(() => const BookingScreen(),
           curve: Curves.easeInOut,
           duration: Duration(seconds: 1),
           transition: Transition.fadeIn);
     } else if (index == 2) {
-      Get.off(UserDetailsPage(userId: controller.user!.uid),
+      Get.off(() => UserDetailsPage(userId: controller.user!.uid),
           arguments: controller.user!.uid,
           curve: Curves.easeInOut,
           duration: Duration(seconds: 1),
@@ -234,9 +234,9 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                           .retrieveUserData(userID3!);
 
                                       Get.to(
-                                          UserDetailsPage(
-                                            userId: userID3,
-                                          ),
+                                          () => UserDetailsPage(
+                                                userId: userID3,
+                                              ),
                                           arguments: userID3);
                                     },
                                     child: const CircleAvatar(
@@ -256,9 +256,9 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                                   .retrieveUserData(userID3!);
 
                                               Get.to(
-                                                  UserDetailsPage(
-                                                    userId: userID3,
-                                                  ),
+                                                  () => UserDetailsPage(
+                                                        userId: userID3,
+                                                      ),
                                                   arguments: userID3);
                                             },
                                             child: Text('Name'.tr,

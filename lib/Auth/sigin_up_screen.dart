@@ -429,7 +429,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     ),
                   ),
                   onPressed: () {
-                    Get.to(const SignInScreen1(),
+                    Get.to(() => const SignInScreen1(),
                         curve: Curves.easeInOut,
                         duration: Duration(seconds: 1),
                         transition: Transition.fadeIn);

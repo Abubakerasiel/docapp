@@ -77,7 +77,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     // ignore: no_leading_underscores_for_local_identifiers
     void _onItemTapped(int index) async {
       if (index == 0) {
-        Get.off(UserPage(),
+        Get.off(() => UserPage(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -86,14 +86,14 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       } else if (index == 1) {
         // await reservationController.getDataFromFirestore();
         // If 'Business' is tapped, navigate to the sign-in screen
-        Get.to(const BookingScreen(),
+        Get.to(() => const BookingScreen(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
       } else if (index == 2) {
         return;
       } else if (index == 3) {
-        Get.off(const UserAppoimetn(),
+        Get.off(() => const UserAppoimetn(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
