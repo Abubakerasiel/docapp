@@ -116,8 +116,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     if (reservationController.user!.uid == data) {
       y = true;
     }
-    if (reservationController.user!.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2' ||
-        reservationController.user!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
+    if (reservationController.user!.uid == 'cM39KfqhQrZi1Hk9vD5V7yRnID92' ||
+        reservationController.user!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
       x = true;
     }
 
@@ -242,7 +242,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             ),
             reservationController.packageType.value == 'byPackage'
                 ? ListTile(
-                    title: Text('Remaining Package '.tr),
+                    title: Text('Remaining Package:'.tr),
                     subtitle:
                         Obx(() => Text('${reservationController.package}')),
                   )

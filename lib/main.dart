@@ -28,7 +28,7 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   GlobalBindings();
 
-  NotificationService().initNotification();
+  NotificationService().iniitInfo();
   NotificationService().requestNotificationPermission();
 
   runApp(GetMaterialApp(

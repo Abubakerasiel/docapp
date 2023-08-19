@@ -27,15 +27,15 @@ class ReservationController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    notificationService.initNotification();
+    notificationService.iniitInfo();
     await retrieveUserData(user!.uid);
     await getDataFromFirestore();
     sendNotificatonToUser(user!.uid);
-    await requestNotificationPermission();
+    // await requestNotificationPermission();
     await retrieveTokens();
     await getUserToken();
 
-    iniitInfo();
+    //iniitInfo();
   }
 
   RxString userName = ''.obs;
@@ -143,23 +143,23 @@ class ReservationController extends GetxController {
     update();
   }
 
-  Future<void> requestNotificationPermission() async {
-    final messaging = FirebaseMessaging.instance;
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+  // Future<void> requestNotificationPermission() async {
+  //   final messaging = FirebaseMessaging.instance;
+  //   NotificationSettings settings = await messaging.requestPermission(
+  //     alert: true,
+  //     badge: true,
+  //     sound: true,
+  //   );
 
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      logi.log('User granted permission for notifications.');
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      logi.log('User  granted provisinal permission .');
-    } else {
-      logi.log('user delined or has not accepted premission');
-    }
-  }
+  //   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+  //     logi.log('User granted permission for notifications.');
+  //   } else if (settings.authorizationStatus ==
+  //       AuthorizationStatus.provisional) {
+  //     logi.log('User  granted provisinal permission .');
+  //   } else {
+  //     logi.log('user delined or has not accepted premission');
+  //   }
+  // }
 
   Future<Map<String, dynamic>?> retrieveTokens() async {
     final QuerySnapshot<Map<String, dynamic>> tok =
@@ -176,55 +176,55 @@ class ReservationController extends GetxController {
     return null;
   }
 
-  iniitInfo() async {
-    var androidInitliaize = const AndroidInitializationSettings(
-      '@mipmap/launcher_icon',
-    );
-    // ignore: non_constant_identifier_names
-    var IOSInitialize = const DarwinInitializationSettings(
-      requestCriticalPermission: true,
-    );
-    var initializationsSettings =
-        InitializationSettings(android: androidInitliaize, iOS: IOSInitialize);
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationsSettings,
-      // onDidReceiveBackgroundNotificationResponse: (details) =>
-      //     Get.to(UserPage()),
-    );
+  // iniitInfo() async {
+  //   var androidInitliaize = const AndroidInitializationSettings(
+  //     '@mipmap/launcher_icon',
+  //   );
+  //   // ignore: non_constant_identifier_names
+  //   var IOSInitialize = const DarwinInitializationSettings(
+  //     requestCriticalPermission: true,
+  //   );
+  //   var initializationsSettings =
+  //       InitializationSettings(android: androidInitliaize, iOS: IOSInitialize);
+  //   await flutterLocalNotificationsPlugin.initialize(
+  //     initializationsSettings,
+  //     // onDidReceiveBackgroundNotificationResponse: (details) =>
+  //     //     Get.to(UserPage()),
+  //   );
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      logi.log(
-          'onmessage: ${message.notification?.title} /${message.notification?.body}');
+  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+  //     logi.log(
+  //         'onmessage: ${message.notification?.title} /${message.notification?.body}');
 
-      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
-          message.notification!.body.toString(),
-          htmlFormatBigText: true,
-          contentTitle: message.notification!.title.toString(),
-          htmlFormatContentTitle: true);
-      AndroidNotificationDetails androidPlatformChannelSpecifics =
-          AndroidNotificationDetails('dbfood', 'dbfood',
-              importance: Importance.high,
-              styleInformation: bigTextStyleInformation,
-              priority: Priority.high,
-              playSound: true);
-      DarwinNotificationDetails iOSPlatformChannelSpecifics =
-          DarwinNotificationDetails(
-        interruptionLevel: InterruptionLevel.timeSensitive,
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true,
-        presentBanner: true,
-      );
+  //     BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+  //         message.notification!.body.toString(),
+  //         htmlFormatBigText: true,
+  //         contentTitle: message.notification!.title.toString(),
+  //         htmlFormatContentTitle: true);
+  //     AndroidNotificationDetails androidPlatformChannelSpecifics =
+  //         AndroidNotificationDetails('dbfood', 'dbfood',
+  //             importance: Importance.high,
+  //             styleInformation: bigTextStyleInformation,
+  //             priority: Priority.high,
+  //             playSound: true);
+  //     DarwinNotificationDetails iOSPlatformChannelSpecifics =
+  //         DarwinNotificationDetails(
+  //       interruptionLevel: InterruptionLevel.timeSensitive,
+  //       presentAlert: true,
+  //       presentBadge: true,
+  //       presentSound: true,
+  //       presentBanner: true,
+  //     );
 
-      NotificationDetails platformchannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics,
-      );
-      await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
-          message.notification?.body, platformchannelSpecifics,
-          payload: message.data['body']);
-    });
-  }
+  //     NotificationDetails platformchannelSpecifics = NotificationDetails(
+  //       android: androidPlatformChannelSpecifics,
+  //       iOS: iOSPlatformChannelSpecifics,
+  //     );
+  //     await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
+  //         message.notification?.body, platformchannelSpecifics,
+  //         payload: message.data['body']);
+  //   });
+  // }
 
   Future<void> sendNotificationToWaitlingListUser(
       List<String> tokens, String body, String title, DateTime sendTime) async {
@@ -416,14 +416,6 @@ class ReservationController extends GetxController {
         })
         .then((value) => logi.log('Text saved to Firebase'))
         .catchError((error) => logi.log('Failed to save text: $error'));
-    //    Send a notification at the moment of replacement
-    // await notificationService.showNotification(
-    //   id: generateRandomID(8),
-    //   notificationTime: DateTime.now().add(Duration(minutes: 1)),
-    //   title: 'Annoucement Update'.tr,
-    //   body: 'An Annoucemnet has been made please sigin to see it '.tr,
-    //   data: null,
-    // );
   }
 
   Future<Map<String, dynamic>?> retrieveUserData(String userId) async {
@@ -627,26 +619,6 @@ class ReservationController extends GetxController {
       }
     } catch (error) {
       logi.log('Failed to delete or replace appointment: $error');
-    }
-  }
-
-  RxBool k = true.obs;
-  Future<bool> timeslot(DateTime t) async {
-    final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
-        await datesCollection
-            .where('selectedDate', isEqualTo: t.add(Duration(hours: 12)))
-            .get() as QuerySnapshot<Map<String, dynamic>>;
-    final int selectedTimeAppointmentsCount =
-        selectedTimeAppointmentsSnapshot.size;
-    logi.log(selectedTimeAppointmentsCount.toString());
-    if (selectedTimeAppointmentsCount > 0) {
-      k.value = true;
-      print(t.toString());
-      return true;
-    } else {
-      k.value = false;
-      print(t.toString());
-      return false;
     }
   }
 

@@ -30,7 +30,7 @@ class HomeScreen1 extends StatelessWidget {
     final currentUser = tl.FirebaseAuth.instance.currentUser;
 
     current() {
-      if (currentUser!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
+      if (currentUser!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
         return true;
       }
       return false;
@@ -41,7 +41,7 @@ class HomeScreen1 extends StatelessWidget {
     }
 
     if (currentUser != null &&
-        currentUser.uid == 'RfY49ef1TtPD7f6spDbaMN7aiKd2') {
+        currentUser.uid == 'cM39KfqhQrZi1Hk9vD5V7yRnID92') {
       return MaterialApp(
         home: Scaffold(
           //  SizedBox(
@@ -164,7 +164,7 @@ class HomeScreen1 extends StatelessWidget {
         ),
       );
     } else if (currentUser != null &&
-        currentUser.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
+        currentUser.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
       return MaterialApp(
         home: Scaffold(
             appBar: AppBar(

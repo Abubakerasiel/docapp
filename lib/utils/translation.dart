@@ -9,7 +9,7 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
-      'Remaining Package ': 'الباكدج المتبقية',
+      'Remaining Package:': 'الباكدج المتبقية',
       'Multiple Bookings In Same Week Not Allowed':
           'الحجز اكتر من مرة الاسبوع غير مسموح',
       'You have already booked an appointment on the selected Week.':

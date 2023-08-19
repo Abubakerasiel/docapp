@@ -24,7 +24,7 @@ class DatesList extends StatefulWidget {
 class _DatesListState extends State<DatesList> {
   final currentUser = tl.FirebaseAuth.instance.currentUser;
   current() {
-    if (currentUser!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
+    if (currentUser!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
       return false;
     }
     return true;
@@ -34,7 +34,7 @@ class _DatesListState extends State<DatesList> {
   }
 
   current2() {
-    if (currentUser!.uid == 'BP3ONAOGn8WEJm9IevwkUgke15T2') {
+    if (currentUser!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
       return true;
     }
     //else if (currentUser!.uid=='RfY49ef1TtPD7f6spDbaMN7aiKd2'){
