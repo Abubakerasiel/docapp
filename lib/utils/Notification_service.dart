@@ -40,27 +40,6 @@ class NotificationService {
     }
   }
 
-  // Future<void> initNotification() async {
-  //   // Android initialization
-  //   const AndroidInitializationSettings initializationSettingsAndroid =
-  //       AndroidInitializationSettings('@mipmap/ic_launcher');
-  //   var IOSInitialize = const DarwinInitializationSettings(
-  //       requestAlertPermission: true,
-  //       requestBadgePermission: true,
-  //       requestSoundPermission: true);
-  //   // ios initialization
-  //   // final IOSInitializationSettings initializationSettingsIOS =
-  //   // 	IOSInitializationSettings(
-  //   // requestAlertPermission: false,
-  //   // requestBadgePermission: false,
-  //   // requestSoundPermission: false,
-  //   // );
-
-  //   InitializationSettings initializationSettings = InitializationSettings(
-  //       android: initializationSettingsAndroid, iOS: IOSInitialize);
-  //   // the initialization settings are initialized after they are setted
-  //   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  // }
   iniitInfo() async {
     var androidInitliaize = const AndroidInitializationSettings(
       '@mipmap/launcher_icon',

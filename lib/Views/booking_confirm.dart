@@ -40,14 +40,15 @@ class BookingConfirmed extends StatelessWidget {
                     Get.back();
                   },
                   child: const CircleAvatar(
+                    backgroundColor: Colors.lightBlue,
                     radius: 15,
                     child: Icon(
                       Icons.arrow_back,
                       size: 20,
+                      color: Colors.white,
                     ),
                   ),
                 ),
-
                 IconButton(
                   onPressed: () {
                     Get.to(
@@ -62,16 +63,6 @@ class BookingConfirmed extends StatelessWidget {
                     color: AppConstants.appColor,
                   ),
                 )
-                // Image(
-                //   image: AssetImage(
-                //     'assets/back_btn.png',
-                //   ),
-                //   width: 30,
-                // ),
-                // Image(
-                //   image: AssetImage('assets/profile.png'),
-                //   width: 30,
-                // )
               ],
             ),
             const SizedBox(
@@ -107,39 +98,37 @@ class BookingConfirmed extends StatelessWidget {
             const SizedBox(
               height: 29,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
+            ListTile(
+              title: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
                   textAlign: TextAlign.center,
-                  'Location'.tr,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
+                  'Location:'.tr,
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              textAlign: TextAlign.center,
-              ' aklknwldkansdklabsdlka\nsnd,samdn, Cairo, Egypt',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              ),
+              subtitle: Text(
+                textAlign: TextAlign.center,
+                ' شارع ٢١٠ميدان فيكتوريا دجله المعادى عمارة كيمو ماركت سابقا (جروسر حاليا )  الدور ٣ سنتر جمالى',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              ),
             ),
             const SizedBox(
               height: 29,
             ),
             GestureDetector(
               onTap: () {
-                MapsLauncher.launchQuery(
-                    'Villa No. 48, 2nd Floor, Flat 6, 105th Street, El Horreya Sq, Maadi, Cairo Governorate 11728');
+                MapsLauncher.launchCoordinates(29.9589590, 31.2709000);
               },
               child: Container(
                 height: 204,
                 width: 356,
                 decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
                   image: DecorationImage(
-                      image: AssetImage("assets/software-design.png"),
-                      fit: BoxFit.cover),
+                      image: AssetImage("assets/1.jpg"), fit: BoxFit.cover),
                 ),
               ),
             )

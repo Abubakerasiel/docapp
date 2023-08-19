@@ -13,7 +13,6 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-// import 'package:table_calendar/table_calendar.dart';
 
 import '../Wedgits/time_showing2.dart';
 import '../controllers/booking_controller.dart';
@@ -127,11 +126,6 @@ class _BookingScreenState extends State<BookingScreen> {
         'Please Select Another day'.tr,
         backgroundColor: Colors.red,
       );
-      // setState(() {
-      //   today = day;
-      //   controller.selectedDate.value = today;
-      //   controller.timeShowing.value = true;
-      // });
     }
   }
 
@@ -151,12 +145,6 @@ class _BookingScreenState extends State<BookingScreen> {
     controller.fetchDates();
     super.initState();
     controller.getDataFromFirestore();
-    // controller.isMonday;
-    // controller.isSaturday;
-    // controller.isSunday;
-    // controller.isTuesday;
-
-    // controller.retrieveUserData(userId);
   }
 
   final List<String> textList = [
@@ -166,9 +154,6 @@ class _BookingScreenState extends State<BookingScreen> {
     "10- grams loss, is a success.".tr,
     // Add more texts as needed
   ];
-
-  // DateTime calendarDate =
-  //     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   @override
   Widget build(BuildContext context) {
@@ -248,11 +233,6 @@ class _BookingScreenState extends State<BookingScreen> {
           )
         ],
       ),
-      // appBar: AppBar(
-      //   title: Text('${today.toString().split('')[0]}'),
-      //   elevation: 0,
-      //   backgroundColor: Colors.white,
-      // ),
       body: Obx(
         () => SingleChildScrollView(
           child: Center(
@@ -261,75 +241,9 @@ class _BookingScreenState extends State<BookingScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // const SizedBox(
-                  //   height: 50,
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     GestureDetector(
-                  //       onTap: () {
-                  //         Get.back();
-                  //       },
-                  //       child: const CircleAvatar(
-                  //         radius: 15,
-                  //         child: Icon(
-                  //           Icons.arrow_back,
-                  //           size: 20,
-                  //         ),
-                  //       ),
-                  //     ),
-
-                  //     IconButton(
-                  //       onPressed: () {
-                  //         Get.to(
-                  //             UserDetailsPage(
-                  //               userId: controller.user!.uid,
-                  //             ),
-                  //             arguments: controller.user!.uid);
-                  //       },
-                  //       icon: Icon(
-                  //         Icons.person,
-                  //         size: 30,
-                  //         color: AppConstants.appColor,
-                  //       ),
-                  //     )
-                  //     // Image(
-                  //     //   image: AssetImage(
-                  //     //     'assets/back_btn.png',
-                  //     //   ),
-                  //     //   width: 30,
-                  //     // ),
-                  //     // Image(
-                  //     //   image: AssetImage('assets/profile.png'),
-                  //     //   width: 30,
-                  //     // )
-                  //   ],
-                  // ),
                   const SizedBox(
                     height: 10,
                   ),
-                  // Text(' selected day :' + today.toString().split(' ')[0]),
-                  // ToggleSwitch(
-                  //   minWidth: MediaQuery.of(context).size.width,
-                  //   cornerRadius: 20.0,
-                  //   activeBgColors: [
-                  //     [AppConstants.appColor],
-                  //     [AppConstants.appColor]
-                  //   ],
-                  //   activeFgColor: Colors.white,
-                  //   inactiveBgColor: Colors.white,
-                  //   inactiveFgColor: AppConstants.appColor,
-                  //   borderColor: [AppConstants.appColor, AppConstants.appColor],
-                  //   borderWidth: 1,
-                  //   initialLabelIndex: 1,
-                  //   totalSwitches: 2,
-                  //   labels: const ['Diet plan', 'Booking'],
-                  //   radiusStyle: true,
-                  //   onToggle: (index) {
-                  //     print('switched to: $index');
-                  //   },
-                  // ),
                   Text(
                     'Booking Date'.tr,
                     style: TextStyle(
@@ -341,26 +255,6 @@ class _BookingScreenState extends State<BookingScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  // Text(
-                  //   'Next available :',
-                  //   style: TextStyle(
-                  //       fontSize: 14,
-                  //       color: AppConstants.appColor,
-                  //       fontWeight: FontWeight.w600,
-                  //       fontFamily: AppConstants.appFont),
-                  // ),
-                  // const SizedBox(
-                  //   height: 5,
-                  // ),
-                  // Text(
-                  //   'july 8 2023',
-                  //   style: TextStyle(
-                  //       fontSize: 14,
-                  //       fontStyle: FontStyle.italic,
-                  //       color: Colors.grey,
-                  //       fontWeight: FontWeight.w300,
-                  //       fontFamily: AppConstants.appFont),
-                  // ),
                   TableCalendar(
                       calendarStyle: const CalendarStyle(
                         selectedDecoration: BoxDecoration(
@@ -388,29 +282,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       //  locale: 'en_US',
                       focusedDay: today,
                       firstDay: DateTime.now().add(const Duration(days: 7)),
-                      lastDay: DateTime.utc(2030, 3, 14))
-                  // ElevatedButton(
-                  //   onPressed: () async {
-                  //     await controller.DatePicker(context);
-                  //   },
-                  //   child: Text(
-                  //     controller.selectedDate.value != null
-                  //         ? 'Selected Date: ${controller.selectedDate.value!.toString().split(' ')[0]}'
-                  //         : 'Select Date'.tr,
-                  //   ),
-                  // ),
-                  // SizedBox(height: 20),
-                  // ElevatedButton(
-                  //   onPressed: () async {
-                  //     await controller.TimePicker(context);
-                  //   },
-                  //   child: Text(
-                  //     controller.selectedTime.value != null
-                  //         ? 'Selected Time: ${controller.selectedTime.value!.format(context)}'
-                  //         : 'Select Time',
-                  //   ),
-                  // ),
-                  ,
+                      lastDay: DateTime.utc(2030, 3, 14)),
                   const SizedBox(height: 10),
                   Text(
                     'Booking Time'.tr,
@@ -450,8 +322,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                         }),
                                         _buildButton(15, '12:15', () {
                                           setState(() {
-                                            // controller.isButtonTapped.value =
-                                            //     !controller.isButtonTapped.value;
                                             controller.selectedDate.value =
                                                 DateTime(
                                               today.year,
@@ -471,8 +341,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                       children: [
                                         _buildButton(16, '12:30', () {
                                           setState(() {
-                                            // controller.isButtonTapped.value =
-                                            //     !controller.isButtonTapped.value;
                                             controller.selectedDate.value =
                                                 DateTime(
                                               today.year,
@@ -486,8 +354,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                         }),
                                         _buildButton(17, '12:45', () {
                                           setState(() {
-                                            // controller.isButtonTapped.value =
-                                            //     !controller.isButtonTapped.value;
                                             controller.selectedDate.value =
                                                 DateTime(
                                               today.year,
@@ -497,7 +363,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                               45,
                                             );
                                           });
-                                          // Function to be executed when Button 1 is pressed.
                                         }),
                                       ],
                                     ),
@@ -507,8 +372,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                       children: [
                                         _buildButton(18, '1:00', () {
                                           setState(() {
-                                            // controller.isButtonTapped.value =
-                                            //     !controller.isButtonTapped.value;
                                             controller.selectedDate.value =
                                                 DateTime(
                                               today.year,
@@ -518,12 +381,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                               00,
                                             );
                                           });
-                                          // Function to be executed when Button 1 is pressed.
                                         }),
                                         _buildButton(19, '1:15', () {
                                           setState(() {
-                                            // controller.isButtonTapped.value =
-                                            //     !controller.isButtonTapped.value;
                                             controller.selectedDate.value =
                                                 DateTime(
                                               today.year,
@@ -533,7 +393,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                               15,
                                             );
                                           });
-                                          // Function to be executed when Button 1 is pressed.
                                         }),
                                       ],
                                     ),
@@ -543,8 +402,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                       children: [
                                         _buildButton(20, '1:30', () {
                                           setState(() {
-                                            // controller.isButtonTapped.value =
-                                            //     !controller.isButtonTapped.value;
                                             controller.selectedDate.value =
                                                 DateTime(
                                               today.year,
@@ -554,12 +411,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                               30,
                                             );
                                           });
-                                          // Function to be executed when Button 1 is pressed.
                                         }),
                                         _buildButton(21, '1:45', () {
                                           setState(() {
-                                            // controller.isButtonTapped.value =
-                                            //     !controller.isButtonTapped.value;
                                             controller.selectedDate.value =
                                                 DateTime(
                                               today.year,
@@ -989,7 +843,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                     }),
                                   ],
                                 ),
-
                   Obx(
                     () => controller.isSaturday1H.value && isSelectedDateSat
                         //  controller.satL.value
@@ -1015,8 +868,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                   }),
                                   _buildButton(46, '8:00', () {
                                     setState(() {
-                                      // controller.isButtonTapped.value =
-                                      //     !controller.isButtonTapped.value;
                                       controller.selectedDate.value = DateTime(
                                         today.year,
                                         today.month,
@@ -1035,8 +886,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                 children: [
                                   _buildButton(47, '8:15', () {
                                     setState(() {
-                                      // controller.isButtonTapped.value =
-                                      //     !controller.isButtonTapped.value;
                                       controller.selectedDate.value = DateTime(
                                         today.year,
                                         today.month,
@@ -1045,12 +894,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                         15,
                                       );
                                     });
-                                    // Function to be executed when Button 1 is pressed.
                                   }),
                                   _buildButton(48, '8:30', () {
                                     setState(() {
-                                      // controller.isButtonTapped.value =
-                                      //     !controller.isButtonTapped.value;
                                       controller.selectedDate.value = DateTime(
                                         today.year,
                                         today.month,
@@ -1059,7 +905,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                         30,
                                       );
                                     });
-                                    // Function to be executed when Button 1 is pressed.
                                   }),
                                 ],
                               ),
@@ -1072,8 +917,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                           children: [
                                             _buildButton(49, '8:45', () {
                                               setState(() {
-                                                // controller.isButtonTapped.value =
-                                                //     !controller.isButtonTapped.value;
                                                 controller.selectedDate.value =
                                                     DateTime(
                                                   today.year,
@@ -1083,12 +926,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                                   45,
                                                 );
                                               });
-                                              // Function to be executed when Button 1 is pressed.
                                             }),
                                             _buildButton(50, '9:00', () {
                                               setState(() {
-                                                // controller.isButtonTapped.value =
-                                                //     !controller.isButtonTapped.value;
                                                 controller.selectedDate.value =
                                                     DateTime(
                                                   today.year,
@@ -1098,7 +938,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                                   00,
                                                 );
                                               });
-                                              // Function to be executed when Button 1 is pressed.
                                             }),
                                           ],
                                         ),
@@ -1108,8 +947,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                           children: [
                                             _buildButton(51, '9:15', () {
                                               setState(() {
-                                                // controller.isButtonTapped.value =
-                                                //     !controller.isButtonTapped.value;
                                                 controller.selectedDate.value =
                                                     DateTime(
                                                   today.year,
@@ -1119,12 +956,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                                   15,
                                                 );
                                               });
-                                              // Function to be executed when Button 1 is pressed.
                                             }),
                                             _buildButton(52, '9:30', () {
                                               setState(() {
-                                                // controller.isButtonTapped.value =
-                                                //     !controller.isButtonTapped.value;
                                                 controller.selectedDate.value =
                                                     DateTime(
                                                   today.year,
@@ -1134,7 +968,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                                   30,
                                                 );
                                               });
-                                              // Function to be executed when Button 1 is pressed.
                                             }),
                                           ],
                                         )
@@ -1145,7 +978,6 @@ class _BookingScreenState extends State<BookingScreen> {
                           )
                         : const SizedBox(),
                   ),
-
                   const SizedBox(
                     height: 20,
                   ),
@@ -1178,9 +1010,6 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(onPressed: () {
-      //   Get.to(const UserAppoimetn());
-      // }),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 15,
         selectedLabelStyle: const TextStyle(
@@ -1214,12 +1043,9 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   Widget _buildButton(int index, String buttonText, VoidCallback onTap) {
-    //  bool isButtonDisabled = selectedTimeIndex == index;
-
     return GestureDetector(
       onTap: () {
         setState(() {
-          // Toggle the disabled state for the selected date
           if (disabledDates.containsKey(controller.selectedDate.value)) {
             disabledDates[controller.selectedDate.value!] =
                 !disabledDates[controller.selectedDate.value]!;
@@ -1230,20 +1056,16 @@ class _BookingScreenState extends State<BookingScreen> {
         setState(() {
           selectedTimeIndex = index;
           if (_isButtonTappedList[index]) {
-            // If the clicked button is already selected, change it back to gray.
             _isButtonTappedList[index] = false;
           } else {
-            // If a new button is clicked, update the selected state.
-            // First, reset the state of all buttons.
             for (int i = 0; i < _isButtonTappedList.length; i++) {
               _isButtonTappedList[i] = false;
             }
-            // Then, set the clicked button to be selected.
+
             _isButtonTappedList[index] = true;
           }
         });
 
-        // Execute the callback function when the button is tapped.
         onTap();
       },
       child: Container(

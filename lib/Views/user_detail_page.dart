@@ -91,18 +91,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
       } else if (index == 2) {
-        // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
-        //     arguments: _reservationController.user!.uid);
-        // If 'School' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 3) {
         Get.off(const UserAppoimetn(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
-        // Get.to(UserDetailsPage(userId: _reservationController.user!.uid),
-        //     arguments: _reservationController.user!.uid);
-        // If 'School' is tapped, do nothing (stay on the current page)
+
         return;
       }
     }

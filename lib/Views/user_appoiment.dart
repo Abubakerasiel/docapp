@@ -151,7 +151,6 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             const SizedBox(
               height: 10,
             ),
-
             Text('  الباكدج لمدة شهر واسبوع و بعد ذلك تعتبر منتهية ',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -160,7 +159,6 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             const SizedBox(
               height: 10,
             ),
-
             Text('او بالمرة : ٢٠٠ جنية كل كشف او  متابعة',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -187,15 +185,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
             const SizedBox(
               height: 20,
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     controller.fetchDates();
-            //   },
-            //   child: Text('Show Reservations'.tr),
-            // ),
             Expanded(child: Obx(() {
-              // controller.fetchDates();
-
               return ListView.separated(
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 20,
@@ -221,10 +211,6 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                         .format(dateTime.add(const Duration(hours: 1)));
                     String formattedDate =
                         DateFormat("EEE ,d MMM , ''yyyy").format(dateTime);
-                    // Convert Timestamp to DateTime
-                    // final time = timestamp2.toString();
-                    // final formattedDateTime =
-                    //     controller.formatDateTime(dateTime, userName, userPhone);
 
                     return Container(
                       decoration: BoxDecoration(
@@ -315,42 +301,6 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                   ),
                                 ],
                               ),
-                              // Row(
-                              //   mainAxisAlignment:
-                              //       MainAxisAlignment.start,
-                              //   children: [
-                              //     SizedBox(
-                              //       width: 61,
-                              //     ),
-                              //     TextButton(
-                              //       onPressed: () async {
-                              //         await controller
-                              //             .retrieveUserData(userID3!);
-
-                              //         Get.to(
-                              //             UserDetailsPage(
-                              //               userId: userID3,
-                              //             ),
-                              //             arguments: userID3);
-                              //       },
-                              //       child: Text('Name: $userName',
-                              //           style: TextStyle(
-                              //             color: Colors.white,
-                              //             fontSize: 15,
-                              //             fontWeight: FontWeight.bold,
-                              //             decoration:
-                              //                 TextDecoration.none,
-                              //           )),
-                              //     ),
-                              //   ],
-                              // ),
-                              // Text('Phone Number: $userPhone',
-                              //     textAlign: TextAlign.start,
-                              //     style: TextStyle(
-                              //       color: Colors.white,
-                              //       fontSize: 15,
-                              //       decoration: TextDecoration.none,
-                              //     )),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -399,48 +349,6 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  // ElevatedButton(
-                                  //     style: ButtonStyle(
-                                  //       backgroundColor:
-                                  //           const MaterialStatePropertyAll(
-                                  //               Colors.greenAccent),
-                                  //       shape: MaterialStateProperty.all<
-                                  //               RoundedRectangleBorder>(
-                                  //           RoundedRectangleBorder(
-                                  //               borderRadius:
-                                  //                   BorderRadius.circular(18.0),
-                                  //               side: const BorderSide(
-                                  //                   color: Colors.greenAccent))),
-                                  //     ),
-                                  //     onPressed: () {
-                                  //       setState(() {
-                                  //         _onDeleteConfirmed(
-                                  //             controller.dates[index].id);
-                                  //         // controller.deleteDate(
-                                  //         //     controller.dates[index].id);
-                                  //         // controller.getTodayAppointments();
-                                  //       });
-                                  //       //  controller.fetchDates();
-                                  //     },
-                                  //     child: Text('Confirm Date'.tr)),
-                                  // ElevatedButton(
-                                  //     style: ButtonStyle(
-                                  //       backgroundColor: MaterialStatePropertyAll(
-                                  //           Colors.amberAccent),
-                                  //       shape: MaterialStateProperty.all<
-                                  //               RoundedRectangleBorder>(
-                                  //           RoundedRectangleBorder(
-                                  //               borderRadius:
-                                  //                   BorderRadius.circular(18.0),
-                                  //               side: BorderSide(
-                                  //                   color: Colors.amberAccent))),
-                                  //     ),
-                                  //     onPressed: () {
-                                  //       controller.deleteDate(
-                                  //           controller.dates[index].id);
-                                  //       controller.fetchAllDates();
-                                  //     },
-                                  //     child: Text('Cancel Date'.tr)),
                                   ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor:
@@ -458,13 +366,7 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                         setState(() {
                                           _onReplaceConfirmed(
                                               controller.dates[index].id);
-                                          // controller.deleteDate(
-                                          //     controller.dates[index].id);
-                                          // controller.getTodayAppointments();
                                         });
-
-                                        //  controller.fetchDates();
-                                        //controller.getTodayAppointments();
                                       },
                                       child: Text('Cancel Date'.tr)),
                                 ],
@@ -478,13 +380,6 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                 },
               );
             })),
-            // TextButton(
-            //   onPressed: () {
-            //     MapsLauncher.launchQuery(
-            //         'Villa No. 48, 2nd Floor, Flat 6, 105th Street, El Horreya Sq, Maadi, Cairo Governorate 11728');
-            //   },
-            //   child: Text('Open Google Maps'.tr),
-            // ),
           ],
         ),
       ),

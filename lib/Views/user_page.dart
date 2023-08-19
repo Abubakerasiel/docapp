@@ -32,9 +32,6 @@ class _UserPageState extends State<UserPage> {
       // If 'Home' is tapped, do nothing (stay on the current page)
       return;
     } else if (index == 1) {
-      //   await _reservationController.getDataFromFirestore();
-
-      // If 'Business' is tapped, navigate to the sign-in screen
       Get.to(const BookingScreen(),
           curve: Curves.easeInOut,
           duration: Duration(seconds: 1),
@@ -59,8 +56,6 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    // ReservationController controller = Get.put(ReservationController());
-    // HomeController controller2 = Get.put(HomeController());
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -114,48 +109,6 @@ class _UserPageState extends State<UserPage> {
             SizedBox(
               height: 50,
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     GestureDetector(
-            //       onTap: () {
-            //         Get.back();
-            //       },
-            //       child: CircleAvatar(
-            //         radius: 15,
-            //         child: Icon(
-            //           Icons.arrow_back,
-            //           size: 20,
-            //         ),
-            //       ),
-            //     ),
-
-            //     IconButton(
-            //       onPressed: () {
-            //         Get.to(
-            //             UserDetailsPage(
-            //               userId: controller.user!.uid,
-            //             ),
-            //             arguments: controller.user!.uid);
-            //       },
-            //       icon: Icon(
-            //         Icons.person,
-            //         size: 30,
-            //         color: AppConstants.appColor,
-            //       ),
-            //     )
-            //     // Image(
-            //     //   image: AssetImage(
-            //     //     'assets/back_btn.png',
-            //     //   ),
-            //     //   width: 30,
-            //     // ),
-            //     // Image(
-            //     //   image: AssetImage('assets/profile.png'),
-            //     //   width: 30,
-            //     // )
-            //   ],
-            // ),
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('userText')
@@ -208,19 +161,6 @@ class _UserPageState extends State<UserPage> {
                 );
               },
             ),
-
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Get.to(BookingScreen());
-            //     },
-            //     child: Text('make an appoimnet'.tr)),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Get.to(
-            //           UserDetailsPage(userId: _reservationController.user!.uid),
-            //           arguments: _reservationController.user!.uid);
-            //     },
-            //     child: Text('View profile'.tr))
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

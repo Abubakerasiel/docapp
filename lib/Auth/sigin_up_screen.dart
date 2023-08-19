@@ -39,10 +39,6 @@ class SignUpScreen extends GetView<SignUpController> {
     Get.put(SignUpController());
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Sign Up'.tr),
-      //   centerTitle: true,
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -65,25 +61,7 @@ class SignUpScreen extends GetView<SignUpController> {
                 const SizedBox(
                   height: 10,
                 ),
-                // GestureDetector(
-                //   onTap: () async {
-                //     controller.userSelectedImage =
-                //         await controller.pickImage();
-                //     controller.update();
-                //   },
-                //   child: Container(
-                //     height: 100,
-                //     width: 100,
-                //     clipBehavior: Clip.antiAlias,
-                //     decoration: BoxDecoration(
-                //       color: Colors.grey.shade200,
-                //       shape: BoxShape.circle,
-                //     ),
-                //     child: controller.userSelectedImage != null
-                //         ? Image.file(controller.userSelectedImage!)
-                //         : const Icon(Icons.person),
-                //   ),
-                // ),
+
                 SizedBox(
                   height: 50,
                   child: Material(

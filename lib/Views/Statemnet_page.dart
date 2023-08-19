@@ -28,18 +28,11 @@ class StatmentPage extends StatelessWidget {
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
-        //   await _reservationController.getDataFromFirestore();
-
-        // If 'Business' is tapped, navigate to the sign-in screen
       } else if (index == 2) {
         Get.off(const AdminTimeEdit(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
-
-        //   await _reservationController.getDataFromFirestore();
-
-        // If 'Business' is tapped, navigate to the sign-in screen
       }
     }
 
@@ -140,10 +133,6 @@ class StatmentPage extends StatelessWidget {
                       return const Center(child: CircularProgressIndicator());
                     }
 
-                    // Reverse the list of documents before mapping them to ListTiles
-                    // List<QueryDocumentSnapshot> reversedDocs =
-                    //     snapshot.data!.docs.reversed.toList();
-
                     return Expanded(
                       child: ListView(
                         children: snapshot.data!.docs
@@ -173,15 +162,6 @@ class StatmentPage extends StatelessWidget {
               ],
             ),
           ),
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: () {
-          //     Get.back();
-          //   },
-          //   child: const Icon(
-          //     Icons.arrow_back_ios_new,
-          //     // color: AppConstants.appColor,
-          //   ),
-          // ),
           bottomNavigationBar: BottomNavigationBar(
             selectedFontSize: 15,
             selectedLabelStyle: const TextStyle(

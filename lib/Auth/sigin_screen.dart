@@ -153,41 +153,7 @@ class SignInScreen1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Row(
-                //       children: [
-                //         Container(
-                //           width: 10,
-                //           child: Checkbox(
-                //             value: false,
-                //             onChanged: (bool? value) {},
-                //           ),
-                //         ),
-                //         SizedBox(width: 20),
-                //         // Text(
-                //         //   'Remember me',
-                //         //   style: TextStyle(
-                //         //     fontSize: 12,
-                //         //     color: AppConstants.appColor,
-                //         //     fontWeight: FontWeight.w600,
-                //         //     fontFamily: AppConstants.appFont,
-                //         //   ),
-                //         // ),
-                //       ],
-                //     ),
-                //     Text(
-                //       'Forgot password ?'.tr,
-                //       style: TextStyle(
-                //         fontSize: 12,
-                //         color: Colors.red,
-                //         fontWeight: FontWeight.w300,
-                //         fontFamily: AppConstants.appFont,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+
                 const Divider(),
                 const SizedBox(
                   height: 80,

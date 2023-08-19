@@ -36,11 +36,6 @@ class HomeController extends GetxController {
     // getData();
     // streamSubscription.listen((event) { })
 
-    usersRef.snapshots().listen((event) {
-      usersLisnter.value = convertToUsers(event);
-
-      // users = ;
-    });
     getDatesData();
   }
 
@@ -53,28 +48,6 @@ class HomeController extends GetxController {
         curve: Curves.easeInOut,
         duration: Duration(seconds: 1),
         transition: Transition.fadeIn);
-  }
-
-  void getData() async {
-    final colloectionDataResponse = await usersRef.get();
-    try {
-      log('data length : ${colloectionDataResponse.docs.length}');
-      final usersResponse = colloectionDataResponse.docs
-          .map((e) => User.fromJson(e.data()))
-          .toList();
-
-      users = usersResponse;
-      update();
-    } catch (err) {
-      log(err.toString());
-    }
-  }
-
-  getRealTimeData() {
-    final colloectionDataResponse = usersRef.snapshots();
-    colloectionDataResponse.asBroadcastStream(
-      onListen: (subscription) {},
-    );
   }
 
   void getDatesData() async {
@@ -90,13 +63,6 @@ class HomeController extends GetxController {
     } catch (err) {
       log(err.toString());
     }
-  }
-
-  List<User> convertToUsers(QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-    final usersResponse =
-        querySnapshot.docs.map((e) => User.fromJson(e.data())).toList();
-
-    return usersResponse;
   }
 
   void removeFromWaitingList(String userId) async {

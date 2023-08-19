@@ -80,6 +80,10 @@ class ReservationController extends GetxController {
 
   RxList<QueryDocumentSnapshot<Map<String, dynamic>>> dates = RxList([]);
   RxList<QueryDocumentSnapshot<Map<String, dynamic>>> fuser = RxList([]);
+  Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
+  Rx<TimeOfDay?> selectedTime = Rx<TimeOfDay?>(null);
+  CollectionReference datesCollection =
+      FirebaseFirestore.instance.collection('dates');
 
   String formatDateTime(DateTime date, String userName, String? userPhone) {
     final hour = date.hour + 1;
@@ -143,24 +147,6 @@ class ReservationController extends GetxController {
     update();
   }
 
-  // Future<void> requestNotificationPermission() async {
-  //   final messaging = FirebaseMessaging.instance;
-  //   NotificationSettings settings = await messaging.requestPermission(
-  //     alert: true,
-  //     badge: true,
-  //     sound: true,
-  //   );
-
-  //   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-  //     logi.log('User granted permission for notifications.');
-  //   } else if (settings.authorizationStatus ==
-  //       AuthorizationStatus.provisional) {
-  //     logi.log('User  granted provisinal permission .');
-  //   } else {
-  //     logi.log('user delined or has not accepted premission');
-  //   }
-  // }
-
   Future<Map<String, dynamic>?> retrieveTokens() async {
     final QuerySnapshot<Map<String, dynamic>> tok =
         await FirebaseFirestore.instance.collection('UserTokes').get();
@@ -175,56 +161,6 @@ class ReservationController extends GetxController {
     logi.log(tak.toString());
     return null;
   }
-
-  // iniitInfo() async {
-  //   var androidInitliaize = const AndroidInitializationSettings(
-  //     '@mipmap/launcher_icon',
-  //   );
-  //   // ignore: non_constant_identifier_names
-  //   var IOSInitialize = const DarwinInitializationSettings(
-  //     requestCriticalPermission: true,
-  //   );
-  //   var initializationsSettings =
-  //       InitializationSettings(android: androidInitliaize, iOS: IOSInitialize);
-  //   await flutterLocalNotificationsPlugin.initialize(
-  //     initializationsSettings,
-  //     // onDidReceiveBackgroundNotificationResponse: (details) =>
-  //     //     Get.to(UserPage()),
-  //   );
-
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-  //     logi.log(
-  //         'onmessage: ${message.notification?.title} /${message.notification?.body}');
-
-  //     BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
-  //         message.notification!.body.toString(),
-  //         htmlFormatBigText: true,
-  //         contentTitle: message.notification!.title.toString(),
-  //         htmlFormatContentTitle: true);
-  //     AndroidNotificationDetails androidPlatformChannelSpecifics =
-  //         AndroidNotificationDetails('dbfood', 'dbfood',
-  //             importance: Importance.high,
-  //             styleInformation: bigTextStyleInformation,
-  //             priority: Priority.high,
-  //             playSound: true);
-  //     DarwinNotificationDetails iOSPlatformChannelSpecifics =
-  //         DarwinNotificationDetails(
-  //       interruptionLevel: InterruptionLevel.timeSensitive,
-  //       presentAlert: true,
-  //       presentBadge: true,
-  //       presentSound: true,
-  //       presentBanner: true,
-  //     );
-
-  //     NotificationDetails platformchannelSpecifics = NotificationDetails(
-  //       android: androidPlatformChannelSpecifics,
-  //       iOS: iOSPlatformChannelSpecifics,
-  //     );
-  //     await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
-  //         message.notification?.body, platformchannelSpecifics,
-  //         payload: message.data['body']);
-  //   });
-  // }
 
   Future<void> sendNotificationToWaitlingListUser(
       List<String> tokens, String body, String title, DateTime sendTime) async {
@@ -284,15 +220,6 @@ class ReservationController extends GetxController {
       }
     }
   }
-
-  void checkDate(String documentId) {
-    FirebaseFirestore.instance.collection('dates').doc(documentId).id.isEmpty;
-  }
-
-  Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
-  Rx<TimeOfDay?> selectedTime = Rx<TimeOfDay?>(null);
-  CollectionReference datesCollection =
-      FirebaseFirestore.instance.collection('dates');
 
   fetchDates() async {
     try {
@@ -380,9 +307,6 @@ class ReservationController extends GetxController {
 
       //   return snapshot.data();
     }
-    // if (package2 > 5) {
-    //   y.value = true;
-    // }
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -476,7 +400,7 @@ class ReservationController extends GetxController {
             .doc(userIdInDateColletion)
             .get();
     if (snapshot.exists) {
-      package = snapshot.data()?['package'];
+      package.value = snapshot.data()?['package'];
       //   return snapshot.data();
     }
 
@@ -793,20 +717,7 @@ class ReservationController extends GetxController {
         final QuerySnapshot<Map<String, dynamic>> userAppointmentsSnapshot =
             await datesCollection.where('userId', isEqualTo: user!.uid).get()
                 as QuerySnapshot<Map<String, dynamic>>;
-        // final selectedDateStart =
-        //     getStartOfDay(dateFormatter.parse(selectedDateString));
-        // final selectedDateEnd =
-        //     getEndOfDay(dateFormatter.parse(selectedDateString));
-        // bool userAlreadyBookedForDay = false;
-        // for (final doc in userAppointmentsSnapshot.docs) {
-        //   final appointmentDate = doc['selectedDate'].toDate() as DateTime;
-        //   if (appointmentDate.year == selectedDate.value!.year &&
-        //       appointmentDate.month == selectedDate.value!.month &&
-        //       appointmentDate.day == selectedDate.value!.day) {
-        //     userAlreadyBookedForDay = true;
-        //     break;
-        //   }
-        // }
+
         bool userAlreadyBookedForWeek = false;
         final selectedWeek = selectedDate.value!
             .subtract(Duration(days: selectedDate.value!.weekday - 1));

@@ -54,10 +54,7 @@ class SignInController extends GetxController {
     if (isFirstTimeSignIn) {
       await getUserToken();
       saveToken();
-      // Your code to execute only on the first-time sign-in
-      // For example, showing a welcome message, initializing user preferences, etc.
 
-      // Mark the first-time sign-in as false for future references
       await prefs.setBool('isFirstTimeSignIn', false);
     }
 
@@ -80,12 +77,5 @@ class SignInController extends GetxController {
         transition: Transition.fadeIn);
     emailController.clear();
     passwordController.clear();
-
-    // clearFields();
   }
-
-  // void clearFields() {
-  //   email = '';
-  //   password = '';
-  // }
 }

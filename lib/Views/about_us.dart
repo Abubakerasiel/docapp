@@ -20,21 +20,6 @@ class AboutUsPage extends StatelessWidget {
         actions: [
           Row(
             children: [
-              // Container(
-              //   height: 40,
-              //   width: 40,
-              //   alignment: Alignment.center,
-              //   decoration: BoxDecoration(boxShadow: [
-              //     BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
-              //   ], shape: BoxShape.circle, color: Colors.redAccent),
-              //   child: IconButton(
-              //     onPressed: () => controller2.logOut(),
-              //     icon: Icon(
-              //       Icons.logout,
-              //       size: 20,
-              //     ),
-              //   ),
-              // ),
               SizedBox(
                 width: 26,
               )
@@ -50,14 +35,7 @@ class AboutUsPage extends StatelessWidget {
             SizedBox(
               height: 40,
             ),
-            // Text(
-            //   'About Us:',
-            //   style: TextStyle(
-            //     fontSize: 24.0,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // SizedBox(height: 16.0),
+
             Text(
               'Welcome to SHADDAI, a new starter mobile app development company specializing in creating innovative and dynamic mobile applications using the Flutter framework. Our passion for technology and commitment to excellence drive us to deliver exceptional solutions that cater to the modern digital landscape.',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -174,18 +152,6 @@ class AboutUsPage extends StatelessWidget {
             ),
 
             SizedBox(height: 16.0),
-            // Text(
-            //   'من نحن',
-            //   style: TextStyle(
-            //     fontSize: 20.0,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // SizedBox(height: 8.0),
-            // Text(
-            //   'في [اسم الشركة], نحن فريق من المحترفين المخلصين لديهم رؤية مشتركة لتحويل الأفكار إلى تجارب رقمية رائعة. بفضل مجموعة متنوعة من المهارات وفهم عميق لإمكانيات ، نفخر بقدرتنا على صناعة تطبيقات موجهة نحو المستخدمين تتميز في سوق اليوم المنافس.',
-            // ),
-            // SizedBox(height: 16.0),
 
             ListTile(
               title: Center(
@@ -208,29 +174,7 @@ class AboutUsPage extends StatelessWidget {
             //   ' ا',
             // ),
             SizedBox(height: 16.0),
-            // Text(
-            //   'لماذا نختارنا',
-            //   style: TextStyle(
-            //     fontSize: 20.0,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //         ' خبراءفلتر : إن إتقاننا لـفلتر  يسمح لنا بالاستفادة الكاملة\n من هذا الإطار القوي، مما يؤدي إلى تطبيقات جذابة بصرياً، سريعة'),
-            //   ],
-            // ),
-            // SizedBox(height: 8.0),
-            // Text(
-            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            //   ' خبراءفلتر : إن إتقاننا لـفلتر  يسمح لنا بالاستفادة الكاملة من هذا الإطار القوي، مما يؤدي إلى تطبيقات جذابة بصرياً، سريعة'
-            //   ' حلول مخصصة: نحن ندرك أن كل مشروع فريد. لهذا السبب نعمل عن كثب مع عملائنا لتطوير حلول مخصصة تتماشى مع أهدافهم ومتطلباتهم الخاصة'
-            //   ' منهج محوري نحو المستخدم: تجربة المستخدم في قلب فلسفة تصميمنا. نحن نولي أهمية كبيرة لإنشاء واجهات بسيطة ومليئة بالتفاعل توفر تجربة ملاحة سلسة ورحلة مستخدم ممتعة'
-            //   ' الشفافية: نؤمن بتعزيز التواصل الشفاف والمفتوح طوال عملية التطوير. يتم إبقاء عملائنا على علم في كل خطوة على الطريق، مما يضمن ترجمة رؤيتهم إلى واقع'
-            //   'ضمان الجودة: إجراءات الاختبار الدقيقة لدينا تضمن أن المنتج النهائي خالي من الأخطاء ويعمل بشكل مثالي عبر أجهزة ومنصات مختلفة.',
-            // ),
+
             SizedBox(height: 16.0),
             ListTile(
               title: Center(
@@ -251,14 +195,6 @@ class AboutUsPage extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
 
-            // Text(
-            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            //   'خبرائنا ولنناقش كيفية التعاون لإنشاء شئ استثنائي نحن',
-            // ),
-            // Text(
-            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            //   'متحمسون للانطلاق في هذه الرحلة معك ',
-            // ),
             ListTile(
               title: Center(
                 child: Text(

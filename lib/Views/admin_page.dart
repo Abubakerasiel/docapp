@@ -28,18 +28,13 @@ class _DatesListState extends State<DatesList> {
       return false;
     }
     return true;
-    //else if (currentUser!.uid=='RfY49ef1TtPD7f6spDbaMN7aiKd2'){
-    //   return ;
-    // }
   }
 
   current2() {
     if (currentUser!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
       return true;
     }
-    //else if (currentUser!.uid=='RfY49ef1TtPD7f6spDbaMN7aiKd2'){
-    //   return ;
-    // }
+
     return false;
   }
 
@@ -65,8 +60,6 @@ class _DatesListState extends State<DatesList> {
 
   @override
   Widget build(BuildContext context) {
-    //  RxString a = txt.text.obs;
-    final ReservationController controller = Get.put(ReservationController());
     void _onItemTapped(int index) async {
       if (index == 0) {
         // If 'Home' is tapped, do nothing (stay on the current page)
@@ -76,17 +69,11 @@ class _DatesListState extends State<DatesList> {
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
-        //   await _reservationController.getDataFromFirestore();
-
-        // If 'Business' is tapped, navigate to the sign-in screen
       } else if (index == 2) {
         Get.off(const AdminTimeEdit(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
-        //   await _reservationController.getDataFromFirestore();
-
-        // If 'Business' is tapped, navigate to the sign-in screen
       }
     }
 
@@ -105,67 +92,12 @@ class _DatesListState extends State<DatesList> {
         controller.dates.removeWhere((date) => date.id == dateId);
       });
     }
-    // final User user=FirebaseAuth.instance.currentUser;
-    // final  user = FirebaseAuth.instance.currentUser;
 
-    // Render a specific page or widget
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   backgroundColor: Colors.lightBlue,
-      //   toolbarHeight: 70,
-      //   elevation: 14,
-      //   shape: RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.only(
-      //           bottomRight: Radius.circular(70),
-      //           bottomLeft: Radius.circular(70))),
-      //   title: current()
-      //       ? const Text(
-      //           "Hello Secretary",
-      //           style: TextStyle(color: Colors.white),
-      //         )
-      //       : const Text(
-      //           "Hello Dr.Perry",
-      //           style: TextStyle(color: Colors.white),
-      //         ),
-      //   actions: [
-      //     Row(
-      //       children: [
-      //         Container(
-      //           height: 40,
-      //           width: 40,
-      //           alignment: Alignment.center,
-      //           decoration: BoxDecoration(boxShadow: [
-      //             BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
-      //           ], shape: BoxShape.circle, color: Colors.redAccent),
-      //           child: IconButton(
-      //             onPressed: Get.find<HomeController>().logOut,
-      //             icon: Icon(
-      //               Icons.logout,
-      //               size: 20,
-      //             ),
-      //           ),
-      //         ),
-      //         SizedBox(
-      //           width: 26,
-      //         )
-      //       ],
-      //     )
-      //   ],
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
           children: [
-            // ElevatedButton(
-            //   onPressed: () {
-            //     controller.fetchAllDates();
-            //   },
-            //   child: Text('Show Reservations'.tr),
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
             Expanded(
                 child: isLoading
                     ? const Center(
@@ -201,10 +133,6 @@ class _DatesListState extends State<DatesList> {
                               String formattedDate =
                                   DateFormat("EEE ,d MMM , ''yyyy")
                                       .format(dateTime);
-                              // Convert Timestamp to DateTime
-                              // final time = timestamp2.toString();
-                              // final formattedDateTime =
-                              //     controller.formatDateTime(dateTime, userName, userPhone);
 
                               return Container(
                                 width: double.infinity,
@@ -289,42 +217,6 @@ class _DatesListState extends State<DatesList> {
                                             ),
                                           ],
                                         ),
-                                        // Row(
-                                        //   mainAxisAlignment:
-                                        //       MainAxisAlignment.start,
-                                        //   children: [
-                                        //     SizedBox(
-                                        //       width: 61,
-                                        //     ),
-                                        //     TextButton(
-                                        //       onPressed: () async {
-                                        //         await controller
-                                        //             .retrieveUserData(userID3!);
-
-                                        //         Get.to(
-                                        //             UserDetailsPage(
-                                        //               userId: userID3,
-                                        //             ),
-                                        //             arguments: userID3);
-                                        //       },
-                                        //       child: Text('Name: $userName',
-                                        //           style: TextStyle(
-                                        //             color: Colors.white,
-                                        //             fontSize: 15,
-                                        //             fontWeight: FontWeight.bold,
-                                        //             decoration:
-                                        //                 TextDecoration.none,
-                                        //           )),
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                        // Text('Phone Number: $userPhone',
-                                        //     textAlign: TextAlign.start,
-                                        //     style: TextStyle(
-                                        //       color: Colors.white,
-                                        //       fontSize: 15,
-                                        //       decoration: TextDecoration.none,
-                                        //     )),
                                         const SizedBox(
                                           height: 10,
                                         ),
@@ -400,33 +292,10 @@ class _DatesListState extends State<DatesList> {
                                                               controller
                                                                   .dates[index]
                                                                   .id);
-                                                          // controller.deleteDate(
-                                                          //     controller.dates[index].id);
-                                                          // controller.getTodayAppointments();
-                                                          // controller
-                                                          //     .fetchAllDates();
                                                         });
                                                       },
                                                       child: Text(
                                                           'Confirm Date'.tr)),
-                                                  // ElevatedButton(
-                                                  //     style: ButtonStyle(
-                                                  //       backgroundColor: MaterialStatePropertyAll(
-                                                  //           Colors.amberAccent),
-                                                  //       shape: MaterialStateProperty.all<
-                                                  //               RoundedRectangleBorder>(
-                                                  //           RoundedRectangleBorder(
-                                                  //               borderRadius:
-                                                  //                   BorderRadius.circular(18.0),
-                                                  //               side: BorderSide(
-                                                  //                   color: Colors.amberAccent))),
-                                                  //     ),
-                                                  //     onPressed: () {
-                                                  //       controller.deleteDate(
-                                                  //           controller.dates[index].id);
-                                                  //       controller.fetchAllDates();
-                                                  //     },
-                                                  //     child: Text('Cancel Date'.tr)),
                                                   ElevatedButton(
                                                       style: ButtonStyle(
                                                         backgroundColor:
@@ -450,11 +319,6 @@ class _DatesListState extends State<DatesList> {
                                                               controller
                                                                   .dates[index]
                                                                   .id);
-                                                          // controller.deleteDate(
-                                                          //     controller.dates[index].id);
-                                                          // controller.getTodayAppointments();
-                                                          // controller
-                                                          //     .fetchAllDates();
                                                         });
                                                         //controller.getTodayAppointments();
                                                       },
@@ -473,36 +337,9 @@ class _DatesListState extends State<DatesList> {
                           },
                         ),
                       )),
-            // ElevatedButton(
-            //     style: ButtonStyle(
-            //       backgroundColor:
-            //           MaterialStatePropertyAll(AppConstants.appColor),
-            //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            //           RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //               side: BorderSide(color: AppConstants.appColor))),
-            //     ),
-            //     onPressed: () {
-            //       Get.to(StatmentPage());
-            //     },
-            //     child: Text('Go to Statemnst page'.tr))
           ],
         ),
       ),
-      // floatingActionButton: current()
-      //     ? FloatingActionButton(
-      //         child: const Icon(
-      //           Icons.post_add,
-      //           //   color: AppConstants.appColor,
-      //         ),
-      //         onPressed: () {
-      //           Get.to(const AdminTimeEdit(),
-      //               curve: Curves.easeInOut,
-      //               duration: Duration(seconds: 1),
-      //               transition: Transition.fadeIn);
-      //         },
-      //       )
-      //     : const SizedBox(),
       bottomNavigationBar: current()
           ? BottomNavigationBar(
               selectedFontSize: 15,

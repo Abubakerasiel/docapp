@@ -16,7 +16,7 @@ Map<String, String> get arKeys => {
           'لقد قمت بالحجز مسبقا في نفس الأسبوع',
       'Wrong Day': 'اليوم اجازه',
       'No announcements yet.': 'لا توجد إعلانات حتى الآن',
-      'Location': 'الموقع',
+      'Location:': 'الموقع',
       'Congratulation': 'تهانينا',
       'Your booking has been confirmed ': 'تم تأكيد حجزك في يوم',
       'Name :': 'الاسم',

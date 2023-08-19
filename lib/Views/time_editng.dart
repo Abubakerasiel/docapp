@@ -34,14 +34,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
-        //   await _reservationController.getDataFromFirestore();
-
-        // If 'Business' is tapped, navigate to the sign-in screen
-      } else if (index == 2) {
-        //   await _reservationController.getDataFromFirestore();
-
-        // If 'Business' is tapped, navigate to the sign-in screen
-      }
+      } else if (index == 2) {}
     }
 
     return Scaffold(
@@ -516,12 +509,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_tuesday': true, 'is_tuesday2h': true});
                     await controller.getDataFromFirestore();
-                    // print(controller.isSaturday1H.value);
 
-                    //  controller.isSaturday.value = true;
-                    // controller.satL.value = true;
-
-                    // Show a success message
                     Get.snackbar(
                       'Time update',
                       '2 hours has been addit to tuesday  successulfy ',
@@ -598,10 +586,6 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     await controller.getDataFromFirestore();
                     log(controller.isSaturday1H.value.toString());
 
-                    //   controller.isSaturday.value = false;
-                    // controller.isSaturday = false;
-                    // controller.satL.value = false;
-                    // Show a success message
                     Get.snackbar(
                       'Time update',
                       'the edit hour has been removed from saturday ',
@@ -636,10 +620,6 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                     await controller.getDataFromFirestore();
                     log(controller.isSaturday1H.value.toString());
 
-                    //   controller.isSaturday.value = false;
-                    // controller.isSaturday = false;
-                    // controller.satL.value = false;
-                    // Show a success message
                     Get.snackbar(
                       'Time update',
                       'the addit 2 house has been removed successulfy ',
@@ -677,9 +657,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       'sundayDisabled': true,
                     });
                     await controller.getDataFromFirestore();
-                    //  controller.onInit();
 
-                    // Show a success message
                     Get.snackbar(
                       'Time  update',
                       'monday has been disabled successulfy ',
@@ -748,12 +726,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_sunday': false, 'is_sunday2h': false});
                     await controller.getDataFromFirestore();
-                    //  print(controller.isSaturday1H.value);
 
-                    //   controller.isSaturday.value = false;
-                    // controller.isSaturday = false;
-                    // controller.satL.value = false;
-                    // Show a success message
                     Get.snackbar(
                       'Time update',
                       '2 hours addit to sunday has been removed  successulfy ',
@@ -951,12 +924,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                       'is_tuesday': false,
                     });
                     await controller.getDataFromFirestore();
-                    // print(controller.isSaturday1H.value);
 
-                    //   controller.isSaturday.value = false;
-                    // controller.isSaturday = false;
-                    // controller.satL.value = false;
-                    // Show a success message
                     Get.snackbar(
                       'Time update',
                       'the addit hour has been removed from tuesday successulfy ',
@@ -990,12 +958,7 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
                         .doc('WTMfaIqjFuL686hKuK9h')
                         .update({'is_tuesday': false, 'is_tuesday2h': false});
                     await controller.getDataFromFirestore();
-                    // print(controller.isSaturday1H.value);
 
-                    //   controller.isSaturday.value = false;
-                    // controller.isSaturday = false;
-                    // controller.satL.value = false;
-                    // Show a success message
                     Get.snackbar(
                       'Time update',
                       'the 2 hours addit to tuesday has been removed successulfy ',
