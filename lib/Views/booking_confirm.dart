@@ -110,7 +110,7 @@ class BookingConfirmed extends StatelessWidget {
               subtitle: Text(
                 textAlign: TextAlign.center,
                 ' شارع ٢١٠ميدان فيكتوريا دجله المعادى عمارة كيمو ماركت سابقا (جروسر حاليا )  الدور ٣ سنتر جمالى',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
               ),
             ),
             const SizedBox(
@@ -125,10 +125,10 @@ class BookingConfirmed extends StatelessWidget {
                 width: 356,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(10),
+                    Radius.circular(20),
                   ),
                   image: DecorationImage(
-                      image: AssetImage("assets/1.jpg"), fit: BoxFit.cover),
+                      image: AssetImage("assets/2.jpg"), fit: BoxFit.cover),
                 ),
               ),
             )
