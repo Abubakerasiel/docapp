@@ -79,10 +79,9 @@ class HomeScreen1 extends StatelessWidget {
           ),
           body: GetX<HomeController>(
             // ignore: invalid_use_of_protected_member
-            builder: (controller) => controller.datesLisnter.value.isEmpty
-                ? const Center(child: Text('No Appoiments For today'))
+            builder: (controller) =>
                 // ignore: invalid_use_of_protected_member
-                : DatesList(dates: controller.datesLisnter.value),
+                DatesList(dates: controller.datesLisnter.value),
           ),
         ),
       );
@@ -137,7 +136,10 @@ class HomeScreen1 extends StatelessWidget {
             body: GetX<HomeController>(
               // ignore: invalid_use_of_protected_member
               builder: (controller) => controller.datesLisnter.value.isEmpty
-                  ? const Center(child: Text('No Appoiments For today'))
+                  ? Center(
+                      child: Text(
+                          'No Appointments Yet'), // Display this message when no appointments are available
+                    )
                   // ignore: invalid_use_of_protected_member
                   : DatesList(dates: controller.datesLisnter.value),
             )),

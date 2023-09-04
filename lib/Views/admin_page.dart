@@ -42,7 +42,7 @@ class _DatesListState extends State<DatesList> {
   final ReservationController controller = Get.put(ReservationController());
   Future<void> _loadData() async {
     // Simulate an asynchronous delay with Future.delayed
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
 
     controller.fetchAllDates();
 
@@ -331,8 +331,9 @@ class _DatesListState extends State<DatesList> {
                                 ),
                               );
                             } else {
-                              return const Text(
-                                  'hi'); // Skip rendering if data is null
+                              return Center(
+                                child: const Text('No Appoimnets Yet'),
+                              ); // Skip rendering if data is null
                             }
                           },
                         ),
