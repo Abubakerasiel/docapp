@@ -294,11 +294,17 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                   const SizedBox(height: 10),
                   controller.sundayTimeShowing.value
-                      ? const TimeShowingSunday()
+                      ? TimeShowingSunday(
+                          today: today,
+                        )
                       : controller.mondayTimeShowing.value
-                          ? const TimeShowingMonday()
+                          ? TimeShowingMonday(
+                              today: today,
+                            )
                           : controller.tuesTimeShowing.value
-                              ? const TimeShowingTuesday()
+                              ? TimeShowingTuesday(
+                                  today: today,
+                                )
                               : Column(
                                   children: [
                                     Row(
@@ -991,7 +997,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           style: const ButtonStyle(
                               backgroundColor:
                                   MaterialStatePropertyAll(Colors.lightBlue)),
-                          onPressed: () {
+                          onPressed: () async {
                             if (controller.selectedDate.value != null) {
                               controller.makeReservation();
                             } else {

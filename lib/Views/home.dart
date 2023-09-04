@@ -79,8 +79,8 @@ class HomeScreen1 extends StatelessWidget {
           ),
           body: GetX<HomeController>(
             // ignore: invalid_use_of_protected_member
-            builder: (controller) => controller.usersLisnter.value.isEmpty
-                ? const Center(child: CircularProgressIndicator())
+            builder: (controller) => controller.datesLisnter.value.isEmpty
+                ? const Center(child: Text('No Appoiments For today'))
                 // ignore: invalid_use_of_protected_member
                 : DatesList(dates: controller.datesLisnter.value),
           ),
@@ -136,8 +136,8 @@ class HomeScreen1 extends StatelessWidget {
             ),
             body: GetX<HomeController>(
               // ignore: invalid_use_of_protected_member
-              builder: (controller) => controller.usersLisnter.value.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
+              builder: (controller) => controller.datesLisnter.value.isEmpty
+                  ? const Center(child: Text('No Appoiments For today'))
                   // ignore: invalid_use_of_protected_member
                   : DatesList(dates: controller.datesLisnter.value),
             )),

@@ -37,7 +37,7 @@ class BookingConfirmed extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    () => Get.back();
+                    Get.back();
                   },
                   child: const CircleAvatar(
                     backgroundColor: Colors.lightBlue,

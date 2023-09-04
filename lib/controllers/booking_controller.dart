@@ -53,7 +53,7 @@ class ReservationController extends GetxController {
   String? userToken;
   List? all;
   List? tak;
-  RxBool sundayTimeShowing = true.obs;
+  RxBool sundayTimeShowing = false.obs;
   RxBool tuesTimeShowing = false.obs;
   RxBool mondayTimeShowing = false.obs;
   RxBool isSaturday1H = false.obs;
@@ -788,7 +788,7 @@ class ReservationController extends GetxController {
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(const BookingConfirmed(), arguments: selectedDate);
+          Get.to(() => const BookingConfirmed(), arguments: selectedDate);
         } else {
           // Schedule notification 3 hours before the appointment
           await notificationService.showNotification(

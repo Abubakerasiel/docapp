@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 
 import '../controllers/booking_controller.dart';
 
+// ignore: must_be_immutable
 class TimeShowingTuesday extends StatefulWidget {
-  const TimeShowingTuesday({super.key});
+  DateTime today;
+  TimeShowingTuesday({super.key, required this.today});
 
   @override
   State<TimeShowingTuesday> createState() => _TimeShowingTuesdayState();
@@ -15,357 +17,349 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
   ReservationController controller = Get.put(ReservationController());
   @override
   Widget build(BuildContext context) {
-    var today = controller.selectedDate.value;
-    // bool isMondayOrTuesday = today.weekday == 1 || today.weekday == 2;
+    var today = widget.today;
 
-    DateTime? selectedDate = controller.selectedDate.value;
-    // bool isSelectedDateMonday =
-    //     selectedDate != null && (selectedDate.weekday == 1);
-    // bool isSelectedDateSunday =
-    //     selectedDate != null && (selectedDate.weekday == 7);
+    bool isSelectedDateTuesday = (today.weekday == 2);
 
-    bool isSelectedDateTuesday =
-        selectedDate != null && (selectedDate.weekday == 2);
-
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(0, '4:00', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  4,
-                  00,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(1, '4:15', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  4,
-                  15,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(2, '4:30', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  4,
-                  30,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(3, '4:45', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  4,
-                  45,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(4, '5:00', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  5,
-                  00,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(5, '5:15', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  5,
-                  15,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(6, '5:30', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  5,
-                  30,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(7, '5:45', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  5,
-                  45,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(8, '6:00', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  6,
-                  00,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(9, '6:15', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  6,
-                  15,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(10, '6:30', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  6,
-                  30,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(11, '6:45', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  6,
-                  45,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(12, '7:00', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  7,
-                  00,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(13, '7:15', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  7,
-                  15,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(14, '7:30', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  7,
-                  30,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(15, '7:45', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  7,
-                  45,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton4(16, '8:00', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  8,
-                  00,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-            _buildButton4(17, '8:15', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  8,
-                  15,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            }),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildButton4(18, '8:30', () {
-              setState(() {
-                // controller.isButtonTapped.value =
-                //     !controller.isButtonTapped.value;
-                controller.selectedDate.value = DateTime(
-                  today!.year,
-                  today.month,
-                  today.day,
-                  8,
-                  30,
-                );
-                // print(controller.selectedDate.value);
-              });
-              // Function to be executed when Button 1 is pressed.
-            })
-          ],
-        ),
-        Obx(
-          () => controller.isTuesday1H.value && isSelectedDateTuesday
+    return Obx(
+      () => Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(0, '4:00', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    4,
+                    00,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(1, '4:15', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    4,
+                    15,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(2, '4:30', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    4,
+                    30,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(3, '4:45', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    4,
+                    45,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(4, '5:00', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    5,
+                    00,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(5, '5:15', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    5,
+                    15,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(6, '5:30', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    5,
+                    30,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(7, '5:45', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    5,
+                    45,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(8, '6:00', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    6,
+                    00,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(9, '6:15', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    6,
+                    15,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(10, '6:30', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    6,
+                    30,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(11, '6:45', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    6,
+                    45,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(12, '7:00', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    7,
+                    00,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(13, '7:15', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    7,
+                    15,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(14, '7:30', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    7,
+                    30,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(15, '7:45', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    7,
+                    45,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton4(16, '8:00', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    8,
+                    00,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+              _buildButton4(17, '8:15', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    8,
+                    15,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildButton4(18, '8:30', () {
+                setState(() {
+                  // controller.isButtonTapped.value =
+                  //     !controller.isButtonTapped.value;
+                  controller.selectedDate.value = DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    8,
+                    30,
+                  );
+                  // print(controller.selectedDate.value);
+                });
+                // Function to be executed when Button 1 is pressed.
+              })
+            ],
+          ),
+          controller.isTuesday1H.value && isSelectedDateTuesday
               ? Column(
                   children: [
                     Row(
@@ -376,7 +370,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             // controller.isButtonTapped.value =
                             //     !controller.isButtonTapped.value;
                             controller.selectedDate.value = DateTime(
-                              today!.year,
+                              today.year,
                               today.month,
                               today.day,
                               8,
@@ -390,7 +384,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             // controller.isButtonTapped.value =
                             //     !controller.isButtonTapped.value;
                             controller.selectedDate.value = DateTime(
-                              today!.year,
+                              today.year,
                               today.month,
                               today.day,
                               9,
@@ -409,7 +403,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             // controller.isButtonTapped.value =
                             //     !controller.isButtonTapped.value;
                             controller.selectedDate.value = DateTime(
-                              today!.year,
+                              today.year,
                               today.month,
                               today.day,
                               9,
@@ -423,7 +417,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             // controller.isButtonTapped.value =
                             //     !controller.isButtonTapped.value;
                             controller.selectedDate.value = DateTime(
-                              today!.year,
+                              today.year,
                               today.month,
                               today.day,
                               9,
@@ -446,7 +440,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                                       // controller.isButtonTapped.value =
                                       //     !controller.isButtonTapped.value;
                                       controller.selectedDate.value = DateTime(
-                                        today!.year,
+                                        today.year,
                                         today.month,
                                         today.day,
                                         9,
@@ -460,7 +454,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                                       // controller.isButtonTapped.value =
                                       //     !controller.isButtonTapped.value;
                                       controller.selectedDate.value = DateTime(
-                                        today!.year,
+                                        today.year,
                                         today.month,
                                         today.day,
                                         10,
@@ -480,7 +474,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                                       // controller.isButtonTapped.value =
                                       //     !controller.isButtonTapped.value;
                                       controller.selectedDate.value = DateTime(
-                                        today!.year,
+                                        today.year,
                                         today.month,
                                         today.day,
                                         10,
@@ -494,7 +488,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                                       // controller.isButtonTapped.value =
                                       //     !controller.isButtonTapped.value;
                                       controller.selectedDate.value = DateTime(
-                                        today!.year,
+                                        today.year,
                                         today.month,
                                         today.day,
                                         10,
@@ -511,8 +505,8 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                   ],
                 )
               : const SizedBox(),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -532,10 +526,10 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
             // Then, set the clicked button to be selected.
             _isButtonTappedList[index] = true;
           }
+          onTap();
         });
 
         // Execute the callback function when the button is tapped.
-        onTap();
       },
       child: Container(
         alignment: Alignment.center,
