@@ -23,7 +23,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
 
     return Obx(
       () => Column(children: [
-        controller.Tuesday11.value && isSelectedDateTuesday
+        controller.Tuesday11am.value && isSelectedDateTuesday
             ? Column(
                 children: [
                   Row(
@@ -869,7 +869,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                 ],
               )
             : SizedBox(),
-        controller.Tuesday11am.value && isSelectedDateTuesday
+        controller.Tuesday11.value && isSelectedDateTuesday
             ? Column(
                 children: [
                   Row(

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutterappoinmentapp/Views/monday.dart';
 import 'package:flutterappoinmentapp/Views/saturday.dart';
 import 'package:flutterappoinmentapp/Views/statemnet_page.dart';
+import 'package:flutterappoinmentapp/Views/sunday.dart';
+import 'package:flutterappoinmentapp/Views/tuesday.dart';
+import 'package:flutterappoinmentapp/Views/wednesday.dart';
 import 'package:get/get.dart';
 
-import '../controllers/booking_controller.dart';
+//import '../controllers/booking_controller.dart';
 import '../controllers/home_controller.dart';
 import 'booking_page2.0.dart';
 import 'constanst.dart';
@@ -19,7 +23,7 @@ class AdminTimeEdit extends StatefulWidget {
 class _AdminTimeEditState extends State<AdminTimeEdit> {
   @override
   Widget build(BuildContext context) {
-    final ReservationController controller = Get.put(ReservationController());
+    // final ReservationController controller = Get.put(ReservationController());
     HomeController controller2 = HomeController();
     void _onItemTapped(int index) async {
       if (index == 0) {
@@ -91,17 +95,29 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  Get.to(Saturday());
+                  Get.to(() => Saturday());
                 },
                 child: Text('Saturday Time Modifying')),
             ElevatedButton(
-                onPressed: () {}, child: Text('Saturday Time Modifying')),
+                onPressed: () {
+                  Get.to(() => Sunday());
+                },
+                child: Text('Sunday Time Modifying')),
             ElevatedButton(
-                onPressed: () {}, child: Text('Saturday Time Modifying')),
+                onPressed: () {
+                  Get.to(() => Monday());
+                },
+                child: Text('Monday Time Modifying')),
             ElevatedButton(
-                onPressed: () {}, child: Text('Saturday Time Modifying')),
+                onPressed: () {
+                  Get.to(() => Tuesday());
+                },
+                child: Text('Tuesday Time Modifying')),
             ElevatedButton(
-                onPressed: () {}, child: Text('Saturday Time Modifying')),
+                onPressed: () {
+                  Get.to(() => Wednesday());
+                },
+                child: Text('Wednesday Time Modifying')),
             ElevatedButton(
                 onPressed: () {}, child: Text('Saturday Time Modifying')),
           ],

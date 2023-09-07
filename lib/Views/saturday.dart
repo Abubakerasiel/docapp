@@ -3,6 +3,7 @@ import 'package:flutterappoinmentapp/Views/time_editng.dart';
 import 'package:flutterappoinmentapp/controllers/booking_controller.dart';
 import 'package:get/get.dart';
 
+import '../controllers/home_controller.dart';
 import 'booking_page2.0.dart';
 import 'constanst.dart';
 import 'home.dart';
@@ -11,6 +12,7 @@ class Saturday extends StatelessWidget {
   const Saturday({super.key});
 
   Widget build(BuildContext context) {
+    HomeController controller2 = HomeController();
     void _onItemTapped(int index) async {
       if (index == 0) {
         Get.off(() => HomeScreen1(),
@@ -35,277 +37,594 @@ class Saturday extends StatelessWidget {
 
     ReservationController controller = Get.put(ReservationController());
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.lightBlue,
+          toolbarHeight: 60,
+          elevation: 14,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(70),
+                  bottomLeft: Radius.circular(70))),
+          title: Text(
+            'Saturday Setting Page',
+          ),
+          actions: [
+            Row(
+              children: [
+                Container(
+                  height: 40,
+                  width: 40,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(blurRadius: 7, spreadRadius: 3, color: Colors.red)
+                  ], shape: BoxShape.circle, color: Colors.redAccent),
+                  child: IconButton(
+                    onPressed: () => controller2.logOut(),
+                    icon: Icon(
+                      Icons.logout,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 26,
+                )
+              ],
+            )
+          ],
+        ),
         body: Obx(
           () => ListView(children: [
             ListTile(
               title: GestureDetector(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({
-                      'saturdayDisabled': !controller.disableSaturday.value
-                    });
-                    await controller.getDataFromFirestore();
-                  },
+                  onTap: () async {},
                   child: controller.disableSaturday.value
-                      ? Text('Saturday Is Disabled')
-                      : Text('Saturday Is Enabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.disableSaturday.value
-                    ? Colors.redAccent
-                    : Colors.greenAccent,
-              ),
+                      ? ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Colors.redAccent)),
+                          onPressed: () async {
+                            await controller.docTime
+                                .doc('WTMfaIqjFuL686hKuK9h')
+                                .update({
+                              'saturdayDisabled':
+                                  !controller.disableSaturday.value
+                            });
+                            await controller.getDataFromFirestore();
+                          },
+                          child: Text('Saturday Is Disabled'))
+                      : ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Colors.greenAccent)),
+                          onPressed: () async {
+                            await controller.docTime
+                                .doc('WTMfaIqjFuL686hKuK9h')
+                                .update({
+                              'saturdayDisabled':
+                                  !controller.disableSaturday.value
+                            });
+                            await controller.getDataFromFirestore();
+                          },
+                          child: Text('Saturday Is Enabled '))),
+              trailing: controller.disableSaturday.value
+                  ? Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    )
+                  : Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday11': !controller.Sturaday11.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday1.value
-                      ? Text('Saturday 11 Enabled')
-                      : Text('Saturday 11 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday11.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday11am.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          '  Sturaday11am': !controller.Sturaday11am.value
+                        });
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 11 AM Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          '  Sturaday11am': !controller.Sturaday11am.value
+                        });
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 11 AM Is Disabled ')),
+              trailing: controller.Sturaday11am.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday12': !controller.Sturaday12.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday1.value
-                      ? Text('Saturday 12 Enabled')
-                      : Text('Saturday 12 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday12.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday12am.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          '  Sturaday12am': !controller.Sturaday12am.value
+                        });
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 12  Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update({
+                          '  Sturaday12am': !controller.Sturaday12am.value
+                        });
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 12  Is Disabled ')),
+              trailing: controller.Sturaday12am.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday1': !controller.Sturaday1.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday1.value
-                      ? Text('Saturday 1 Enabled')
-                      : Text('Saturday 1 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday1.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday1.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday1': !controller.Sturaday1.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 1 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday1': !controller.Sturaday1.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 1 Is Disabled ')),
+              trailing: controller.Sturaday1.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday2': !controller.Sturaday2.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday2.value
-                      ? Text('Saturday 2 Enabled')
-                      : Text('Saturday 2 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday2.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday2.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday2': !controller.Sturaday2.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 2 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday2': !controller.Sturaday2.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 2 Is Disabled ')),
+              trailing: controller.Sturaday2.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday3': !controller.Sturaday3.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday3.value
-                      ? Text('Saturday 3 Enabled')
-                      : Text('Saturday 3 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday3.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday3.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday3': !controller.Sturaday3.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 3 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday3': !controller.Sturaday3.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 3 Is Disabled ')),
+              trailing: controller.Sturaday3.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday4': !controller.Sturaday4.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday4.value
-                      ? Text('Saturday 4 Enabled')
-                      : Text('Saturday 4 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday4.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday4.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday4': !controller.Sturaday4.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 4 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday4': !controller.Sturaday4.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 4 Is Disabled ')),
+              trailing: controller.Sturaday4.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday5': !controller.Sturaday5.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday5.value
-                      ? Text('Saturday 5 Enabled')
-                      : Text('Saturday 5 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday5.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday5.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday5': !controller.Sturaday5.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 5 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday5': !controller.Sturaday5.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 5 Is Disabled ')),
+              trailing: controller.Sturaday5.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday6': !controller.Sturaday6.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday6.value
-                      ? Text('Saturday 6 Enabled')
-                      : Text('Saturday 6 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday6.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday6.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday6': !controller.Sturaday6.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 6 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday6': !controller.Sturaday6.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 6 Is Disabled ')),
+              trailing: controller.Sturaday6.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday7': !controller.Sturaday7.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday1.value
-                      ? Text('Saturday 7 Enabled')
-                      : Text('Saturday 7 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday7.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday7.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday7': !controller.Sturaday7.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 7 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday1': !controller.Sturaday7.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 7 Is Disabled ')),
+              trailing: controller.Sturaday7.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday8': !controller.Sturaday8.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday8.value
-                      ? Text('Saturday 8 Enabled')
-                      : Text('Saturday 8 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday8.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday8.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday8': !controller.Sturaday8.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 8 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday8': !controller.Sturaday8.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 8 Is Disabled ')),
+              trailing: controller.Sturaday8.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday9': !controller.Sturaday9.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday9.value
-                      ? Text('Saturday 9 Enabled')
-                      : Text('Saturday 9 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday9.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday9.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday9': !controller.Sturaday9.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 9 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday9': !controller.Sturaday9.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 9 Is Disabled ')),
+              trailing: controller.Sturaday9.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime
-                        .doc('WTMfaIqjFuL686hKuK9h')
-                        .update({'  Sturaday10': !controller.Sturaday10.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday10.value
-                      ? Text('Saturday 10 Enabled')
-                      : Text('Saturday 10 Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday10.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday10.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday10': !controller.Sturaday10.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 10 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday10': !controller.Sturaday10.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 10 Is Disabled ')),
+              trailing: controller.Sturaday10.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime.doc('WTMfaIqjFuL686hKuK9h').update(
-                        {'  Sturaday11am': !controller.Sturaday11am.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday1.value
-                      ? Text('Saturday 11Am Enabled')
-                      : Text('Saturday 11AM Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday11am.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday11.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday11': !controller.Sturaday11.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 11 Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday11': !controller.Sturaday11.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 11 Is Disabled ')),
+              trailing: controller.Sturaday11.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
             ListTile(
-              title: InkWell(
-                  onTap: () async {
-                    await controller.docTime.doc('WTMfaIqjFuL686hKuK9h').update(
-                        {'  Sturaday12am': !controller.Sturaday12am.value});
-                    await controller.getDataFromFirestore();
-                  },
-                  child: controller.Sturaday1.value
-                      ? Text('Saturday 12Am Enabled')
-                      : Text('Saturday 12Am Disabled ')),
-              trailing: Icon(
-                Icons.check_circle,
-                color: controller.Sturaday12am.value
-                    ? Colors.greenAccent
-                    : Colors.redAccent,
-              ),
+              title: controller.Sturaday12.value
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.greenAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday12': !controller.Sturaday12.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 12 AM Is Enabled'))
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.redAccent)),
+                      onPressed: () async {
+                        await controller.docTime
+                            .doc('WTMfaIqjFuL686hKuK9h')
+                            .update(
+                                {'  Sturaday12': !controller.Sturaday12.value});
+                        await controller.getDataFromFirestore();
+                      },
+                      child: Text('Saturday 12 AM Is Disabled ')),
+              trailing: controller.Sturaday12.value
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(
+                      Icons.remove_circle,
+                      color: Colors.redAccent,
+                    ),
             ),
           ]),
         ),

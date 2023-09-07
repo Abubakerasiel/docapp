@@ -383,7 +383,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                   : controller.thursdayTimeShowing.value
                                       ? TimeShowingThursday(today: today)
                                       : Column(children: [
-                                          controller.Sturaday11.value
+                                          controller.Sturaday11am.value
                                               ? Column(
                                                   children: [
                                                     Row(
@@ -1469,7 +1469,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                   ],
                                                 )
                                               : SizedBox(),
-                                          controller.Sturaday11am.value
+                                          controller.Sturaday11.value
                                               ? Column(
                                                   children: [
                                                     Row(
