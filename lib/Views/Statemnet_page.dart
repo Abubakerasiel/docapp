@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterappoinmentapp/Views/booking_page2.0.dart';
 
 import 'package:flutterappoinmentapp/Views/constanst.dart';
 import 'package:flutterappoinmentapp/Views/home.dart';
@@ -30,6 +31,11 @@ class StatmentPage extends StatelessWidget {
       } else if (index == 1) {
       } else if (index == 2) {
         Get.off(() => const AdminTimeEdit(),
+            curve: Curves.easeInOut,
+            duration: Duration(seconds: 1),
+            transition: Transition.fadeIn);
+      } else if (index == 3) {
+        Get.off(() => const BookingScreen(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -179,6 +185,10 @@ class StatmentPage extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: const Icon(Icons.person_sharp),
                 label: 'Time Editing Page'.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.calendar_month_outlined),
+                label: 'Calender Page'.tr,
               ),
             ],
             currentIndex: 1,

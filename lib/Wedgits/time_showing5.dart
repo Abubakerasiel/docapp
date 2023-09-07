@@ -4,25 +4,25 @@ import 'package:get/get.dart';
 import '../controllers/booking_controller.dart';
 
 // ignore: must_be_immutable
-class TimeShowingSunday extends StatefulWidget {
+class TimeShowingWednesday extends StatefulWidget {
   DateTime today;
-  TimeShowingSunday({super.key, required this.today});
+  TimeShowingWednesday({super.key, required this.today});
 
   @override
-  State<TimeShowingSunday> createState() => _TimeShowingSundayState();
+  State<TimeShowingWednesday> createState() => _TimeShowingWednesdayState();
 }
 
-class _TimeShowingSundayState extends State<TimeShowingSunday> {
+class _TimeShowingWednesdayState extends State<TimeShowingWednesday> {
   final List<bool> _isButtonTappedList = List.generate(1000, (index) => false);
   ReservationController controller = Get.put(ReservationController());
   @override
   Widget build(BuildContext context) {
     var today = widget.today;
-    bool isSelectedDateSunday = (today.weekday == 7);
+    bool isSelectedDateWednesday = (today.weekday == 3);
 
     return Obx(
       () => Column(children: [
-        controller.Sunday11.value && isSelectedDateSunday
+        controller.Wedneseday11.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -87,7 +87,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday12.value && isSelectedDateSunday
+        controller.Wedneseday12.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -148,7 +148,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday1.value && isSelectedDateSunday
+        controller.Wedneseday1.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -220,7 +220,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday2.value && isSelectedDateSunday
+        controller.Wedneseday2.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -292,7 +292,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday3.value && isSelectedDateSunday
+        controller.Wedneseday3.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -364,7 +364,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday4.value && isSelectedDateSunday
+        controller.Wedneseday4.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -436,7 +436,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday5.value && isSelectedDateSunday
+        controller.Wedneseday5.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -508,7 +508,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday6.value && isSelectedDateSunday
+        controller.Wedneseday6.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -580,7 +580,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday7.value && isSelectedDateSunday
+        controller.Wedneseday7.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -652,7 +652,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday8.value && isSelectedDateSunday
+        controller.Wedneseday8.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -724,7 +724,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday9.value && isSelectedDateSunday
+        controller.Wedneseday9.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -796,7 +796,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday10.value && isSelectedDateSunday
+        controller.Wedneseday10.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -868,7 +868,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday11am.value && isSelectedDateSunday
+        controller.Wedneseday11am.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(
@@ -940,7 +940,7 @@ class _TimeShowingSundayState extends State<TimeShowingSunday> {
                 ],
               )
             : SizedBox(),
-        controller.Sunday12am.value && isSelectedDateSunday
+        controller.Wedneseday12am.value && isSelectedDateWednesday
             ? Column(
                 children: [
                   Row(

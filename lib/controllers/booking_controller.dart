@@ -56,20 +56,100 @@ class ReservationController extends GetxController {
   RxBool sundayTimeShowing = false.obs;
   RxBool tuesTimeShowing = false.obs;
   RxBool mondayTimeShowing = false.obs;
-  RxBool isSaturday1H = false.obs;
+  RxBool wednesdayTimeShowing = false.obs;
+  RxBool thursdayTimeShowing = false.obs;
 
-  RxBool isSunday1H = false.obs;
-  RxBool isMonday1H = false.obs;
-  RxBool isTuesday1H = false.obs;
-  RxBool isSaturday2H = false.obs;
+  RxBool Sturaday11 = false.obs;
+  RxBool Sturaday12 = false.obs;
+  RxBool Sturaday1 = false.obs;
+  RxBool Sturaday2 = false.obs;
+  RxBool Sturaday3 = false.obs;
+  RxBool Sturaday4 = false.obs;
+  RxBool Sturaday5 = false.obs;
+  RxBool Sturaday6 = false.obs;
+  RxBool Sturaday7 = false.obs;
+  RxBool Sturaday8 = false.obs;
+  RxBool Sturaday9 = false.obs;
+  RxBool Sturaday10 = false.obs;
+  RxBool Sturaday11am = false.obs;
+  RxBool Sturaday12am = false.obs;
+  RxBool Sunday11 = false.obs;
+  RxBool Sunday12 = false.obs;
+  RxBool Sunday1 = false.obs;
+  RxBool Sunday2 = false.obs;
+  RxBool Sunday3 = false.obs;
+  RxBool Sunday4 = false.obs;
+  RxBool Sunday5 = false.obs;
+  RxBool Sunday6 = false.obs;
+  RxBool Sunday7 = false.obs;
+  RxBool Sunday8 = false.obs;
+  RxBool Sunday9 = false.obs;
+  RxBool Sunday10 = false.obs;
+  RxBool Sunday11am = false.obs;
+  RxBool Sunday12am = false.obs;
+  RxBool Monday11 = false.obs;
+  RxBool Monday12 = false.obs;
+  RxBool Monday1 = false.obs;
+  RxBool Monday2 = false.obs;
+  RxBool Monday3 = false.obs;
+  RxBool Monday4 = false.obs;
+  RxBool Monday5 = false.obs;
+  RxBool Monday6 = false.obs;
+  RxBool Monday7 = false.obs;
+  RxBool Monday8 = false.obs;
+  RxBool Monday9 = false.obs;
+  RxBool Monday10 = false.obs;
+  RxBool Monday11am = false.obs;
+  RxBool Monday12am = false.obs;
+  RxBool Tuesday11 = false.obs;
+  RxBool Tuesday12 = false.obs;
+  RxBool Tuesday1 = false.obs;
+  RxBool Tuesday2 = false.obs;
+  RxBool Tuesday3 = false.obs;
+  RxBool Tuesday4 = false.obs;
+  RxBool Tuesday5 = false.obs;
+  RxBool Tuesday6 = false.obs;
+  RxBool Tuesday7 = false.obs;
+  RxBool Tuesday8 = false.obs;
+  RxBool Tuesday9 = false.obs;
+  RxBool Tuesday10 = false.obs;
+  RxBool Tuesday11am = false.obs;
+  RxBool Tuesday12am = false.obs;
+  RxBool Wedneseday11 = false.obs;
+  RxBool Wedneseday12 = false.obs;
+  RxBool Wedneseday1 = false.obs;
+  RxBool Wedneseday2 = false.obs;
+  RxBool Wedneseday3 = false.obs;
+  RxBool Wedneseday4 = false.obs;
+  RxBool Wedneseday5 = false.obs;
+  RxBool Wedneseday6 = false.obs;
+  RxBool Wedneseday7 = false.obs;
+  RxBool Wedneseday8 = false.obs;
+  RxBool Wedneseday9 = false.obs;
+  RxBool Wedneseday10 = false.obs;
+  RxBool Wedneseday11am = false.obs;
+  RxBool Wedneseday12am = false.obs;
+  RxBool Thrusday11 = false.obs;
+  RxBool Thrusday12 = false.obs;
+  RxBool Thrusday1 = false.obs;
+  RxBool Thrusday2 = false.obs;
+  RxBool Thrusday3 = false.obs;
+  RxBool Thrusday4 = false.obs;
+  RxBool Thrusday5 = false.obs;
+  RxBool Thrusday6 = false.obs;
+  RxBool Thrusday7 = false.obs;
+  RxBool Thrusday8 = false.obs;
+  RxBool Thrusday9 = false.obs;
+  RxBool Thrusday10 = false.obs;
+  RxBool Thrusday11am = false.obs;
+  RxBool Thrusday12am = false.obs;
 
-  RxBool isSunday2H = false.obs;
-  RxBool isMonday2H = false.obs;
-  RxBool isTuesday2H = false.obs;
   RxBool disableSunday = false.obs;
   RxBool disableMonday = false.obs;
   RxBool disableTuesday = false.obs;
   RxBool disableSaturday = false.obs;
+  RxBool disableWednesday = false.obs;
+  RxBool disableThursday = false.obs;
 
   TextEditingController stat = TextEditingController();
 
@@ -95,7 +175,7 @@ class ReservationController extends GetxController {
   }
 
   Future<String?> getUserToken() async {
-    logi.log(isSaturday1H.value.toString());
+    // logi.log(isSaturday1H.value.toString());
     String? token;
     try {
       // Request for the user's token
@@ -126,25 +206,104 @@ class ReservationController extends GetxController {
         final data = snapshot.data();
 
         // Store each field value in separate variables
-        isSaturday1H.value = data!['is_satruday'];
-        isSunday1H.value = data['is_sunday'];
-        isMonday1H.value = data['is_monday'];
-        isTuesday1H.value = data['is_tuesday'];
-        isSaturday2H.value = data['is_saturday2h'];
-        isSunday2H.value = data['is_sunday2h'];
-        isMonday2H.value = data['is_monday2h'];
-        isTuesday2H.value = data['is_tuesday2h'];
+
+        Sturaday11.value = data!['  Sturaday11'];
+        Sturaday12.value = data['  Sturaday12'] ?? false;
+        Sturaday1.value = data['  Sturaday1'] ?? false;
+        Sturaday2.value = data['  Sturaday2'] ?? false;
+        Sturaday3.value = data['  Sturaday3'] ?? false;
+        Sturaday4.value = data['  Sturaday4'] ?? false;
+        Sturaday5.value = data['  Sturaday5'] ?? false;
+        Sturaday6.value = data['  Sturaday6'] ?? false;
+        Sturaday7.value = data['  Sturaday7'] ?? false;
+        Sturaday8.value = data['  Sturaday8'] ?? false;
+        Sturaday9.value = data['  Sturaday9'] ?? false;
+        Sturaday10.value = data['  Sturaday10'] ?? false;
+        Sturaday11am.value = data['  Sturaday11am'] ?? false;
+        Sturaday12am.value = data['  Sturaday12am'] ?? false;
+        Sunday11.value = data['Sunday11'] ?? false;
+        Sunday12.value = data['Sunday12'] ?? false;
+        Sunday1.value = data['Sunday1 '] ?? false;
+        Sunday2.value = data['Sunday2'] ?? false;
+        Sunday3.value = data['Sunday3'] ?? false;
+        Sunday4.value = data['Sunday4'] ?? false;
+        Sunday5.value = data['Sunday5'] ?? false;
+        Sunday6.value = data['Sunday6'] ?? false;
+        Sunday7.value = data['Sunday7'] ?? false;
+        Sunday8.value = data['Sunday8'] ?? false;
+        Sunday9.value = data['Sunday9'] ?? false;
+        Sunday10.value = data['Sunday10'] ?? false;
+        Sunday11am.value = data['Sunday11am'] ?? false;
+        Sunday12am.value = data['Sunday12am'] ?? false;
+        Monday11.value = data[' Monday11'] ?? false;
+        Monday12.value = data[' Monday12'] ?? false;
+        Monday1.value = data[' Monday1'] ?? false;
+        Monday2.value = data[' Monday2'] ?? false;
+        Monday3.value = data[' Monday3'] ?? false;
+        Monday4.value = data[' Monday4'] ?? false;
+        Monday5.value = data[' Monday5'] ?? false;
+        Monday6.value = data[' Monday6'] ?? false;
+        Monday7.value = data[' Monday7'] ?? false;
+        Monday8.value = data[' Monday8'] ?? false;
+        Monday9.value = data[' Monday9'] ?? false;
+        Monday10.value = data[' Monday10'] ?? false;
+        Monday11am.value = data[' Monday11am'] ?? false;
+        Monday12am.value = data[' Monday12am'] ?? false;
+        Tuesday11.value = data[' Tuesday11'] ?? false;
+        Tuesday12.value = data[' Tuesday12'] ?? false;
+        Tuesday1.value = data[' Tuesday1'] ?? false;
+        Tuesday2.value = data[' Tuesday2'] ?? false;
+        Tuesday3.value = data[' Tuesday3'] ?? false;
+        Tuesday4.value = data[' Tuesday4'] ?? false;
+        Tuesday5.value = data[' Tuesday5'] ?? false;
+        Tuesday6.value = data[' Tuesday6'] ?? false;
+        Tuesday7.value = data[' Tuesday7'] ?? false;
+        Tuesday8.value = data[' Tuesday8'] ?? false;
+        Tuesday9.value = data[' Tuesday9'] ?? false;
+        Tuesday10.value = data[' Tuesday10'] ?? false;
+        Tuesday11am.value = data[' Tuesday11am'] ?? false;
+        Tuesday12am.value = data[' Tuesday12am'] ?? false;
+        Wedneseday11.value = data[' Wedneseday11'] ?? false;
+        Wedneseday12.value = data[' Wedneseday12'] ?? false;
+        Wedneseday1.value = data[' Wedneseday1'] ?? false;
+        Wedneseday2.value = data[' Wedneseday2'] ?? false;
+        Wedneseday3.value = data[' Wedneseday3'] ?? false;
+        Wedneseday4.value = data[' Wedneseday4'] ?? false;
+        Wedneseday5.value = data[' Wedneseday5'] ?? false;
+        Wedneseday6.value = data[' Wedneseday6'] ?? false;
+        Wedneseday7.value = data[' Wedneseday7'] ?? false;
+        Wedneseday8.value = data[' Wedneseday8'] ?? false;
+        Wedneseday9.value = data[' Wedneseday9'] ?? false;
+        Wedneseday10.value = data[' Wedneseday10'] ?? false;
+        Wedneseday11am.value = data[' Wedneseday11am'] ?? false;
+        Wedneseday12am.value = data[' Wedneseday12am'] ?? false;
+        Thrusday11.value = data['Thrusday11 '] ?? false;
+        Thrusday12.value = data['Thrusday12'] ?? false;
+        Thrusday1.value = data['Thrusday1'] ?? false;
+        Thrusday2.value = data['Thrusday2'] ?? false;
+        Thrusday3.value = data['Thrusday3'] ?? false;
+        Thrusday4.value = data['Thrusday4'] ?? false;
+        Thrusday5.value = data['Thrusday5'] ?? false;
+        Thrusday6.value = data['Thrusday6'] ?? false;
+        Thrusday7.value = data['Thrusday7'] ?? false;
+        Thrusday8.value = data['Thrusday8'] ?? false;
+        Thrusday9.value = data['Thrusday9'] ?? false;
+        Thrusday10.value = data['Thrusday10'] ?? false;
+        Thrusday11am.value = data['Thrusday11am'] ?? false;
+        Thrusday12am.value = data['Thrusday12am'] ?? false;
+
         disableSaturday.value = data['saturdayDisabled'];
         disableSunday.value = data['sundayDisabled'];
         disableMonday.value = data['mondayDisabled'];
         disableTuesday.value = data['tuesdayDisabled'];
+        disableWednesday.value = data['disableWednesday'];
+        disableThursday.value = data['disableThursday'];
       } else {
         logi.log('Document not found!');
       }
     } catch (e) {
       logi.log('Error getting document: $e');
     }
-    update();
   }
 
   Future<Map<String, dynamic>?> retrieveTokens() async {

@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart' as tl;
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../controllers/booking_controller.dart';
+import 'booking_page2.0.dart';
 
 class DatesList extends StatefulWidget {
   const DatesList({super.key, required this.dates});
@@ -71,6 +72,11 @@ class _DatesListState extends State<DatesList> {
             transition: Transition.fadeIn);
       } else if (index == 2) {
         Get.off(() => const AdminTimeEdit(),
+            curve: Curves.easeInOut,
+            duration: Duration(seconds: 1),
+            transition: Transition.fadeIn);
+      } else if (index == 3) {
+        Get.off(() => const BookingScreen(),
             curve: Curves.easeInOut,
             duration: Duration(seconds: 1),
             transition: Transition.fadeIn);
@@ -359,6 +365,10 @@ class _DatesListState extends State<DatesList> {
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.person_sharp),
                   label: 'Time Editing Page'.tr,
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.calendar_month_outlined),
+                  label: 'Calender Page'.tr,
                 ),
               ],
               currentIndex: 0,
