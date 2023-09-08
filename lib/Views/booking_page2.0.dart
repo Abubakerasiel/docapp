@@ -6,7 +6,6 @@ import 'package:flutterappoinmentapp/Views/statemnet_page.dart';
 import 'package:flutterappoinmentapp/Views/time_editng.dart';
 import 'package:flutterappoinmentapp/Views/user_appoiment.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
-import 'package:flutterappoinmentapp/Views/user_page.dart';
 
 import 'package:flutterappoinmentapp/Wedgits/time_showing3.dart';
 import 'package:flutterappoinmentapp/Wedgits/time_showing4.dart';
@@ -63,10 +62,19 @@ class _BookingScreenState extends State<BookingScreen> {
 
     if (day.weekday == 5) {
       Get.snackbar(
-        'Wrong Day'.tr,
-        'Please Select A Day from Saturday To Tuesday'.tr,
-        backgroundColor: Colors.red,
-      );
+          titleText: Text(
+            'This Day is off'.tr,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          'This Day is off'.tr,
+          'Please Select A Day from Saturday To Tuesday'.tr,
+          backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM,
+          messageText: Text(
+            'Please Select A Day from Saturday To Tuesday'.tr,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          duration: Duration(seconds: 2));
     }
 
     // }
@@ -162,9 +170,16 @@ class _BookingScreenState extends State<BookingScreen> {
       });
     } else {
       Get.snackbar(
-        'The Day is off'.tr,
+        'This Day is off'.tr,
         'Please Select Another day'.tr,
+        messageText: Text(
+          'Please Select Another day',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.red,
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
       );
     }
   }
@@ -207,9 +222,9 @@ class _BookingScreenState extends State<BookingScreen> {
     void _onItemTapped(int index) {
       if (index == 0) {
         Get.off(() => HomeScreen1(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
@@ -218,16 +233,16 @@ class _BookingScreenState extends State<BookingScreen> {
       } else if (index == 2) {
         Get.off(() => UserDetailsPage(userId: controller.user!.uid),
             arguments: controller.user!.uid,
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 3) {
         Get.off(() => const UserAppoimetn(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
       }
@@ -235,32 +250,31 @@ class _BookingScreenState extends State<BookingScreen> {
 
     void _onItemTapped2(int index) {
       if (index == 0) {
-        Get.off(() => UserPage(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+        Get.off(() => HomeScreen1(),
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
         Get.off(() => StatmentPage(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'Business' is tapped, navigate to the sign-in screen
         // Get.off(BookingScreen());
       } else if (index == 2) {
         Get.off(() => AdminTimeEdit(),
-            arguments: controller.user!.uid,
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 3) {
         Get.off(() => const BookingScreen(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'School' is tapped, do nothing (stay on the current page)
         return;
       }
@@ -342,8 +356,8 @@ class _BookingScreenState extends State<BookingScreen> {
                       ),
                       calendarBuilders: const CalendarBuilders(),
                       weekendDays: const [
-                        // DateTime.wednesday,
-                        // DateTime.thursday,
+                        DateTime.wednesday,
+                        DateTime.thursday,
                         DateTime.friday
                       ],
                       selectedDayPredicate: (day) => isSameDay(day, today),
@@ -1489,7 +1503,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                               today.year,
                                                               today.month,
                                                               today.day,
-                                                              23,
+                                                              11,
                                                               00,
                                                             );
                                                           });
@@ -1507,7 +1521,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                               today.year,
                                                               today.month,
                                                               today.day,
-                                                              23,
+                                                              11,
                                                               15,
                                                             );
                                                           });
@@ -1532,7 +1546,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                               today.year,
                                                               today.month,
                                                               today.day,
-                                                              23,
+                                                              11,
                                                               30,
                                                             );
                                                           });
@@ -1550,7 +1564,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                               today.year,
                                                               today.month,
                                                               today.day,
-                                                              23,
+                                                              11,
                                                               45,
                                                             );
                                                           });

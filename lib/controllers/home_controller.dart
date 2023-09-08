@@ -45,9 +45,9 @@ class HomeController extends GetxController {
     if (!isLoggedOut) return;
 
     Get.offAll(() => const SignInScreen1(),
-        curve: Curves.easeInOut,
-        duration: Duration(seconds: 1),
-        transition: Transition.fadeIn);
+        curve: Curves.easeIn,
+        duration: Duration(milliseconds: 500),
+        transition: Transition.native);
   }
 
   void getDatesData() async {

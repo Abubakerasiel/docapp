@@ -31,24 +31,24 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
   void _onItemTapped(int index) async {
     if (index == 0) {
       Get.off(() => UserPage(),
-          curve: Curves.easeInOut,
-          duration: Duration(seconds: 1),
-          transition: Transition.fadeIn);
+          curve: Curves.easeIn,
+          duration: Duration(milliseconds: 500),
+          transition: Transition.native);
       // If 'Home' is tapped, do nothing (stay on the current page)
       return;
     } else if (index == 1) {
       // await controller.getDataFromFirestore();
       // If 'Business' is tapped, navigate to the sign-in screen
       Get.to(() => const BookingScreen(),
-          curve: Curves.easeInOut,
-          duration: Duration(seconds: 1),
-          transition: Transition.fadeIn);
+          curve: Curves.easeIn,
+          duration: Duration(milliseconds: 500),
+          transition: Transition.native);
     } else if (index == 2) {
       Get.off(() => UserDetailsPage(userId: controller.user!.uid),
           arguments: controller.user!.uid,
-          curve: Curves.easeInOut,
-          duration: Duration(seconds: 1),
-          transition: Transition.fadeIn);
+          curve: Curves.easeIn,
+          duration: Duration(milliseconds: 500),
+          transition: Transition.native);
       // If 'School' is tapped, do nothing (stay on the current page)
       return;
     } else if (index == 3) {
@@ -237,7 +237,10 @@ class _UserAppoimetnState extends State<UserAppoimetn> {
                                           () => UserDetailsPage(
                                                 userId: userID3,
                                               ),
-                                          arguments: userID3);
+                                          arguments: userID3,
+                                          curve: Curves.easeIn,
+                                          duration: Duration(milliseconds: 500),
+                                          transition: Transition.native);
                                     },
                                     child: const CircleAvatar(
                                       backgroundColor: Colors.white,

@@ -157,7 +157,7 @@ class Saturday extends StatelessWidget {
                     ),
             ),
             ListTile(
-              title: controller.Sturaday12am.value
+              title: controller.Sturaday12.value
                   ? ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
@@ -165,9 +165,8 @@ class Saturday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          '  Sturaday12am': !controller.Sturaday12am.value
-                        });
+                            .update(
+                                {'  Sturaday12': !controller.Sturaday12.value});
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Saturday 12  Is Enabled'))
@@ -178,13 +177,12 @@ class Saturday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          '  Sturaday12am': !controller.Sturaday12am.value
-                        });
+                            .update(
+                                {'  Sturaday12': !controller.Sturaday12.value});
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Saturday 12  Is Disabled ')),
-              trailing: controller.Sturaday12am.value
+              trailing: controller.Sturaday12.value
                   ? Icon(
                       Icons.check_circle,
                       color: Colors.greenAccent,
@@ -432,7 +430,7 @@ class Saturday extends StatelessWidget {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
                             .update(
-                                {'  Sturaday1': !controller.Sturaday7.value});
+                                {'  Sturaday7': !controller.Sturaday7.value});
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Saturday 7 Is Disabled ')),
@@ -591,7 +589,7 @@ class Saturday extends StatelessWidget {
                     ),
             ),
             ListTile(
-              title: controller.Sturaday12.value
+              title: controller.Sturaday12am.value
                   ? ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
@@ -599,8 +597,9 @@ class Saturday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'  Sturaday12': !controller.Sturaday12.value});
+                            .update({
+                          '  Sturaday12am': !controller.Sturaday12am.value
+                        });
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Saturday 12 AM Is Enabled'))
@@ -611,12 +610,13 @@ class Saturday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'  Sturaday12': !controller.Sturaday12.value});
+                            .update({
+                          '  Sturaday12am': !controller.Sturaday12am.value
+                        });
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Saturday 12 AM Is Disabled ')),
-              trailing: controller.Sturaday12.value
+              trailing: controller.Sturaday12am.value
                   ? Icon(
                       Icons.check_circle,
                       color: Colors.greenAccent,

@@ -23,22 +23,22 @@ class StatmentPage extends StatelessWidget {
     void _onItemTapped(int index) async {
       if (index == 0) {
         Get.off(() => HomeScreen1(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
       } else if (index == 2) {
         Get.off(() => const AdminTimeEdit(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       } else if (index == 3) {
         Get.off(() => const BookingScreen(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       }
     }
 

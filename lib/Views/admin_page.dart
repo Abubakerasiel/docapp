@@ -67,19 +67,19 @@ class _DatesListState extends State<DatesList> {
         return;
       } else if (index == 1) {
         Get.off(() => const StatmentPage(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       } else if (index == 2) {
         Get.off(() => const AdminTimeEdit(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       } else if (index == 3) {
         Get.off(() => const BookingScreen(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       }
     }
 
@@ -109,241 +109,271 @@ class _DatesListState extends State<DatesList> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : Obx(
-                        () => ListView.separated(
-                          separatorBuilder: (context, index) => const SizedBox(
-                            height: 10,
-                          ),
-                          itemCount: controller.dates.length,
-                          // reverse: true,
-                          itemBuilder: (context, index) {
-                            //   controller.fetchAllDates();
-                            final date = controller.dates[index].data();
+                    : StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('dates')
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          }
 
-                            // Check for null values before extracting data
-                            final timestamp =
-                                date['selectedDate'] as Timestamp?;
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          }
 
-                            // final timestamp2 = date['selectedTime'];
-                            final userName = date['userName'] as String?;
-                            final userPhone = date['phone'] as String?;
-                            final userID3 = date['userId'] as String?;
+                          if (!snapshot.hasData ||
+                              snapshot.data!.docs.isEmpty) {
+                            return Text('No appointments yet.');
+                          }
+                          return ListView.separated(
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: 10,
+                            ),
+                            itemCount: snapshot.data!.docs.length,
+                            // reverse: true,
+                            itemBuilder: (context, index) {
+                              //   controller.fetchAllDates();
+                              final date =
+                                  snapshot.data!.docs[index].data() as Map;
 
-                            if (timestamp != null &&
-                                userName != null &&
-                                userPhone != null) {
-                              final dateTime = timestamp.toDate();
+                              // Check for null values before extracting data
+                              final timestamp =
+                                  date['selectedDate'] as Timestamp?;
 
-                              String formattedTime = DateFormat.jm().format(
-                                  dateTime.add(const Duration(hours: 1)));
-                              String formattedDate =
-                                  DateFormat("EEE ,d MMM , ''yyyy")
-                                      .format(dateTime);
+                              // final timestamp2 = date['selectedTime'];
+                              final userName = date['userName'] as String?;
+                              final userPhone = date['phone'] as String?;
+                              final userID3 = date['userId'] as String?;
 
-                              return Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: AppConstants.appColor,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(30)),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () async {
-                                            await controller
-                                                .retrieveUserData(userID3!);
+                              if (timestamp != null &&
+                                  userName != null &&
+                                  userPhone != null) {
+                                final dateTime = timestamp.toDate();
 
-                                            Get.to(
-                                                () => UserDetailsPage(
-                                                      userId: userID3,
-                                                    ),
-                                                arguments: userID3,
-                                                curve: Curves.easeInOut,
-                                                duration: Duration(seconds: 1),
-                                                transition: Transition.fadeIn);
-                                          },
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            child: Icon(Icons.person),
+                                String formattedTime = DateFormat.jm().format(
+                                    dateTime.add(const Duration(hours: 1)));
+                                String formattedDate =
+                                    DateFormat("EEE ,d MMM , ''yyyy")
+                                        .format(dateTime);
+
+                                return Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: AppConstants.appColor,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(30)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () async {
+                                              await controller
+                                                  .retrieveUserData(userID3!);
+
+                                              Get.to(
+                                                  () => UserDetailsPage(
+                                                        userId: userID3,
+                                                      ),
+                                                  arguments: userID3,
+                                                  curve: Curves.easeInOut,
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  transition:
+                                                      Transition.fadeIn);
+                                            },
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.white,
+                                              child: Icon(Icons.person),
+                                            ),
                                           ),
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                TextButton(
-                                                  onPressed: () async {
-                                                    await controller
-                                                        .retrieveUserData(
-                                                            userID3!);
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      await controller
+                                                          .retrieveUserData(
+                                                              userID3!);
 
-                                                    Get.to(
-                                                        () => UserDetailsPage(
-                                                              userId: userID3,
-                                                            ),
-                                                        arguments: userID3,
-                                                        curve: Curves.easeInOut,
-                                                        duration: Duration(
-                                                            seconds: 1),
-                                                        transition:
-                                                            Transition.fadeIn);
-                                                  },
-                                                  child: Text('Name: $userName',
+                                                      Get.to(
+                                                          () => UserDetailsPage(
+                                                                userId: userID3,
+                                                              ),
+                                                          arguments: userID3,
+                                                          curve:
+                                                              Curves.easeInOut,
+                                                          duration: Duration(
+                                                              seconds: 1),
+                                                          transition: Transition
+                                                              .fadeIn);
+                                                    },
+                                                    child: Text(
+                                                        'Name: $userName',
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                        )),
+                                                  ),
+                                                  Text(
+                                                      'Phone Number: $userPhone',
+                                                      textAlign:
+                                                          TextAlign.start,
                                                       style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
                                                         decoration:
                                                             TextDecoration.none,
                                                       )),
-                                                ),
-                                                Text('Phone Number: $userPhone',
-                                                    textAlign: TextAlign.start,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16,
-                                                      decoration:
-                                                          TextDecoration.none,
-                                                    )),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          height: 1,
-                                          width: 300,
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Icon(
-                                              size: 20,
-                                              Icons.calendar_month_outlined,
-                                              color: Colors.white,
-                                            ),
-                                            Text(
-                                              " $formattedDate   ",
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                decoration: TextDecoration.none,
+                                                ],
                                               ),
-                                            ),
-                                            const Icon(
-                                              size: 20,
-                                              Icons.access_time_outlined,
-                                              color: Colors.white,
-                                            ),
-                                            Text(
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            height: 1,
+                                            width: 300,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Icon(
+                                                size: 20,
+                                                Icons.calendar_month_outlined,
+                                                color: Colors.white,
+                                              ),
+                                              Text(
+                                                " $formattedDate   ",
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,
                                                   decoration:
                                                       TextDecoration.none,
                                                 ),
-                                                ' ${formattedTime.toString().padLeft(2, '0')}'),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        current2()
-                                            ? Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  ElevatedButton(
-                                                      style: ButtonStyle(
-                                                        backgroundColor:
-                                                            const MaterialStatePropertyAll(
-                                                                Colors
-                                                                    .greenAccent),
-                                                        shape: MaterialStateProperty.all<
-                                                                RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            18.0),
-                                                                side: const BorderSide(
-                                                                    color: Colors
-                                                                        .greenAccent))),
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _onDeleteConfirmed(
-                                                              controller
-                                                                  .dates[index]
-                                                                  .id);
-                                                        });
-                                                      },
-                                                      child: Text(
-                                                          'Confirm Date'.tr)),
-                                                  ElevatedButton(
-                                                      style: ButtonStyle(
-                                                        backgroundColor:
-                                                            const MaterialStatePropertyAll(
-                                                                Colors
-                                                                    .redAccent),
-                                                        shape: MaterialStateProperty.all<
-                                                                RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            18.0),
-                                                                side: const BorderSide(
-                                                                    color: Colors
-                                                                        .redAccent))),
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _onReplaceConfirmed(
-                                                              controller
-                                                                  .dates[index]
-                                                                  .id);
-                                                        });
-                                                        //controller.getTodayAppointments();
-                                                      },
-                                                      child: Text(
-                                                          'Cancel Date'.tr)),
-                                                ],
-                                              )
-                                            : const SizedBox()
-                                      ]),
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: const Text('No Appoimnets Yet'),
-                              ); // Skip rendering if data is null
-                            }
-                          },
-                        ),
-                      )),
+                                              ),
+                                              const Icon(
+                                                size: 20,
+                                                Icons.access_time_outlined,
+                                                color: Colors.white,
+                                              ),
+                                              Text(
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                  ' ${formattedTime.toString().padLeft(2, '0')}'),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          current2()
+                                              ? Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              const MaterialStatePropertyAll(
+                                                                  Colors
+                                                                      .greenAccent),
+                                                          shape: MaterialStateProperty.all<
+                                                                  RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              18.0),
+                                                                  side: const BorderSide(
+                                                                      color: Colors
+                                                                          .greenAccent))),
+                                                        ),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            _onDeleteConfirmed(
+                                                                controller
+                                                                    .dates[
+                                                                        index]
+                                                                    .id);
+                                                          });
+                                                        },
+                                                        child: Text(
+                                                            'Confirm Date'.tr)),
+                                                    ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              const MaterialStatePropertyAll(
+                                                                  Colors
+                                                                      .redAccent),
+                                                          shape: MaterialStateProperty.all<
+                                                                  RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              18.0),
+                                                                  side: const BorderSide(
+                                                                      color: Colors
+                                                                          .redAccent))),
+                                                        ),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            _onReplaceConfirmed(
+                                                                controller
+                                                                    .dates[
+                                                                        index]
+                                                                    .id);
+                                                          });
+                                                          //controller.getTodayAppointments();
+                                                        },
+                                                        child: Text(
+                                                            'Cancel Date'.tr)),
+                                                  ],
+                                                )
+                                              : const SizedBox()
+                                        ]),
+                                  ),
+                                );
+                              } else {
+                                return Center(
+                                  child: const Text('No Appoimnets Yet'),
+                                ); // Skip rendering if data is null
+                              }
+                            },
+                          );
+                        }))
           ],
         ),
       ),

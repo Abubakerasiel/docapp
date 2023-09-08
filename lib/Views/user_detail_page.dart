@@ -78,25 +78,25 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     void _onItemTapped(int index) async {
       if (index == 0) {
         Get.off(() => UserPage(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
         // await reservationController.getDataFromFirestore();
         // If 'Business' is tapped, navigate to the sign-in screen
         Get.to(() => const BookingScreen(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       } else if (index == 2) {
         return;
       } else if (index == 3) {
         Get.off(() => const UserAppoimetn(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
 
         return;
       }
@@ -111,8 +111,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     if (reservationController.user!.uid == data) {
       y = true;
     }
-    if (reservationController.user!.uid == 'cM39KfqhQrZi1Hk9vD5V7yRnID92' ||
-        reservationController.user!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
+    if (reservationController.user!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
       x = true;
     }
 

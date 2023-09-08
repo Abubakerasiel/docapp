@@ -181,9 +181,9 @@ class SignInScreen1 extends StatelessWidget {
                   ),
                   onPressed: () {
                     Get.offAll(const SignUpScreen(),
-                        curve: Curves.easeInOut,
-                        duration: Duration(seconds: 1),
-                        transition: Transition.fadeIn);
+                        curve: Curves.easeIn,
+                        duration: Duration(milliseconds: 500),
+                        transition: Transition.native);
                   },
                   child: Text(
                     'Create New Account'.tr,

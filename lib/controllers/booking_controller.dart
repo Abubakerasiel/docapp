@@ -947,7 +947,11 @@ class ReservationController extends GetxController {
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(() => const BookingConfirmed(), arguments: selectedDate);
+          Get.to(() => const BookingConfirmed(),
+              arguments: selectedDate,
+              curve: Curves.easeIn,
+              duration: Duration(milliseconds: 500),
+              transition: Transition.native);
         } else {
           // Schedule notification 3 hours before the appointment
           await notificationService.showNotification(
@@ -965,7 +969,11 @@ class ReservationController extends GetxController {
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(() => const BookingConfirmed(), arguments: selectedDate);
+          Get.to(() => const BookingConfirmed(),
+              arguments: selectedDate,
+              curve: Curves.easeIn,
+              duration: Duration(milliseconds: 500),
+              transition: Transition.native);
         }
       } else {
         Get.dialog(

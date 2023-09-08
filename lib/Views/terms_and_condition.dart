@@ -94,9 +94,9 @@ class TermsAndCondtion extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         Get.to(SignUpScreen(),
-                            curve: Curves.easeInOut,
-                            duration: Duration(seconds: 1),
-                            transition: Transition.fadeIn);
+                            curve: Curves.easeIn,
+                            duration: Duration(milliseconds: 500),
+                            transition: Transition.native);
                       },
                       style: ElevatedButton.styleFrom(
                         // ignore: deprecated_member_use
@@ -133,9 +133,9 @@ class TermsAndCondtion extends StatelessWidget {
                       ),
                       onPressed: () {
                         Get.to(() => const SignInScreen1(),
-                            curve: Curves.easeInOut,
-                            duration: Duration(seconds: 1),
-                            transition: Transition.fadeIn);
+                            curve: Curves.easeIn,
+                            duration: Duration(milliseconds: 500),
+                            transition: Transition.native);
                       },
                       child: Text('Sign in'.tr),
                     ),
@@ -155,7 +155,10 @@ class TermsAndCondtion extends StatelessWidget {
                         side: BorderSide(color: AppConstants.appColor),
                       )),
                   onPressed: () {
-                    Get.to(() => AboutUsPage());
+                    Get.to(() => AboutUsPage(),
+                        curve: Curves.easeIn,
+                        duration: Duration(milliseconds: 500),
+                        transition: Transition.native);
                   },
                   child: Text('About Us'))
             ],

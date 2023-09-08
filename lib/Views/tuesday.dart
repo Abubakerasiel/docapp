@@ -157,7 +157,7 @@ class Tuesday extends StatelessWidget {
                     ),
             ),
             ListTile(
-              title: controller.Tuesday12am.value
+              title: controller.Tuesday12.value
                   ? ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
@@ -165,9 +165,8 @@ class Tuesday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          ' Tuesday12am': !controller.Tuesday12am.value
-                        });
+                            .update(
+                                {' Tuesday12': !controller.Tuesday12.value});
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Tuesday 12 Is Enabled'))
@@ -178,13 +177,12 @@ class Tuesday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          ' Tuesday12am': !controller.Tuesday12am.value
-                        });
+                            .update(
+                                {' Tuesday12': !controller.Tuesday12.value});
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Tuesday 12 Is Disabled ')),
-              trailing: controller.Tuesday12am.value
+              trailing: controller.Tuesday12.value
                   ? Icon(
                       Icons.check_circle,
                       color: Colors.greenAccent,
@@ -573,7 +571,7 @@ class Tuesday extends StatelessWidget {
                     ),
             ),
             ListTile(
-              title: controller.Tuesday12.value
+              title: controller.Tuesday12am.value
                   ? ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
@@ -581,8 +579,9 @@ class Tuesday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {' Tuesday12': !controller.Tuesday12.value});
+                            .update({
+                          ' Tuesday12am': !controller.Tuesday12am.value
+                        });
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Tuesday 12 AM Is Enabled'))
@@ -593,12 +592,13 @@ class Tuesday extends StatelessWidget {
                       onPressed: () async {
                         await controller.docTime
                             .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {' Tuesday12': !controller.Tuesday12.value});
+                            .update({
+                          ' Tuesday12am': !controller.Tuesday12am.value
+                        });
                         await controller.getDataFromFirestore();
                       },
                       child: Text('Tuesday 12 AM Is Disabled ')),
-              trailing: controller.Tuesday12.value
+              trailing: controller.Tuesday12am.value
                   ? Icon(
                       Icons.check_circle,
                       color: Colors.greenAccent,

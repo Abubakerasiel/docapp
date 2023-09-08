@@ -37,7 +37,7 @@ Map<String, String> get arKeys => {
       'By Package': 'بالباكدج',
       'By Time': 'بالمرة',
       'Please Select A Date': 'الرجاء اختيار تاريخ',
-      'The Day is off': 'اليوم اجازة',
+      'This Day is off': 'اليوم اجازة',
       'Please Select Another day': 'الرجاء اختيار يوم آخر',
       'Please Select A Day from Saturday To Tuesday':
           'الرجاء اختيار يوم من السبت إلى الثلاثاء',

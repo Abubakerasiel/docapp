@@ -3,6 +3,7 @@ import 'package:flutterappoinmentapp/Views/monday.dart';
 import 'package:flutterappoinmentapp/Views/saturday.dart';
 import 'package:flutterappoinmentapp/Views/statemnet_page.dart';
 import 'package:flutterappoinmentapp/Views/sunday.dart';
+import 'package:flutterappoinmentapp/Views/thrusday.dart';
 import 'package:flutterappoinmentapp/Views/tuesday.dart';
 import 'package:flutterappoinmentapp/Views/wednesday.dart';
 import 'package:get/get.dart';
@@ -28,22 +29,22 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
     void _onItemTapped(int index) async {
       if (index == 0) {
         Get.off(() => HomeScreen1(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
         // If 'Home' is tapped, do nothing (stay on the current page)
         return;
       } else if (index == 1) {
         Get.off(() => const StatmentPage(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       } else if (index == 2) {
       } else if (index == 3) {
         Get.off(() => const BookingScreen(),
-            curve: Curves.easeInOut,
-            duration: Duration(seconds: 1),
-            transition: Transition.fadeIn);
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 500),
+            transition: Transition.native);
       }
     }
 
@@ -89,37 +90,94 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
           padding: const EdgeInsets.all(20),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          crossAxisCount: 3,
+          crossAxisCount: 2,
 
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ElevatedButton(
                 onPressed: () {
-                  Get.to(() => Saturday());
+                  Get.to(() => Saturday(),
+                      curve: Curves.easeIn,
+                      duration: Duration(milliseconds: 500),
+                      transition: Transition.native);
                 },
-                child: Text('Saturday Time Modifying')),
+                child: Text(
+                  'Saturday Times ',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white),
+                )),
             ElevatedButton(
                 onPressed: () {
-                  Get.to(() => Sunday());
+                  Get.to(() => Sunday(),
+                      curve: Curves.easeIn,
+                      duration: Duration(milliseconds: 500),
+                      transition: Transition.native);
                 },
-                child: Text('Sunday Time Modifying')),
+                child: Text(
+                  'Sunday Times',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white),
+                )),
             ElevatedButton(
                 onPressed: () {
-                  Get.to(() => Monday());
+                  Get.to(() => Monday(),
+                      curve: Curves.easeIn,
+                      duration: Duration(milliseconds: 500),
+                      transition: Transition.native);
                 },
-                child: Text('Monday Time Modifying')),
+                child: Text(
+                  'Monday Times',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white),
+                )),
             ElevatedButton(
                 onPressed: () {
-                  Get.to(() => Tuesday());
+                  Get.to(() => Tuesday(),
+                      curve: Curves.easeIn,
+                      duration: Duration(milliseconds: 500),
+                      transition: Transition.native);
                 },
-                child: Text('Tuesday Time Modifying')),
+                child: Text(
+                  'Tuesday Times',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white),
+                )),
             ElevatedButton(
                 onPressed: () {
-                  Get.to(() => Wednesday());
+                  Get.to(() => Wednesday(),
+                      curve: Curves.easeIn,
+                      duration: Duration(milliseconds: 500),
+                      transition: Transition.native);
                 },
-                child: Text('Wednesday Time Modifying')),
+                child: Text(
+                  'Wednesday Times',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white),
+                )),
             ElevatedButton(
-                onPressed: () {}, child: Text('Saturday Time Modifying')),
+                onPressed: () {
+                  Get.to(() => Thursday(),
+                      curve: Curves.easeIn,
+                      duration: Duration(milliseconds: 500),
+                      transition: Transition.native);
+                },
+                child: Text(
+                  'Thursday Times',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white),
+                )),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
