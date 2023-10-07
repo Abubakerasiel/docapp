@@ -111,7 +111,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     if (reservationController.user!.uid == data) {
       y = true;
     }
-    if (reservationController.user!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
+    if (reservationController.user!.uid == 'cM39KfqhQrZi1Hk9vD5V7yRnID92' ||
+        reservationController.user!.uid == 'TS7icvWb0PPYY90qJ4MiZY16oyp1') {
       x = true;
     }
 
@@ -240,7 +241,15 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     subtitle:
                         Obx(() => Text('${reservationController.package}')),
                   )
-                : SizedBox()
+                : SizedBox(),
+            ListTile(
+              title: ElevatedButton(
+                  onPressed: () {
+                    _reservationController.deleteUserAndDocument(
+                        _reservationController.user!.uid);
+                  },
+                  child: Text('Delete Account')),
+            )
             // ... continue with other ListTiles as needed ...
           ],
         ),

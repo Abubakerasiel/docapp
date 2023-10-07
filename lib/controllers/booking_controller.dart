@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterappoinmentapp/Views/booking_confirm.dart';
+import 'package:flutterappoinmentapp/Views/terms_and_condition.dart';
 
 import '../utils/notification_service.dart';
 import 'package:http/http.dart' as http;
@@ -396,6 +397,32 @@ class ReservationController extends GetxController {
       }
     } catch (error) {
       print("Failed to fetch dates: $error");
+    }
+  }
+
+  Future<void> deleteUserAndDocument(String uid) async {
+    try {
+      // Delete the user account
+      await FirebaseAuth.instance.currentUser!.delete();
+
+      // Delete the user document from Firestore
+      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+      Get.snackbar(
+        'Successful delete'.tr,
+        'You have successfully deleted you account'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.greenAccent,
+        colorText: Colors.white,
+      );
+
+      await Future.delayed(Duration(seconds: 2));
+
+      Get.off(() => TermsAndCondtion());
+
+      print('User account and document deleted successfully');
+    } catch (e) {
+      print('Error deleting user account and document: $e');
     }
   }
 
