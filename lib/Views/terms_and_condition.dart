@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Auth/sigin_up_screen.dart';
-import 'package:flutterappoinmentapp/Views/about_us.dart';
+
 import 'package:get/get.dart';
 
 import '../Auth/sigin_screen.dart';
@@ -145,22 +145,22 @@ class TermsAndCondtion extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      // ignore: deprecated_member_use
-                      primary: AppConstants.appColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        side: BorderSide(color: AppConstants.appColor),
-                      )),
-                  onPressed: () {
-                    Get.to(() => AboutUsPage(),
-                        curve: Curves.easeIn,
-                        duration: Duration(milliseconds: 500),
-                        transition: Transition.native);
-                  },
-                  child: Text('About Us'))
+              // ElevatedButton(
+              //     style: ElevatedButton.styleFrom(
+              //         // ignore: deprecated_member_use
+              //         primary: AppConstants.appColor,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius:
+              //               const BorderRadius.all(Radius.circular(8)),
+              //           side: BorderSide(color: AppConstants.appColor),
+              //         )),
+              //     onPressed: () {
+              //       Get.to(() => AboutUsPage(),
+              //           curve: Curves.easeIn,
+              //           duration: Duration(milliseconds: 500),
+              //           transition: Transition.native);r
+              //     },
+              //     child: Text('About Us'))
             ],
           ),
         ),
