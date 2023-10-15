@@ -2,7 +2,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/controllers/firebase_repo.dart';
 import 'package:get/get.dart';
@@ -25,8 +24,6 @@ class SignUpController extends GetxController {
   String? password;
 
   File? userSelectedImage;
-
-  final storageRef = FirebaseStorage.instance.ref('users_image');
 
   void createAccount() async {
     if (key.currentState == null || !key.currentState!.validate()) return;

@@ -31,12 +31,12 @@ enum Gender {
   }
 }
 
-class SignUpScreen extends GetView<SignUpController> {
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignUpScreen1 extends StatelessWidget {
+  const SignUpScreen1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SignUpController());
+    SignUpController controller = Get.put(SignUpController());
 
     return Scaffold(
       body: SingleChildScrollView(

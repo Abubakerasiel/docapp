@@ -180,7 +180,7 @@ class SignInScreen1 extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Get.offAll(const SignUpScreen(),
+                    Get.offAll(const SignUpScreen1(),
                         curve: Curves.easeIn,
                         duration: Duration(milliseconds: 500),
                         transition: Transition.native);

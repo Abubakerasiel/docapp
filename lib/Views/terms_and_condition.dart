@@ -93,7 +93,7 @@ class TermsAndCondtion extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(SignUpScreen(),
+                        Get.to(() => SignUpScreen1(),
                             curve: Curves.easeIn,
                             duration: Duration(milliseconds: 500),
                             transition: Transition.native);
