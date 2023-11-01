@@ -31,9 +31,15 @@ enum Gender {
   }
 }
 
-class SignUpScreen1 extends StatelessWidget {
+class SignUpScreen1 extends StatefulWidget {
   const SignUpScreen1({Key? key}) : super(key: key);
 
+  @override
+  State<SignUpScreen1> createState() => _SignUpScreen1State();
+}
+
+class _SignUpScreen1State extends State<SignUpScreen1> {
+  bool? x;
   @override
   Widget build(BuildContext context) {
     SignUpController controller = Get.put(SignUpController());
@@ -319,8 +325,17 @@ class SignUpScreen1 extends StatelessWidget {
                         child: Material(
                           elevation: 5,
                           child: TextFormField(
-                            obscureText: true,
+                            obscureText: x!,
                             decoration: InputDecoration(
+                              suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      x = !x!;
+                                    });
+                                  },
+                                  child: x!
+                                      ? Icon(Icons.visibility_off)
+                                      : Icon(Icons.visibility)),
                               hintText: 'Password'.tr,
                               enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
