@@ -70,6 +70,7 @@ class SignInController extends GetxController {
     final response = await FirebaseRepoImpl.instance
         .signIn(email: email!, password: password!);
     if (response == null) return;
+
     log('${response.user?.email}');
     Get.to(() => const HomeScreen1(),
         curve: Curves.easeIn,

@@ -32,7 +32,7 @@ class _UserPageState extends State<UserPage> {
       // If 'Home' is tapped, do nothing (stay on the current page)
       return;
     } else if (index == 1) {
-      Get.to(() => const BookingScreen(),
+      Get.off(() => const BookingScreen(),
           curve: Curves.easeIn,
           duration: Duration(milliseconds: 500),
           transition: Transition.native);
@@ -98,70 +98,90 @@ class _UserPageState extends State<UserPage> {
             )
           ],
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              " ${_reservationController.userName.value}",
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('userText')
-                  .orderBy('timestamp', descending: true)
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  // No data or data is empty, display a message
-                  return Expanded(
-                      child: Center(child: Text('No announcements yet.'.tr)));
-                }
-
-                return Expanded(
-                  child: ListView(
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
-                      String text = data['text'] ?? '';
-                      Timestamp timestamp = data['timestamp'];
-                      DateTime dateTime = timestamp.toDate();
-                      String formattedTime =
-                          DateFormat("hh:mm a, dd MMM yyyy").format(dateTime);
-
-                      return ListTile(
-                        dense: false,
-                        // titleAlignment: ListTileTitleAlignment.threeLine,
-
-                        title: Text(
-                          text,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text(formattedTime),
-                        //trailing: SizedBox(),
-                      );
-                    }).toList(), // Ensure that you're returning a List<Widget>
+        body: Center(
+          child: LayoutBuilder(
+            builder: (context, constraints) => SizedBox(
+              width: constraints.maxWidth > 500 ? 400 : double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    " ${_reservationController.userName.value}",
+                    style: TextStyle(color: Colors.white),
                   ),
-                );
-              },
+                  SizedBox(
+                    height: 50,
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('userText')
+                        .orderBy('timestamp', descending: true)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        // No data or data is empty, display a message
+                        return Expanded(
+                            child: Center(
+                                child: Text('No announcements yet.'.tr)));
+                      }
+
+                      return Expanded(
+                        child: ListView(
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data() as Map<String, dynamic>;
+                            String text = data['text'] ?? '';
+                            Timestamp timestamp = data['timestamp'];
+                            DateTime dateTime = timestamp.toDate();
+                            String formattedTime =
+                                DateFormat("hh:mm a, dd MMM yyyy")
+                                    .format(dateTime);
+
+                            return ListTile(
+                              dense: false,
+                              // titleAlignment: ListTileTitleAlignment.threeLine,
+
+                              title: Text(
+                                text,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              subtitle: Text(formattedTime),
+                              //trailing: SizedBox(),
+                            );
+                          }).toList(), // Ensure that you're returning a List<Widget>
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppConstants.appColor,
+          onPressed: () {
+            if (Get.locale!.languageCode == "ar") {
+              Get.updateLocale(const Locale("en"));
+            } else {
+              Get.updateLocale(const Locale("ar"));
+            }
+          },
+          child: const Icon(Icons.g_translate),
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedFontSize: 15,

@@ -74,541 +74,590 @@ class Thursday extends StatelessWidget {
             )
           ],
         ),
-        body: Obx(
-          () => ListView(children: [
-            ListTile(
-              title: GestureDetector(
-                  onTap: () async {},
-                  child: controller.disableThursday.value
-                      ? ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.redAccent)),
-                          onPressed: () async {
-                            await controller.docTime
-                                .doc('WTMfaIqjFuL686hKuK9h')
-                                .update({
-                              'disableThursday':
-                                  !controller.disableThursday.value
-                            });
-                            await controller.getDataFromFirestore();
-                          },
-                          child: Text('Thursday Is Disabled'))
-                      : ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.greenAccent)),
-                          onPressed: () async {
-                            await controller.docTime
-                                .doc('WTMfaIqjFuL686hKuK9h')
-                                .update({
-                              'disableThursday':
-                                  !controller.disableThursday.value
-                            });
-                            await controller.getDataFromFirestore();
-                          },
-                          child: Text('Thursday Is Enabled '))),
-              trailing: controller.disableThursday.value
-                  ? Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    )
-                  : Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    ),
+        body: Center(
+          child: LayoutBuilder(
+            builder: (context, constraints) => SizedBox(
+              width: constraints.maxWidth > 500 ? 400 : double.infinity,
+              child: Obx(
+                () => ListView(children: [
+                  ListTile(
+                    title: GestureDetector(
+                        onTap: () async {},
+                        child: controller.disableThursday.value
+                            ? ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Colors.redAccent)),
+                                onPressed: () async {
+                                  await controller.docTime
+                                      .doc('WTMfaIqjFuL686hKuK9h')
+                                      .update({
+                                    'disableThursday':
+                                        !controller.disableThursday.value
+                                  });
+                                  await controller.getDataFromFirestore();
+                                },
+                                child: Text('Thursday Is Disabled'))
+                            : ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Colors.greenAccent)),
+                                onPressed: () async {
+                                  await controller.docTime
+                                      .doc('WTMfaIqjFuL686hKuK9h')
+                                      .update({
+                                    'disableThursday':
+                                        !controller.disableThursday.value
+                                  });
+                                  await controller.getDataFromFirestore();
+                                },
+                                child: Text('Thursday Is Enabled '))),
+                    trailing: controller.disableThursday.value
+                        ? Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          )
+                        : Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday11am.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday11am': !controller.Thrusday11am.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 11 AM Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday11am': !controller.Thrusday11am.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 11 AM Is Disabled ')),
+                    trailing: controller.Thrusday11am.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday12.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday12': !controller.Thrusday12.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 12 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday12': !controller.Thrusday12.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 12 Is Disabled ')),
+                    trailing: controller.Thrusday12.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday1.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday1': !controller.Thrusday1.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 1 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday1': !controller.Thrusday1.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 1 Is Disabled ')),
+                    trailing: controller.Thrusday1.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday2.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday2': !controller.Thrusday2.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 2 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday2': !controller.Thrusday2.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 2 Is Disabled ')),
+                    trailing: controller.Thrusday2.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday3.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday3': !controller.Thrusday3.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 3 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday3': !controller.Thrusday3.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 3 Is Disabled ')),
+                    trailing: controller.Thrusday3.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday4.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday4': !controller.Thrusday4.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 4 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday4': !controller.Thrusday4.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 4 Is Disabled ')),
+                    trailing: controller.Thrusday4.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday5.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday5': !controller.Thrusday5.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 5 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday5': !controller.Thrusday5.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 5 Is Disabled ')),
+                    trailing: controller.Thrusday5.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday6.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday6': !controller.Thrusday6.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 6 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday6': !controller.Thrusday6.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 6 Is Disabled ')),
+                    trailing: controller.Thrusday6.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday7.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday7': !controller.Thrusday7.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 7 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday7': !controller.Thrusday7.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 7 Is Disabled ')),
+                    trailing: controller.Thrusday7.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday8.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday8': !controller.Thrusday8.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 8 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday8': !controller.Thrusday8.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 8 Is Disabled ')),
+                    trailing: controller.Thrusday8.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday9.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday9': !controller.Thrusday9.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 9 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday9': !controller.Thrusday9.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 9 Is Disabled ')),
+                    trailing: controller.Thrusday9.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday10.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday10': !controller.Thrusday10.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 10 Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday10': !controller.Thrusday10.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 10 Is Disabled ')),
+                    trailing: controller.Thrusday10.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday11.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday11 ': !controller.Thrusday11.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 11  Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday11 ': !controller.Thrusday11.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 11  Is Disabled ')),
+                    trailing: controller.Thrusday11.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                  ListTile(
+                    title: controller.Thrusday12am.value
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.greenAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday12am': !controller.Thrusday12am.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 12 AM Is Enabled'))
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.redAccent)),
+                            onPressed: () async {
+                              await controller.docTime
+                                  .doc('WTMfaIqjFuL686hKuK9h')
+                                  .update({
+                                'Thrusday12am': !controller.Thrusday12am.value
+                              });
+                              await controller.getDataFromFirestore();
+                            },
+                            child: Text('Thursday 12 AM Is Disabled ')),
+                    trailing: controller.Thrusday12am.value
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                          )
+                        : Icon(
+                            Icons.remove_circle,
+                            color: Colors.redAccent,
+                          ),
+                  ),
+                ]),
+              ),
             ),
-            ListTile(
-              title: controller.Thrusday11am.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'Thrusday11am': !controller.Thrusday11am.value
-                        });
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 11 AM Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'Thrusday11am': !controller.Thrusday11am.value
-                        });
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 11 AM Is Disabled ')),
-              trailing: controller.Thrusday11am.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday12.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'Thrusday12': !controller.Thrusday12.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 12 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'Thrusday12': !controller.Thrusday12.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 12 Is Disabled ')),
-              trailing: controller.Thrusday12.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday1.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday1': !controller.Thrusday1.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 1 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday1': !controller.Thrusday1.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 1 Is Disabled ')),
-              trailing: controller.Thrusday1.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday2.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday2': !controller.Thrusday2.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 2 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday2': !controller.Thrusday2.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 2 Is Disabled ')),
-              trailing: controller.Thrusday2.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday3.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday3': !controller.Thrusday3.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 3 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday3': !controller.Thrusday3.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 3 Is Disabled ')),
-              trailing: controller.Thrusday3.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday4.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday4': !controller.Thrusday4.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 4 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday4': !controller.Thrusday4.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 4 Is Disabled ')),
-              trailing: controller.Thrusday4.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday5.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday5': !controller.Thrusday5.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 5 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday5': !controller.Thrusday5.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 5 Is Disabled ')),
-              trailing: controller.Thrusday5.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday6.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday6': !controller.Thrusday6.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 6 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday6': !controller.Thrusday6.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 6 Is Disabled ')),
-              trailing: controller.Thrusday6.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday7.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday7': !controller.Thrusday7.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 7 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday7': !controller.Thrusday7.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 7 Is Disabled ')),
-              trailing: controller.Thrusday7.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday8.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday8': !controller.Thrusday8.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 8 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday8': !controller.Thrusday8.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 8 Is Disabled ')),
-              trailing: controller.Thrusday8.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday9.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday9': !controller.Thrusday9.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 9 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({'Thrusday9': !controller.Thrusday9.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 9 Is Disabled ')),
-              trailing: controller.Thrusday9.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday10.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'Thrusday10': !controller.Thrusday10.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 10 Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'Thrusday10': !controller.Thrusday10.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 10 Is Disabled ')),
-              trailing: controller.Thrusday10.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday11.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'Thrusday11 ': !controller.Thrusday11.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 11  Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update(
-                                {'Thrusday11 ': !controller.Thrusday11.value});
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 11  Is Disabled ')),
-              trailing: controller.Thrusday11.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-            ListTile(
-              title: controller.Thrusday12am.value
-                  ? ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.greenAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'Thrusday12am': !controller.Thrusday12am.value
-                        });
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 12 AM Is Enabled'))
-                  : ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.redAccent)),
-                      onPressed: () async {
-                        await controller.docTime
-                            .doc('WTMfaIqjFuL686hKuK9h')
-                            .update({
-                          'Thrusday12am': !controller.Thrusday12am.value
-                        });
-                        await controller.getDataFromFirestore();
-                      },
-                      child: Text('Thursday 12 AM Is Disabled ')),
-              trailing: controller.Thrusday12am.value
-                  ? Icon(
-                      Icons.check_circle,
-                      color: Colors.greenAccent,
-                    )
-                  : Icon(
-                      Icons.remove_circle,
-                      color: Colors.redAccent,
-                    ),
-            ),
-          ]),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedFontSize: 15,

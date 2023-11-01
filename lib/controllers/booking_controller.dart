@@ -29,6 +29,7 @@ class ReservationController extends GetxController {
     super.onInit();
 
     notificationService.iniitInfo();
+
     await retrieveUserData(user!.uid);
     await getDataFromFirestore();
     sendNotificatonToUser(user!.uid);
@@ -161,7 +162,8 @@ class ReservationController extends GetxController {
 
   RxList<QueryDocumentSnapshot<Map<String, dynamic>>> dates = RxList([]);
   RxList<QueryDocumentSnapshot<Map<String, dynamic>>> fuser = RxList([]);
-  Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
+  Rx<DateTime> selectedDate =
+      Rx<DateTime>(DateTime.now().subtract(Duration(days: 100)));
   Rx<TimeOfDay?> selectedTime = Rx<TimeOfDay?>(null);
   CollectionReference datesCollection =
       FirebaseFirestore.instance.collection('dates');
@@ -734,14 +736,18 @@ class ReservationController extends GetxController {
 
   void makeReservation() async {
     bool isSelectedDateMonday =
-        selectedDate.value != null && (selectedDate.value!.weekday == 1);
+        selectedDate.value != DateTime.now().subtract(Duration(days: 100)) &&
+            (selectedDate.value.weekday == 1);
     bool isSelectedDateSunday =
-        selectedDate.value != null && (selectedDate.value!.weekday == 7);
+        selectedDate.value != DateTime.now().subtract(Duration(days: 100)) &&
+            (selectedDate.value.weekday == 7);
 
     bool isSelectedDateTuesday =
-        selectedDate.value != null && (selectedDate.value!.weekday == 2);
+        selectedDate.value != DateTime.now().subtract(Duration(days: 100)) &&
+            (selectedDate.value.weekday == 2);
     bool isSelectedDateSaturday =
-        selectedDate.value != null && (selectedDate.value!.weekday == 6);
+        selectedDate.value != DateTime.now().subtract(Duration(days: 100)) &&
+            (selectedDate.value.weekday == 6);
     DateTime getStartOfDay(DateTime date) {
       return DateTime(date.year, date.month, date.day, 12, 0, 0);
     }
@@ -762,12 +768,12 @@ class ReservationController extends GetxController {
     //     );
 
     final DateTime notificationTime =
-        selectedDate.value!.subtract(const Duration(hours: 12));
+        selectedDate.value.subtract(const Duration(hours: 12));
 
     final DateTime notificationTimeSameDay =
-        selectedDate.value!.subtract(const Duration(hours: 3));
+        selectedDate.value.subtract(const Duration(hours: 3));
 
-    selectedDate.value = selectedDate.value!.add(const Duration(hours: -1));
+    selectedDate.value = selectedDate.value.add(const Duration(hours: -1));
 
     final notificationTitle = 'Reservation Reminder'.tr;
     final notificationBody =
@@ -776,8 +782,8 @@ class ReservationController extends GetxController {
         'Hello  Your appointment is coming up in 3 hours.'.tr;
 
     //  const int maxAppointmentsPerDay = 34;
-    final selectedDateStart = getStartOfDay(selectedDate.value!);
-    final selectedDateEnd = getEndOfDay(selectedDate.value!);
+    final selectedDateStart = getStartOfDay(selectedDate.value);
+    final selectedDateEnd = getEndOfDay(selectedDate.value);
 
     // Check if the maximum number of appointments for the day (4) has been reached
     final QuerySnapshot<Map<String, dynamic>> existingAppointmentsSnapshot =
@@ -790,7 +796,7 @@ class ReservationController extends GetxController {
     final QuerySnapshot<Map<String, dynamic>> selectedTimeAppointmentsSnapshot =
         await datesCollection
             .where('selectedDate',
-                isEqualTo: selectedDate.value!.add(const Duration(hours: 12)))
+                isEqualTo: selectedDate.value.add(const Duration(hours: 12)))
             .get() as QuerySnapshot<Map<String, dynamic>>;
     final int selectedTimeAppointmentsCount =
         selectedTimeAppointmentsSnapshot.size;
@@ -821,7 +827,7 @@ class ReservationController extends GetxController {
         if (waitingListCount < 5) {
           // Add the user to the waiting list
           final waitingListData = {
-            'selectedDate': selectedDate.value!.add(Duration(hours: 12)),
+            'selectedDate': selectedDate.value.add(Duration(hours: 12)),
             'userId': user!.uid,
             'userEmail': user!.email,
             'phone': userPhone.value,
@@ -888,8 +894,8 @@ class ReservationController extends GetxController {
       );
     } else {
       logi.log("Time slot is available.");
-      if (selectedDate.value != null) {
-        if (selectedDate.value!.isBefore(DateTime.now())) {
+      if (selectedDate.value != DateTime.now().subtract(Duration(days: 100))) {
+        if (selectedDate.value.isBefore(DateTime.now())) {
           Get.snackbar(
             'Invalid Date'.tr,
             'Please select a future date and time.'.tr,
@@ -904,24 +910,23 @@ class ReservationController extends GetxController {
             await datesCollection.where('userId', isEqualTo: user!.uid).get()
                 as QuerySnapshot<Map<String, dynamic>>;
 
-        bool userAlreadyBookedForWeek = false;
-        final selectedWeek = selectedDate.value!
-            .subtract(Duration(days: selectedDate.value!.weekday - 1));
+        bool userAlreadyBookedWithinRange = false;
+        final selectedDateW =
+            selectedDate.value; // Assuming selectedDate is not a ValueNotifier
+        final appointmentRangeStart = selectedDateW.subtract(Duration(days: 5));
 
         for (final doc in userAppointmentsSnapshot.docs) {
           final appointmentDate = doc['selectedDate'].toDate() as DateTime;
-          final appointmentWeek = appointmentDate
-              .subtract(Duration(days: appointmentDate.weekday - 1));
 
-          if (appointmentWeek.year == selectedWeek.year &&
-              appointmentWeek.month == selectedWeek.month &&
-              appointmentWeek.day == selectedWeek.day) {
-            userAlreadyBookedForWeek = true;
+          // Check if the appointment date falls within the specified range
+          if (appointmentDate.isAfter(appointmentRangeStart) &&
+              appointmentDate.isBefore(selectedDateW)) {
+            userAlreadyBookedWithinRange = true;
             break;
           }
         }
 
-        if (userAlreadyBookedForWeek) {
+        if (userAlreadyBookedWithinRange) {
           Get.snackbar(
             'Multiple Bookings In Same Week Not Allowed'.tr,
             'You have already booked an appointment on the selected Week.'.tr,
@@ -934,18 +939,19 @@ class ReservationController extends GetxController {
         }
 
         final DateTime now = DateTime.now();
-        bool isSameDay = selectedDate.value!.year == now.year &&
-            selectedDate.value!.month == now.month &&
-            selectedDate.value!.day == now.day;
-        logi.log(selectedDate.value!.toString());
+        bool isSameDay = selectedDate.value.year == now.year &&
+            selectedDate.value.month == now.month &&
+            selectedDate.value.day == now.day;
+        logi.log(selectedDate.value.toString());
 
         final reservationData = {
           //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
-          'selectedDate': selectedDate.value!.add(Duration(hours: 12)),
+          'selectedDate': selectedDate.value.add(Duration(hours: 12)),
           'userId': user!.uid,
           'userEmail': user!.email,
           'phone': userPhone.value,
           'userName': userName.value,
+
           'Notification Time': isSameDay
               ? notificationTimeSameDay.add(const Duration(hours: -1))
               : notificationTime.add(const Duration(hours: -1)),

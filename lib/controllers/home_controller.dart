@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutterappoinmentapp/Auth/sigin_screen.dart';
 
 import 'package:get/get.dart';
@@ -29,14 +30,26 @@ class HomeController extends GetxController {
 
   Stream streamSubscription = usersRef.snapshots();
   Stream streamSubscription1 = datesCollection.snapshots();
-
+  RxString term = ''.obs;
   @override
   void onInit() {
     super.onInit();
+    getTerm();
     // getData();
     // streamSubscription.listen((event) { })
 
     getDatesData();
+  }
+
+  Future getTerm() async {
+    try {
+      var snap = await FirebaseFirestore.instance
+          .collection('terms')
+          .doc('BPtaalhXBMhdryhDFKQ2')
+          .get();
+
+      term.value = snap.data()!['Terms'];
+    } catch (e) {}
   }
 
   void logOut() async {

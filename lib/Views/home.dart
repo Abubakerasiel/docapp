@@ -13,7 +13,7 @@ class HomeScreen1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
-
+    Get.put(ReservationController());
     //  var name = F
     // irebaseRepoImpl.instance.currentUser?.displayName;
     final currentUser = tl.FirebaseAuth.instance.currentUser;
@@ -146,7 +146,6 @@ class HomeScreen1 extends StatelessWidget {
       );
       //return SizedBox();
     } else {
-      Get.put(ReservationController());
       return UserPage();
     }
   }

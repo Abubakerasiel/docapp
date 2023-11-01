@@ -165,93 +165,104 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             )
           ],
         ),
-        body: ListView(
-          padding: const EdgeInsets.all(16.0),
-          children: [
-            ListTile(
-              title: Text('Name :'.tr),
-              subtitle: Text(
-                ' ${reservationController.userName.value}',
-                style: const TextStyle(fontSize: 17),
-                maxLines: 3,
-              ),
-            ),
-            ListTile(
-              title: Text('Phone :'.tr),
-              subtitle: Text(
-                reservationController.userPhone.value,
-                style: const TextStyle(fontSize: 17),
-              ),
-            ),
-            ListTile(
-              title: Text('Age :'.tr,
-                  style: const TextStyle(
-                    fontSize: 17,
-                  )),
-              subtitle: Text(
-                reservationController.age.value,
-                style: const TextStyle(
-                  fontSize: 17,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Height :'.tr),
-              subtitle: Text(
-                reservationController.height.value,
-                style: const TextStyle(fontSize: 17),
-              ),
-            ),
-            ListTile(
-              title: Text('Gender :'.tr),
-              subtitle: reservationController.gender.value == 'male'
-                  ? Text('male'.tr, style: const TextStyle(fontSize: 14))
-                  : Text('female'.tr, style: const TextStyle(fontSize: 14)),
-            ),
-            ListTile(
-              title: Text('Weight :'.tr),
-              subtitle: GestureDetector(
-                onTap: () => _showWeightEditDialog(context),
-                child: Obx(
-                  () => Text(
-                    reservationController.weight.value,
-                    style: const TextStyle(fontSize: 17),
+        body: Center(
+          child: LayoutBuilder(
+            builder: (context, constraints) => SizedBox(
+              width: constraints.maxWidth > 500 ? 400 : double.infinity,
+              child: ListView(
+                padding: const EdgeInsets.all(16.0),
+                children: [
+                  ListTile(
+                    title: Text('Name :'.tr),
+                    subtitle: Text(
+                      ' ${reservationController.userName.value}',
+                      style: const TextStyle(fontSize: 17),
+                      maxLines: 3,
+                    ),
                   ),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Medical Issue :'.tr),
-              subtitle: Text(
-                reservationController.medicalIssue.value.tr,
-                style: const TextStyle(fontSize: 17),
-                maxLines: 2,
-                overflow: TextOverflow.fade,
-              ),
-            ),
-            ListTile(
-              title: Text('Package Type :'.tr),
-              subtitle: reservationController.packageType.value == 'byPackage'
-                  ? Text('By Package'.tr, style: const TextStyle(fontSize: 17))
-                  : Text('By Time'.tr, style: const TextStyle(fontSize: 17)),
-            ),
-            reservationController.packageType.value == 'byPackage'
-                ? ListTile(
-                    title: Text('Remaining Package:'.tr),
+                  ListTile(
+                    title: Text('Phone :'.tr),
+                    subtitle: Text(
+                      reservationController.userPhone.value,
+                      style: const TextStyle(fontSize: 17),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Age :'.tr,
+                        style: const TextStyle(
+                          fontSize: 17,
+                        )),
+                    subtitle: Text(
+                      reservationController.age.value,
+                      style: const TextStyle(
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Height :'.tr),
+                    subtitle: Text(
+                      reservationController.height.value,
+                      style: const TextStyle(fontSize: 17),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Gender :'.tr),
+                    subtitle: reservationController.gender.value == 'male'
+                        ? Text('male'.tr, style: const TextStyle(fontSize: 14))
+                        : Text('female'.tr,
+                            style: const TextStyle(fontSize: 14)),
+                  ),
+                  ListTile(
+                    title: Text('Weight :'.tr),
+                    subtitle: GestureDetector(
+                      onTap: () => _showWeightEditDialog(context),
+                      child: Obx(
+                        () => Text(
+                          reservationController.weight.value,
+                          style: const TextStyle(fontSize: 17),
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Medical Issue :'.tr),
+                    subtitle: Text(
+                      reservationController.medicalIssue.value.tr,
+                      style: const TextStyle(fontSize: 17),
+                      maxLines: 2,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Package Type :'.tr),
                     subtitle:
-                        Obx(() => Text('${reservationController.package}')),
+                        reservationController.packageType.value == 'byPackage'
+                            ? Text('By Package'.tr,
+                                style: const TextStyle(fontSize: 17))
+                            : Text('By Time'.tr,
+                                style: const TextStyle(fontSize: 17)),
+                  ),
+                  reservationController.packageType.value == 'byPackage'
+                      ? ListTile(
+                          title: Text('Remaining Package:'.tr),
+                          subtitle: Obx(
+                              () => Text('${reservationController.package}')),
+                        )
+                      : SizedBox(),
+                  ListTile(
+                    title: ElevatedButton(
+                        onPressed: () {
+                          _reservationController.deleteUserAndDocument(
+                              _reservationController.user!.uid);
+                        },
+                        child: Text('Delete Account')),
                   )
-                : SizedBox(),
-            ListTile(
-              title: ElevatedButton(
-                  onPressed: () {
-                    _reservationController.deleteUserAndDocument(
-                        _reservationController.user!.uid);
-                  },
-                  child: Text('Delete Account')),
-            )
-            // ... continue with other ListTiles as needed ...
-          ],
+                  // ... continue with other ListTiles as needed ...
+                ],
+              ),
+            ),
+          ),
         ),
         bottomNavigationBar: y
             ? BottomNavigationBar(

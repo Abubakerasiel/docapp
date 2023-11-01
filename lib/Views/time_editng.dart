@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappoinmentapp/Views/monday.dart';
 import 'package:flutterappoinmentapp/Views/saturday.dart';
@@ -24,6 +25,7 @@ class AdminTimeEdit extends StatefulWidget {
 class _AdminTimeEditState extends State<AdminTimeEdit> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController txt = TextEditingController();
     // final ReservationController controller = Get.put(ReservationController());
     HomeController controller2 = HomeController();
     void _onItemTapped(int index) async {
@@ -85,100 +87,175 @@ class _AdminTimeEditState extends State<AdminTimeEdit> {
             )
           ],
         ),
-        body: GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
+        body: Center(
+          child: LayoutBuilder(
+            builder: (context, constraints) => SizedBox(
+              width: constraints.maxWidth > 500 ? 400 : double.infinity,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Terms And Conditions',
+                      textAlign: TextAlign.start,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: txt,
+                      maxLines: 10,
+                      autofocus: false,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 2,
+                              color: AppConstants.appColor), //<-- SEE HERE
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        hintText:
+                            "                  Enter Terms And Conditions",
+                        hintStyle: TextStyle(
+                            color: AppConstants.nameColor,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          try {
+                            await FirebaseFirestore.instance
+                                .collection("terms")
+                                .doc('BPtaalhXBMhdryhDFKQ2')
+                                .update({'Terms': txt.text});
 
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Saturday(),
-                      curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 500),
-                      transition: Transition.native);
-                },
-                child: Text(
-                  'Saturday Times ',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white),
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Sunday(),
-                      curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 500),
-                      transition: Transition.native);
-                },
-                child: Text(
-                  'Sunday Times',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white),
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Monday(),
-                      curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 500),
-                      transition: Transition.native);
-                },
-                child: Text(
-                  'Monday Times',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white),
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Tuesday(),
-                      curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 500),
-                      transition: Transition.native);
-                },
-                child: Text(
-                  'Tuesday Times',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white),
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Wednesday(),
-                      curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 500),
-                      transition: Transition.native);
-                },
-                child: Text(
-                  'Wednesday Times',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white),
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Thursday(),
-                      curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 500),
-                      transition: Transition.native);
-                },
-                child: Text(
-                  'Thursday Times',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white),
-                )),
-          ],
+                            Get.snackbar('Successfull Editing ',
+                                'You Have Successfuly Updated The Terms And Conditions',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.greenAccent,
+                                colorText: Colors.black);
+
+                            txt.text = '';
+                          } catch (e) {
+                            Get.snackbar('upadte Failed ', e.toString(),
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.redAccent,
+                                colorText: Colors.black);
+                          }
+                        },
+                        child: Text("Submit")),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Expanded(
+                    child: GridView.count(
+                      primary: false,
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+
+                      // crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Saturday(),
+                                  curve: Curves.easeIn,
+                                  duration: Duration(milliseconds: 500),
+                                  transition: Transition.native);
+                            },
+                            child: Text(
+                              'Saturday Times ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Sunday(),
+                                  curve: Curves.easeIn,
+                                  duration: Duration(milliseconds: 500),
+                                  transition: Transition.native);
+                            },
+                            child: Text(
+                              'Sunday Times',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Monday(),
+                                  curve: Curves.easeIn,
+                                  duration: Duration(milliseconds: 500),
+                                  transition: Transition.native);
+                            },
+                            child: Text(
+                              'Monday Times',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Tuesday(),
+                                  curve: Curves.easeIn,
+                                  duration: Duration(milliseconds: 500),
+                                  transition: Transition.native);
+                            },
+                            child: Text(
+                              'Tuesday Times',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Wednesday(),
+                                  curve: Curves.easeIn,
+                                  duration: Duration(milliseconds: 500),
+                                  transition: Transition.native);
+                            },
+                            child: Text(
+                              'Wednesday Times',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Thursday(),
+                                  curve: Curves.easeIn,
+                                  duration: Duration(milliseconds: 500),
+                                  transition: Transition.native);
+                            },
+                            child: Text(
+                              'Thursday Times',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedFontSize: 15,

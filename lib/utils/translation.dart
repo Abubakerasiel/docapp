@@ -9,6 +9,17 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      'All The Times Are Availabe For Booking':
+          'كل الأوقات متاحة للحجز لهذا اليوم',
+      'Booked Times for This Day:': 'الأوقات المحجوزة لهذا اليوم',
+      'Password Reset': 'تعديل كلمة السر',
+      'An Email Has been send to your email to reset the Password ':
+          'تم ارسال رسالة إلى الايميل لإعادة تعيين كلمة السر',
+      'Warrning': 'تحذير',
+      'Reset Password': 'إعادة تعيين كلمة السر',
+      'Forget Password?': 'نسيت كلمة السر؟',
+      'There is no user record corresponding to this identifier. The user may have been deleted.':
+          'لا يوجد مستخدم بمثل هذا الايميل',
       'Successful Creation': 'انشاء بنجاح',
       'You have successfully Create Your Account': 'تم انشاء حسابك بنجاح',
       'Remaining Package:': 'الباكدج المتبقية',
