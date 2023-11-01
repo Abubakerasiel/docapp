@@ -41,6 +41,12 @@ class SignUpScreen1 extends StatefulWidget {
 class _SignUpScreen1State extends State<SignUpScreen1> {
   bool? x;
   @override
+  void initState() {
+    super.initState();
+    x = true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     SignUpController controller = Get.put(SignUpController());
 
