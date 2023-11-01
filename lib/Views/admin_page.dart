@@ -117,6 +117,22 @@ class _DatesListState extends State<DatesList> {
                               stream: FirebaseFirestore.instance
                                   .collection('dates')
                                   .orderBy('selectedDate', descending: false)
+                                  .where('selectedDate',
+                                      isGreaterThanOrEqualTo: DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        DateTime.now().day,
+                                        00,
+                                        00,
+                                      ))
+                                  .where('selectedDate',
+                                      isLessThanOrEqualTo: DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        DateTime.now().day,
+                                        00,
+                                        00,
+                                      ).add(Duration(days: 1)))
                                   .snapshots(),
                               builder: (BuildContext context,
                                   AsyncSnapshot<QuerySnapshot> snapshot) {
