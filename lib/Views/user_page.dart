@@ -37,7 +37,10 @@ class _UserPageState extends State<UserPage> {
           duration: Duration(milliseconds: 500),
           transition: Transition.native);
     } else if (index == 2) {
-      Get.off(() => UserDetailsPage(userId: _reservationController.user!.uid),
+      Get.off(
+          () => UserDetailsPage(
+                userId: _reservationController.user!.uid,
+              ),
           arguments: _reservationController.user!.uid,
           curve: Curves.easeIn,
           duration: Duration(milliseconds: 500),
@@ -132,7 +135,10 @@ class _UserPageState extends State<UserPage> {
                         // No data or data is empty, display a message
                         return Expanded(
                             child: Center(
-                                child: Text('No announcements yet.'.tr)));
+                                child: Text(
+                          'No announcements yet.'.tr,
+                          style: TextStyle(fontSize: 20),
+                        )));
                       }
 
                       return Expanded(

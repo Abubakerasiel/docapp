@@ -153,15 +153,11 @@ class ReservationController extends GetxController {
   RxBool disableWednesday = false.obs;
   RxBool disableThursday = false.obs;
 
-  TextEditingController stat = TextEditingController();
-
   final usersRef = FirebaseFirestore.instance.collection('users');
   final docTime = FirebaseFirestore.instance.collection('time_visibalilty');
 
   final User? user = FirebaseAuth.instance.currentUser;
 
-  RxList<QueryDocumentSnapshot<Map<String, dynamic>>> dates = RxList([]);
-  RxList<QueryDocumentSnapshot<Map<String, dynamic>>> fuser = RxList([]);
   Rx<DateTime> selectedDate =
       Rx<DateTime>(DateTime.now().subtract(Duration(days: 100)));
   Rx<TimeOfDay?> selectedTime = Rx<TimeOfDay?>(null);
@@ -383,25 +379,6 @@ class ReservationController extends GetxController {
     }
   }
 
-  fetchDates() async {
-    try {
-      // Get the current user
-      User? currentUser = FirebaseAuth.instance.currentUser;
-
-      if (currentUser != null) {
-        final snapshot = await datesCollection
-            .where('userEmail', isEqualTo: currentUser.email)
-            .orderBy('selectedDate')
-            .get();
-
-        dates.value =
-            snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
-      }
-    } catch (error) {
-      print("Failed to fetch dates: $error");
-    }
-  }
-
   Future<void> deleteUserAndDocument(String uid) async {
     try {
       // Delete the user account
@@ -420,46 +397,11 @@ class ReservationController extends GetxController {
 
       await Future.delayed(Duration(seconds: 2));
 
-      Get.off(() => TermsAndCondtion());
+      Get.offAll(() => TermsAndCondtion());
 
       print('User account and document deleted successfully');
     } catch (e) {
       print('Error deleting user account and document: $e');
-    }
-  }
-
-  Future<List<Map<String, dynamic>>> getTodayAppointments() async {
-    final DateTime now = DateTime.now();
-    final DateTime startOfToday =
-        DateTime(now.year, now.month, now.day, 12, 0, 0);
-    final DateTime endOfToday =
-        DateTime(now.year, now.month, now.day, 11, 59, 59)
-            .add(const Duration(hours: 12));
-
-    final QuerySnapshot<Map<String, dynamic>> todayAppointmentsSnapshot =
-        await datesCollection
-            .where('selectedDate', isGreaterThanOrEqualTo: startOfToday)
-            .where('selectedDate', isLessThanOrEqualTo: endOfToday)
-            .get() as QuerySnapshot<Map<String, dynamic>>;
-    dates.value = todayAppointmentsSnapshot.docs
-        .cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
-
-    final List<Map<String, dynamic>> todayAppointments =
-        todayAppointmentsSnapshot.docs.map((doc) => doc.data()).toList();
-    return todayAppointments;
-  }
-
-  void fetchAllDates() async {
-    try {
-      // Fetch data from the Firestore collection named 'datesCollection'
-      final snapshot = await datesCollection.orderBy('selectedDate').get();
-
-      // Store the fetched and ordered data in the 'dates' variable
-      dates.value =
-          snapshot.docs.cast<QueryDocumentSnapshot<Map<String, dynamic>>>();
-    } catch (error) {
-      // Handle any errors that occur during fetching
-      logi.log("Failed to fetch dates: $error");
     }
   }
 
@@ -561,6 +503,15 @@ class ReservationController extends GetxController {
   }
 
   void deleteDate(String documentId) async {
+    // ignore: prefer_typing_uninitialized_variables
+
+    await FirebaseFirestore.instance
+        .collection('dates')
+        .doc(documentId)
+        .delete();
+  } // Get the document d
+
+  void ConfirmDate(String documentId) async {
     // ignore: prefer_typing_uninitialized_variables
     var userIdInDateColletion;
 
@@ -895,7 +846,9 @@ class ReservationController extends GetxController {
     } else {
       logi.log("Time slot is available.");
       if (selectedDate.value != DateTime.now().subtract(Duration(days: 100))) {
-        if (selectedDate.value.isBefore(DateTime.now())) {
+        if (selectedDate.value
+            .add(Duration(hours: 13))
+            .isBefore(DateTime.now().add(Duration(hours: 2)))) {
           Get.snackbar(
             'Invalid Date'.tr,
             'Please select a future date and time.'.tr,
@@ -942,7 +895,6 @@ class ReservationController extends GetxController {
         bool isSameDay = selectedDate.value.year == now.year &&
             selectedDate.value.month == now.month &&
             selectedDate.value.day == now.day;
-        logi.log(selectedDate.value.toString());
 
         final reservationData = {
           //  dateFormatter.parse(selectedDateString).add(Duration(hours: -1)),
@@ -980,7 +932,10 @@ class ReservationController extends GetxController {
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(() => const BookingConfirmed(),
+          Get.to(
+              () => BookingConfirmed(
+                    Date: selectedDate.value,
+                  ),
               arguments: selectedDate,
               curve: Curves.easeIn,
               duration: Duration(milliseconds: 500),
@@ -1002,8 +957,11 @@ class ReservationController extends GetxController {
             backgroundColor: Colors.greenAccent,
             colorText: Colors.white,
           );
-          Get.to(() => const BookingConfirmed(),
-              arguments: selectedDate,
+          Get.to(
+              () => BookingConfirmed(
+                    Date: selectedDate.value,
+                  ),
+              arguments: selectedDate.value,
               curve: Curves.easeIn,
               duration: Duration(milliseconds: 500),
               transition: Transition.native);

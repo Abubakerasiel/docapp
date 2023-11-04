@@ -39,7 +39,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             today.day,
                             11,
                             00,
-                          );
+                          ).subtract(Duration(hours: 12));
                         });
                         // Function to be executed when Button 1 is pressed.
                       }),
@@ -51,7 +51,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             today.day,
                             11,
                             15,
-                          );
+                          ).subtract(Duration(hours: 12));
                         });
                         // Function to be executed when Button 1 is pressed.
                       }),
@@ -68,7 +68,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             today.day,
                             11,
                             30,
-                          );
+                          ).subtract(Duration(hours: 12));
                         });
                         // Function to be executed when Button 1 is pressed.
                       }),
@@ -80,7 +80,7 @@ class _TimeShowingTuesdayState extends State<TimeShowingTuesday> {
                             today.day,
                             11,
                             45,
-                          );
+                          ).subtract(Duration(hours: 12));
                         });
                       }),
                     ],

@@ -203,7 +203,6 @@ class _BookingScreenState extends State<BookingScreen> {
 
   @override
   void initState() {
-    controller.fetchDates();
     super.initState();
     controller.getDataFromFirestore();
   }
@@ -449,7 +448,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
-                                                  '${DateFormat.jm().format(documentData['selectedDate'].toDate().add(Duration(hours: -1)))} '),
+                                                  '${DateFormat.jm().format(documentData['selectedDate'].toDate().add(Duration(hours: 1)))} '),
                                             ),
                                           ),
                                         );
@@ -509,7 +508,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                     today.day,
                                                                     11,
                                                                     00,
-                                                                  );
+                                                                  ).subtract(Duration(
+                                                                          hours:
+                                                                              12));
                                                                 });
                                                                 // Function to be executed when Button 1 is pressed.
                                                               }),
@@ -526,7 +527,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                     today.day,
                                                                     11,
                                                                     15,
-                                                                  );
+                                                                  ).subtract(Duration(
+                                                                          hours:
+                                                                              12));
                                                                 });
                                                                 // Function to be executed when Button 1 is pressed.
                                                               }),
@@ -550,7 +553,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                     today.day,
                                                                     11,
                                                                     30,
-                                                                  );
+                                                                  ).subtract(Duration(
+                                                                          hours:
+                                                                              12));
                                                                 });
                                                                 // Function to be executed when Button 1 is pressed.
                                                               }),
@@ -567,7 +572,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                     today.day,
                                                                     11,
                                                                     45,
-                                                                  );
+                                                                  ).subtract(Duration(
+                                                                          hours:
+                                                                              12));
                                                                 });
                                                               }),
                                                             ],
@@ -649,7 +656,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                     today.year,
                                                                     today.month,
                                                                     today.day,
-                                                                    12,
+                                                                    00,
                                                                     45,
                                                                   );
                                                                 });

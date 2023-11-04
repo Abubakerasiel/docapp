@@ -7,21 +7,29 @@ import 'constanst.dart';
 import 'user_detail_page.dart';
 import 'package:intl/intl.dart';
 
-class BookingConfirmed extends StatelessWidget {
-  const BookingConfirmed({super.key});
+// ignore: must_be_immutable
+class BookingConfirmed extends StatefulWidget {
+  DateTime Date;
+  BookingConfirmed({super.key, required this.Date});
 
   @override
+  State<BookingConfirmed> createState() => _BookingConfirmedState();
+}
+
+class _BookingConfirmedState extends State<BookingConfirmed> {
+  @override
   Widget build(BuildContext context) {
-    Rx<DateTime?> data = Get.arguments;
-    var time1 = data.value!.add(const Duration(hours: 1)).toString();
+    DateTime time1 = widget.Date.add(const Duration(hours: 1));
 
-    DateTime dateTime = DateTime.parse(time1);
+    // DateTime dateTime = DateTime.parse(time1);
 
-    String formattedDate = DateFormat("'on' d MMMM yyyy").format(dateTime);
-    String formattedTime = DateFormat("hh:mm ").format(dateTime);
+    String formattedDate = DateFormat("'on' d MMMM yyyy")
+        .format(time1.hour == 23 ? time1.add(Duration(days: 1)) : time1);
+
+    String formattedTime = DateFormat("hh:mm ").format(time1);
 
     // String formattedTime = DateFormat("hh:mm").format(dateTime);
-    formattedTime += dateTime.hour > 12 ? " AM" : " PM";
+    formattedTime += time1.hour > 12 ? " AM" : " PM";
 
     ReservationController controller = Get.put(ReservationController());
     return Scaffold(

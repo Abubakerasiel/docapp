@@ -193,7 +193,7 @@ class StatmentPage extends StatelessWidget {
                 label: 'Home'.tr,
               ),
               BottomNavigationBarItem(
-                icon: const Icon(Icons.calendar_month_outlined),
+                icon: const Icon(Icons.post_add),
                 label: 'Statement Page'.tr,
               ),
               BottomNavigationBarItem(

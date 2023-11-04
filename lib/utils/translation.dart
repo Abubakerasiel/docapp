@@ -12,6 +12,7 @@ Map<String, String> get arKeys => {
       'All The Times Are Availabe For Booking':
           'كل الأوقات متاحة للحجز لهذا اليوم',
       'Booked Times for This Day:': 'الأوقات المحجوزة لهذا اليوم',
+      'No Appointments For this Day': 'لا يوجد حجوزات لهذا اليوم',
       'Password Reset': 'تعديل كلمة السر',
       'An Email Has been send to your email to reset the Password ':
           'تم ارسال رسالة إلى الايميل لإعادة تعيين كلمة السر',
@@ -131,8 +132,8 @@ Map<String, String> get arKeys => {
       'Show Reservations': 'اظهار الحجوزات',
       'Open Google Maps': 'فتح خرائط قوقل',
       'Reservation Screen': 'شاشة الحجز',
-      'Did Not Pay For The Package': 'لم يدفع',
-      'Paid For The Package': 'دفع',
+      'Did Not Pay': 'لم يدفع',
+      'Paid': 'دفع',
       'Package Reminder Update': 'تذكير بالدفع',
       'Hello please  pay  for your pakacge.': 'الرجاء مراجعة السكرتيرة للدفع',
       'Annoucement Update': 'اشعار جديد',

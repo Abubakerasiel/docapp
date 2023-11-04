@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutterappoinmentapp/Views/constanst.dart';
+import 'package:flutterappoinmentapp/Views/doctor_calender.dart';
 import 'package:flutterappoinmentapp/Views/statemnet_page.dart';
 import 'package:flutterappoinmentapp/Views/time_editng.dart';
 import 'package:flutterappoinmentapp/Views/user_detail_page.dart';
@@ -45,8 +46,6 @@ class _DatesListState extends State<DatesList> {
     // Simulate an asynchronous delay with Future.delayed
     await Future.delayed(const Duration(seconds: 1));
 
-    controller.fetchAllDates();
-
     setState(() {
       isLoading = false;
     });
@@ -81,22 +80,6 @@ class _DatesListState extends State<DatesList> {
             duration: Duration(milliseconds: 500),
             transition: Transition.native);
       }
-    }
-
-    // ignore: no_leading_underscores_for_local_identifiers
-    void _onDeleteConfirmed(String dateId) {
-      setState(() {
-        controller.deleteDate(dateId);
-        controller.dates.removeWhere((date) => date.id == dateId);
-      });
-    }
-
-    // ignore: no_leading_underscores_for_local_identifiers
-    void _onReplaceConfirmed(String dateId) {
-      setState(() {
-        controller.deleteDateAndReplaceIt(dateId);
-        controller.dates.removeWhere((date) => date.id == dateId);
-      });
     }
 
     return Scaffold(
@@ -147,7 +130,15 @@ class _DatesListState extends State<DatesList> {
 
                                 if (!snapshot.hasData ||
                                     snapshot.data!.docs.isEmpty) {
-                                  return Text('No appointments yet.');
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        'No Appoimnets Yet'.tr,
+                                        style: TextStyle(fontSize: 25),
+                                      ),
+                                    ),
+                                  ); // Skip r;
                                 }
                                 return ListView.separated(
                                   separatorBuilder: (context, index) =>
@@ -160,6 +151,9 @@ class _DatesListState extends State<DatesList> {
                                     //   controller.fetchAllDates();
                                     final date = snapshot.data!.docs[index]
                                         .data() as Map;
+                                    final documents = snapshot.data!.docs;
+                                    final document = documents[index];
+                                    final documentID = document.id;
 
                                     // Check for null values before extracting data
                                     final timestamp =
@@ -200,13 +194,9 @@ class _DatesListState extends State<DatesList> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () async {
-                                                    await controller
-                                                        .retrieveUserData(
-                                                            userID3!);
-
                                                     Get.to(
                                                         () => UserDetailsPage(
-                                                              userId: userID3,
+                                                              userId: userID3!,
                                                             ),
                                                         arguments: userID3,
                                                         curve: Curves.easeInOut,
@@ -234,15 +224,11 @@ class _DatesListState extends State<DatesList> {
                                                       children: [
                                                         TextButton(
                                                           onPressed: () async {
-                                                            await controller
-                                                                .retrieveUserData(
-                                                                    userID3!);
-
                                                             Get.to(
                                                                 () =>
                                                                     UserDetailsPage(
                                                                       userId:
-                                                                          userID3,
+                                                                          userID3!,
                                                                     ),
                                                                 arguments:
                                                                     userID3,
@@ -360,13 +346,9 @@ class _DatesListState extends State<DatesList> {
                                                                             .greenAccent))),
                                                               ),
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  _onDeleteConfirmed(
-                                                                      controller
-                                                                          .dates[
-                                                                              index]
-                                                                          .id);
-                                                                });
+                                                                controller
+                                                                    .ConfirmDate(
+                                                                        documentID);
                                                               },
                                                               child: Text(
                                                                   'Confirm Date'
@@ -387,13 +369,9 @@ class _DatesListState extends State<DatesList> {
                                                                             .redAccent))),
                                                               ),
                                                               onPressed: () {
-                                                                setState(() {
-                                                                  _onReplaceConfirmed(
-                                                                      controller
-                                                                          .dates[
-                                                                              index]
-                                                                          .id);
-                                                                });
+                                                                controller
+                                                                    .deleteDate(
+                                                                        documentID);
                                                                 //controller.getTodayAppointments();
                                                               },
                                                               child: Text(
@@ -406,8 +384,14 @@ class _DatesListState extends State<DatesList> {
                                         ),
                                       );
                                     } else {
-                                      return Center(
-                                        child: const Text('No Appoimnets Yet'),
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                          child: Text(
+                                            'No Appoimnets Yet'.tr,
+                                            style: TextStyle(fontSize: 25),
+                                          ),
+                                        ),
                                       ); // Skip rendering if data is null
                                     }
                                   },
@@ -418,6 +402,17 @@ class _DatesListState extends State<DatesList> {
             ),
           ),
         ),
+      ),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(60)),
+        child: ElevatedButton(
+            onPressed: () {
+              Get.to(() => const DoctorCalender(),
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 500),
+                  transition: Transition.native);
+            },
+            child: Icon(Icons.book_rounded)),
       ),
       bottomNavigationBar: current()
           ? BottomNavigationBar(
@@ -431,7 +426,7 @@ class _DatesListState extends State<DatesList> {
                   label: 'Home'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: const Icon(Icons.calendar_month_outlined),
+                  icon: const Icon(Icons.post_add),
                   label: 'Statement Page'.tr,
                 ),
                 BottomNavigationBarItem(
