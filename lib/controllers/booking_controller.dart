@@ -894,8 +894,8 @@ class ReservationController extends GetxController {
 
         bool userAlreadyBookedWithinRange = false;
         final selectedDateW = selectedDate.value;
-        final appointmentRangeStart = selectedDateW.subtract(Duration(days: 5));
-        final appointmentRangeEnd = selectedDateW.add(Duration(days: 5));
+        final appointmentRangeStart = selectedDateW.subtract(Duration(days: 4));
+        final appointmentRangeEnd = selectedDateW.add(Duration(days: 4));
 
         for (final doc in userAppointmentsSnapshot.docs) {
           final appointmentDate = doc['selectedDate'].toDate() as DateTime;
