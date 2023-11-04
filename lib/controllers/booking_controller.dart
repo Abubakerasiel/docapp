@@ -685,6 +685,19 @@ class ReservationController extends GetxController {
     }
   }
 
+  Future<bool> hasUserBookedAppointmentOnDate(
+      DateTime selectedDate, String userId) async {
+    final QuerySnapshot<Map<String, dynamic>> userAppointmentsSnapshot =
+        await datesCollection
+            .where('userId', isEqualTo: userId)
+            .where('selectedDate', isGreaterThan: selectedDate)
+            .where('selectedDate',
+                isLessThan: selectedDate.add(Duration(days: 1)))
+            .get() as QuerySnapshot<Map<String, dynamic>>;
+
+    return userAppointmentsSnapshot.size > 0;
+  }
+
   void makeReservation() async {
     bool isSelectedDateMonday =
         selectedDate.value != DateTime.now().subtract(Duration(days: 100)) &&
@@ -859,21 +872,37 @@ class ReservationController extends GetxController {
           );
           return;
         }
+
+        final userHasBookedAppointment =
+            await hasUserBookedAppointmentOnDate(selectedDate.value, user!.uid);
+
+        if (userHasBookedAppointment) {
+          Get.snackbar(
+            'Duplicate Booking Not Allowed'.tr,
+            'You have already booked an appointment on the selected date.'.tr,
+            snackPosition: SnackPosition.BOTTOM,
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.redAccent,
+            colorText: Colors.white,
+          );
+          return; // User cannot book again for the same date
+        }
+
         final QuerySnapshot<Map<String, dynamic>> userAppointmentsSnapshot =
             await datesCollection.where('userId', isEqualTo: user!.uid).get()
                 as QuerySnapshot<Map<String, dynamic>>;
 
         bool userAlreadyBookedWithinRange = false;
-        final selectedDateW =
-            selectedDate.value; // Assuming selectedDate is not a ValueNotifier
+        final selectedDateW = selectedDate.value;
         final appointmentRangeStart = selectedDateW.subtract(Duration(days: 5));
+        final appointmentRangeEnd = selectedDateW.add(Duration(days: 5));
 
         for (final doc in userAppointmentsSnapshot.docs) {
           final appointmentDate = doc['selectedDate'].toDate() as DateTime;
 
           // Check if the appointment date falls within the specified range
           if (appointmentDate.isAfter(appointmentRangeStart) &&
-              appointmentDate.isBefore(selectedDateW)) {
+              appointmentDate.isBefore(appointmentRangeEnd)) {
             userAlreadyBookedWithinRange = true;
             break;
           }
@@ -890,6 +919,8 @@ class ReservationController extends GetxController {
           );
           return;
         }
+
+        // Check if the user has already booked an appointment on the selected date
 
         final DateTime now = DateTime.now();
         bool isSameDay = selectedDate.value.year == now.year &&

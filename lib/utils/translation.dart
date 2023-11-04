@@ -9,6 +9,10 @@ class Translation extends Translations {
 }
 
 Map<String, String> get arKeys => {
+      'You have already booked an appointment within 5 days of the selected date.':
+          '',
+      'Multiple Bookings Within 5 Days Range Not Allowed': '',
+      'Duplicate Booking Not Allowed': 'الحجز المتعدد غير مسموح',
       'All The Times Are Availabe For Booking':
           'كل الأوقات متاحة للحجز لهذا اليوم',
       'Booked Times for This Day:': 'الأوقات المحجوزة لهذا اليوم',
