@@ -446,7 +446,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                           child: Center(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(5.0),
                                               child: Text(
                                                   '${DateFormat.jm().format(documentData['selectedDate'].toDate().add(Duration(hours: 1)))} '),
                                             ),
