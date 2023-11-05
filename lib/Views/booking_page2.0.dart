@@ -428,13 +428,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                   // var snap = snapshot.data!.docs[0].data() as Map;
 
                                   return SizedBox(
-                                    height: snapshot.data!.docs.length > 12
+                                    height: snapshot.data!.docs.length > 10
                                         ? 200
                                         : 120,
                                     child: GridView(
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 6),
+                                              crossAxisCount: 5),
                                       children:
                                           snapshot.data!.docs.map((document) {
                                         var documentData = document.data()
@@ -446,7 +446,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                           child: Center(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(3.0),
+                                                  const EdgeInsets.all(4.0),
                                               child: Text(
                                                   '${DateFormat.jm().format(documentData['selectedDate'].toDate().add(Duration(hours: 1)))} '),
                                             ),
