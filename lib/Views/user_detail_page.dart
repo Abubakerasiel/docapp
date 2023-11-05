@@ -80,7 +80,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   // Function to show the weight edit dialog
   Future<void> _showWeightEditDialog(BuildContext context) async {
-    String editedPackage = package.value.toString();
+    String editedw = weight.value.toString();
 
     await showDialog(
       context: context,
@@ -88,9 +88,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         return AlertDialog(
           title: Text('Edit Weight'.tr),
           content: TextFormField(
-            initialValue: editedPackage,
+            initialValue: editedw,
             onChanged: (value) {
-              editedPackage = value;
+              editedw = value;
             },
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -105,7 +105,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                _reservationController.weight.value = editedPackage;
+                weight.value = editedw;
                 _updateWeight(context);
                 // Save the edited weight to the ReservationController
 
