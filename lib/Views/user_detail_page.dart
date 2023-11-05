@@ -80,7 +80,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   // Function to show the weight edit dialog
   Future<void> _showWeightEditDialog(BuildContext context) async {
-    String editedWeight = _reservationController.weight.value;
+    String editedPackage = package.value.toString();
 
     await showDialog(
       context: context,
@@ -88,7 +88,47 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         return AlertDialog(
           title: Text('Edit Weight'.tr),
           content: TextFormField(
-            initialValue: editedWeight,
+            initialValue: editedPackage,
+            onChanged: (value) {
+              editedPackage = value;
+            },
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _reservationController.weight.value = editedPackage;
+                _updateWeight(context);
+                // Save the edited weight to the ReservationController
+
+                Navigator.pop(context); // Close the dialog
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showPacakgeEditDialog(BuildContext context) async {
+    String editedWeight = _reservationController.weight.value;
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Edit Package'.tr),
+          content: TextFormField(
+            initialValue: package.value.toString(),
             onChanged: (value) {
               editedWeight = value;
             },
@@ -105,8 +145,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                _reservationController.weight.value = editedWeight;
-                _updateWeight(context);
+                package.value = int.parse(editedWeight);
+                _updatePackage(context);
                 // Save the edited weight to the ReservationController
 
                 Navigator.pop(context); // Close the dialog
@@ -306,7 +346,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                           packageType.value == 'byPackage'
                               ? ListTile(
                                   title: Text('Remaining Package:'.tr),
-                                  subtitle: Obx(() => Text('${package}')),
+                                  subtitle: reservationController.user!.uid ==
+                                          'TS7icvWb0PPYY90qJ4MiZY16oyp1'
+                                      ? Obx(() => GestureDetector(
+                                          onTap: () =>
+                                              _showPacakgeEditDialog(context),
+                                          child: Text('${package}')))
+                                      : Text('${package}'),
                                 )
                               : SizedBox(),
                           ListTile(
@@ -418,6 +464,35 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       Get.snackbar(
         'weight update'.tr,
         'the weight did not update'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 4),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  void _updatePackage(BuildContext context) async {
+    try {
+      // Save the updated weight to Firestore
+      await _reservationController.usersRef
+          .doc(widget.userId)
+          .update({'package': package.value});
+
+      // Show a success message
+      Get.snackbar(
+        'Package update'.tr,
+        'Package updated successulfy '.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 4),
+        backgroundColor: Colors.greenAccent,
+        colorText: Colors.white,
+      );
+    } catch (error) {
+      // Show an error message if update fails
+      Get.snackbar(
+        'package update'.tr,
+        'the package did not update'.tr,
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 4),
         backgroundColor: Colors.red,
